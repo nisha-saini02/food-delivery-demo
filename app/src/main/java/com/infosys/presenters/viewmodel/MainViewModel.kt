@@ -29,6 +29,9 @@ open class MainViewModel @Inject constructor(
     private var _subcategoriesDetails = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
     val subcategoriesDetails: StateFlow<Resource<List<SubCategoryDetails>?>> = _subcategoriesDetails
 
+    private var _meals = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
+    val meals: StateFlow<Resource<List<SubCategoryDetails>?>> = _meals
+
     fun getAllCategories() {
         viewModelScope.launch {
             _categories.value= Resource.Loading()
@@ -74,6 +77,23 @@ open class MainViewModel @Inject constructor(
                 }
                 .collect {
                     _subcategoriesDetails.value = if (it.isSuccessful) {
+                        Resource.Success(it.body()?.meals)
+                    } else {
+                        Resource.Error(it.message())
+                    }
+                }
+        }
+    }
+
+    fun getMenuList(search: String = "") {
+        viewModelScope.launch {
+            _meals.value= Resource.Loading()
+            useCase.getMenuList(search)
+                .catch {
+                    _meals.value = Resource.Error(it.message.toString())
+                }
+                .collect {
+                    _meals.value = if (it.isSuccessful) {
                         Resource.Success(it.body()?.meals)
                     } else {
                         Resource.Error(it.message())

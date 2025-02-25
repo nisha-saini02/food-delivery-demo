@@ -18,4 +18,8 @@ class DataSource (val service: FoodService) {
     suspend fun getSubCategoryDetails(subcategoryId: String): Response<SubCategoryDetailsResponse> {
         return service.getSubCategoryDetails(subcategoryId)
     }
+
+    suspend fun getMenuList(search: String): Response<SubCategoryDetailsResponse> {
+        return service.getMenuList(search)
+    }
 }

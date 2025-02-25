@@ -39,4 +39,14 @@ class RepositoryImpl(private val dataSource: DataSource): Repository {
                 }
         }
     }
+
+    override suspend fun getMenuList(search: String): Flow<Response<SubCategoryDetailsResponse>> {
+        return channelFlow {
+            val result = dataSource.getMenuList(search)
+            trySend(result)
+                .onFailure {
+                    send(Response.error(400, result.errorBody()))
+                }
+        }
+    }
 }

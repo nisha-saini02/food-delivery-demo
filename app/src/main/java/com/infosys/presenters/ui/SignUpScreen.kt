@@ -64,7 +64,7 @@ fun SignUpScreen(
             ) {
                 TextHeadlineSmall("Email")
                 Spacer(5)
-                EditTextBodyMedium (email.value, keyboardType = KeyboardType.Email) {
+                OutlineTextBodyMedium (email.value, keyboardType = KeyboardType.Email) {
                     email.value = it
                 }
 
@@ -72,7 +72,7 @@ fun SignUpScreen(
 
                 TextHeadlineSmall("Name")
                 Spacer(5)
-                EditTextBodyMedium (name.value) {
+                OutlineTextBodyMedium (name.value) {
                     name.value = it
                 }
 
@@ -80,7 +80,7 @@ fun SignUpScreen(
 
                 TextHeadlineSmall("Password")
                 Spacer(5)
-                EditTextBodyMedium(
+                OutlineTextBodyMedium(
                     password.value,
                     visualTransformation = PasswordVisualTransformation()) {
                     password.value = it

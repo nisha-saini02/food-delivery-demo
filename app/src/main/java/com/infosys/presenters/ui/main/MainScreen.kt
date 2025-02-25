@@ -1,4 +1,4 @@
-package com.infosys.presenters.ui
+package com.infosys.presenters.ui.main
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -29,14 +29,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.presenters.viewmodel.MainViewModel
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
+import com.infosys.presenters.ui.Image
+import com.infosys.presenters.ui.LoadImage
+import com.infosys.presenters.ui.Spacer
+import com.infosys.presenters.ui.TextHeadlineLarge
+import com.infosys.presenters.ui.TextTitleSmall
+import com.infosys.presenters.ui.roundShapeCorner
 import com.infosys.presenters.ui.theme.Orange
 import com.infosys.presenters.ui.theme.Yellow
 import com.infosys.presenters.ui.theme.White
-import com.infosys.presenters.ui.util_uis.GridListView
+import com.infosys.presenters.ui.listViews.GridListView
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -49,7 +56,7 @@ fun MainScreen(viewModel: MainViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Orange, roundShapeCorner(0,0,30,30))
-                .weight(0.15f),
+                .weight(0.1f),
             contentAlignment = Alignment.Center
         ) {
             Column (
@@ -58,10 +65,11 @@ fun MainScreen(viewModel: MainViewModel) {
                 TextHeadlineLarge("All Categories", color = White)
             }
         }
+
         Box (
             modifier = Modifier
                 .fillMaxSize()
-                .weight(0.85f)
+                .weight(0.8f)
                 .padding(vertical = 16.dp, horizontal = 16.dp)
         ) {
             data.data?.let {

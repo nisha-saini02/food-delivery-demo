@@ -20,4 +20,9 @@ interface FoodService {
     suspend fun getSubCategoryDetails(
         @Query("i") subcategoryId: String
     ): Response<SubCategoryDetailsResponse>
+
+    @GET("search.php")
+    suspend fun getMenuList(
+        @Query("s") search: String
+    ): Response<SubCategoryDetailsResponse>
 }

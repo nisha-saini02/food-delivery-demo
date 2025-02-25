@@ -77,7 +77,7 @@ fun OtpScreen(
                     modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
                 ) {
 
-                    EditTextBodyMedium (
+                    OutlineTextBodyMedium (
                         otp1.value,
                         modifier = Modifier
                             .width(60.dp)
@@ -91,7 +91,7 @@ fun OtpScreen(
 
                     Spacer()
                     
-                    EditTextBodyMedium (
+                    OutlineTextBodyMedium (
                         otp2.value,
                         modifier = Modifier
                             .width(60.dp)
@@ -105,7 +105,7 @@ fun OtpScreen(
 
                     Spacer()
                     
-                    EditTextBodyMedium (
+                    OutlineTextBodyMedium (
                         otp3.value,
                         modifier = Modifier
                             .width(60.dp)

@@ -16,4 +16,7 @@ class UseCase (val repository: Repository) {
 
     suspend fun getSubCategoryDetails(subcategoryId: String): Flow<Response<SubCategoryDetailsResponse>>
             = repository.getSubCategoryDetails(subcategoryId)
+
+    suspend fun getMenuList(search: String): Flow<Response<SubCategoryDetailsResponse>>
+            = repository.getMenuList(search)
 }

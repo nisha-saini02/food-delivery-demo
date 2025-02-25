@@ -10,4 +10,5 @@ interface Repository {
     suspend fun getAllCategories(): Flow<Response<CategoryResponse>>
     suspend fun getSubCategories(category: String): Flow<Response<SubCategoryResponse>>
     suspend fun getSubCategoryDetails(subcategoryId: String): Flow<Response<SubCategoryDetailsResponse>>
+    suspend fun getMenuList(search: String): Flow<Response<SubCategoryDetailsResponse>>
 }

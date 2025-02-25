@@ -20,19 +20,18 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.infosys.R
 import com.infosys.presenters.ui.theme.Black
 import com.infosys.presenters.ui.theme.Gray
@@ -127,7 +126,29 @@ fun TextHeadlineSmall(text: String, color: Color = Black, maxLines: Int = 2, tex
 }
 
 @Composable
-fun EditTextBodyMedium(
+fun TextLabelLarge(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+    Text(
+        text = text,
+        style = Typography.labelLarge,
+        color = color,
+        maxLines = maxLines,
+        textAlign = textAlign,
+    )
+}
+
+@Composable
+fun TextLabelSmall(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+    Text(
+        text = text,
+        style = Typography.labelSmall,
+        color = color,
+        maxLines = maxLines,
+        textAlign = textAlign,
+    )
+}
+
+@Composable
+fun OutlineTextBodyMedium(
     text: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = true,
@@ -154,6 +175,42 @@ fun EditTextBodyMedium(
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = keyboardType
         ),
+    )
+}
+
+@Composable
+fun EditTextBodyMedium(
+    text: String = "",
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = true,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    textAlign: TextAlign = TextAlign.Start,
+    modifier: Modifier = Modifier
+        .fillMaxWidth(),
+    hint: String = "",
+    onValueChange: (String) -> Unit
+) {
+    TextField(
+        text,
+        onValueChange = {
+            onValueChange.invoke(it)
+        },
+        textStyle = Typography.bodyMedium.copy(textAlign = textAlign),
+        modifier = modifier,
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = White,
+            unfocusedTextColor = White,
+            focusedBorderColor = Transparent,
+            unfocusedBorderColor = Transparent,
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = keyboardType
+        ),
+        placeholder = {
+            TextHeadlineSmall(hint, color = White)
+        }
     )
 }
 
@@ -200,6 +257,15 @@ fun Image(@DrawableRes id: Int, modifier: Modifier = Modifier.fillMaxWidth()) {
 }
 
 @Composable
+fun Image(@DrawableRes id: Int, modifier: Modifier = Modifier.fillMaxWidth(), clickEvent: () -> Unit) {
+    androidx.compose.foundation.Image(
+        painter = painterResource(id),
+        contentDescription = "Logo",
+        modifier = modifier.clickable { clickEvent.invoke() }
+    )
+}
+
+@Composable
 fun LoadImage(url: String,
               modifier: Modifier = Modifier
                   .width(50.dp)
@@ -208,7 +274,7 @@ fun LoadImage(url: String,
     AsyncImage(
         model = url,
         contentDescription = "Image Description",
-        modifier = modifier,
+        modifier = modifier.clip(roundShapeCorner(5)),
         contentScale = ContentScale.Crop,
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.no_image_found),

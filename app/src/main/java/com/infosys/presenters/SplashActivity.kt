@@ -19,11 +19,6 @@ class SplashActivity : ComponentActivity() {
         setContent {
             FoodDeliveryDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
-//                    val navController = rememberNavController()
-//                    NavHost(navController = navController, startDestination = "screen1") {
-//                        composable("screen1") { Screen1(navController) }
-//                        composable("screen2") { Screen2() }
-//                    }
                     SplashScreen(this)
                 }
             }
