@@ -3,6 +3,7 @@ package com.infosys.presenters.ui.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,14 +31,15 @@ import com.infosys.presenters.ui.listViews.MainMenuListView
 import com.infosys.presenters.viewmodel.MainViewModel
 
 @Composable
-fun MainMenuScreen(viewModel: MainViewModel) {
-//    viewModel.getAllCategories()
-//    viewModel.getMenuList()
+fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel) {
     val search = remember { mutableStateOf("") }
     val categories = viewModel.categories.collectAsState().value
     val meals = viewModel.meals.collectAsState().value
 
-    Column(modifier = Modifier.fillMaxSize().background(White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)) {
 
         Box(
             modifier = Modifier
@@ -59,6 +61,11 @@ fun MainMenuScreen(viewModel: MainViewModel) {
 
                 EditTextBodyMedium (search.value, hint = "Search your favorite dish") {
                     search.value = it
+                    if (search.value.length >= 3) {
+                        viewModel.getMenuList(search.value)
+                    } else if (search.value.isEmpty()) {
+                        viewModel.getMenuList(search.value)
+                    }
                 }
             }
         }

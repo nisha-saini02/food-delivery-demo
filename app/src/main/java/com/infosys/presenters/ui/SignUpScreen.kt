@@ -96,7 +96,7 @@ fun SignUpScreen(
                     Switch(termsAccepted.value) {
                         termsAccepted.value = it
                     }
-                    Spacer()
+                    Spacer(5)
                     TextTitleSmall("I agree to the Terms and Conditions")
                 }
             }

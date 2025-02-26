@@ -12,14 +12,14 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
+        fontSize = 22.sp,
         letterSpacing = 0.5.sp,
         textAlign = TextAlign.Center
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Medium,
-        fontSize = 22.sp,
+        fontSize = 20.sp,
         letterSpacing = 0.1.sp,
         textAlign = TextAlign.Center
     ),
@@ -54,14 +54,14 @@ val Typography = Typography(
     headlineLarge = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Bold,
-        fontSize = 30.sp,
+        fontSize = 22.sp,
         letterSpacing = 0.1.sp,
         textAlign = TextAlign.Center
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Medium,
-        fontSize = 24.sp,
+        fontSize = 20.sp,
         letterSpacing = 0.1.sp,
         textAlign = TextAlign.Center
     ),
@@ -75,7 +75,7 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Medium,
-        fontSize = 20.sp,
+        fontSize = 16.sp,
         letterSpacing = 0.1.sp,
         textAlign = TextAlign.Center
     ),

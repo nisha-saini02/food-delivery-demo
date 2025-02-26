@@ -11,6 +11,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.presenters.viewmodel.MainViewModel
 import com.infosys.data.model.category.Category
@@ -46,7 +46,7 @@ import com.infosys.presenters.ui.theme.White
 import com.infosys.presenters.ui.listViews.GridListView
 
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
+fun MainScreen(paddingValues: PaddingValues, viewModel: MainViewModel) {
     val data = viewModel.categories.collectAsState().value
     Column (
         modifier = Modifier
