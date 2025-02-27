@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.presenters.OtpActivity
 import com.infosys.presenters.ui.theme.Gray
@@ -38,14 +39,14 @@ fun SignUpScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Orange, roundShapeCorner(0,0,30,30))
-                .weight(0.5f),
+                .weight(0.4f),
             contentAlignment = Alignment.Center
         ) {
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
 
                 ) {
-                TextHeadlineLarge("It's all starts with us", color = White)
+                TextHeadlineLarge("It's all starts with hunger", color = White)
                 Spacer()
                 TextHeadlineLarge("Sign Up", color = White)
             }
@@ -97,7 +98,7 @@ fun SignUpScreen(
                         termsAccepted.value = it
                     }
                     Spacer(5)
-                    TextTitleSmall("I agree to the Terms and Conditions")
+                    TextTitleSmall("I agree to the Terms and Conditions", textAlign = TextAlign.Start)
                 }
             }
         }
@@ -105,7 +106,7 @@ fun SignUpScreen(
         Box (
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.5f),
+                .weight(0.6f),
             contentAlignment = Alignment.BottomCenter
         ) {
             Column(

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.infosys.R
+import com.infosys.presenters.MainActivity
 import com.infosys.presenters.SignupActivity
 import com.infosys.presenters.ui.theme.Yellow
 
@@ -56,7 +57,9 @@ fun SplashScreen(
 
                 Spacer()
 
-                TextTitleLarge("SIGN IN")
+                TextTitleLarge("Take me there") {
+                    MainActivity.startActivity(context)
+                }
             }
         }
     }

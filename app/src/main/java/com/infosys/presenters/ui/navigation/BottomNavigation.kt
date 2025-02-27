@@ -33,35 +33,39 @@ fun BottomBar(navHostController: NavHostController) {
 
     NavigationBar {
         navigationItems.forEachIndexed { i, navigationItem ->
-            NavigationBarItem(
-                selected = index.value == i,
-                onClick = {
+            if (i < 4) {
+                NavigationBarItem(
+                    selected = index.value == i,
+                    onClick = {
 //                    index.intValue = i
 //                    navHostController.navigate(navigationItem.name)
-                    if (index.value != i) { // Only navigate if the index is different
-                        index.value = i
-                        navHostController.navigate(navigationItem.name) {
-                            // Prevent going back to the same screen if already in it
-                            popUpTo(navHostController.graph.startDestinationId) { inclusive = true }
-                            launchSingleTop = true
-                        }
-                    }
-                },
-                icon = {
-                    BadgedBox(badge = {}) {
-                        Icon(
-                            painterResource(
-                                if (index.value == i) {
-                                    navigationItem.focusedIcon
-                                } else {
-                                    navigationItem.unfocusedIcon
+                        if (index.value != i) { // Only navigate if the index is different
+                            index.value = i
+                            navHostController.navigate(navigationItem.name) {
+                                // Prevent going back to the same screen if already in it
+                                popUpTo(navHostController.graph.startDestinationId) {
+                                    inclusive = true
                                 }
-                            ), null
-                        )
-                    }
-                },
-                alwaysShowLabel = false
-            )
+                                launchSingleTop = true
+                            }
+                        }
+                    },
+                    icon = {
+                        BadgedBox(badge = {}) {
+                            Icon(
+                                painterResource(
+                                    if (index.value == i) {
+                                        navigationItem.focusedIcon
+                                    } else {
+                                        navigationItem.unfocusedIcon
+                                    }
+                                ), null
+                            )
+                        }
+                    },
+                    alwaysShowLabel = false
+                )
+            }
         }
     }
 }
@@ -71,6 +75,7 @@ val navigationItems = listOf(
     NavigationItem("menu", R.drawable.menu_selected, R.drawable.menu_unselected),
     NavigationItem("cart", R.drawable.cart_selected, R.drawable.cart_unselected),
     NavigationItem("profile", R.drawable.person_selected, R.drawable.person_unselected),
+    NavigationItem("subcategory", R.drawable.person_selected, R.drawable.person_unselected),
 )
 
 data class NavigationItem(

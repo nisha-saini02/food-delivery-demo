@@ -56,7 +56,7 @@ fun MainScreen(paddingValues: PaddingValues, viewModel: MainViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Orange, roundShapeCorner(0,0,30,30))
-                .weight(0.1f),
+                .weight(0.15f),
             contentAlignment = Alignment.Center
         ) {
             Column (
@@ -69,7 +69,7 @@ fun MainScreen(paddingValues: PaddingValues, viewModel: MainViewModel) {
         Box (
             modifier = Modifier
                 .fillMaxSize()
-                .weight(0.8f)
+                .weight(0.85f)
                 .padding(vertical = 16.dp, horizontal = 16.dp)
         ) {
             data.data?.let {

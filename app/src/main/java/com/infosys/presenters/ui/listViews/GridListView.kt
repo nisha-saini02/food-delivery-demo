@@ -3,6 +3,7 @@ package com.infosys.presenters.ui.listViews
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.R
 import com.infosys.data.model.category.Category
@@ -37,6 +39,7 @@ import com.infosys.presenters.ui.TextHeadlineMedium
 import com.infosys.presenters.ui.TextHeadlineSmall
 import com.infosys.presenters.ui.TextLabelLarge
 import com.infosys.presenters.ui.TextLabelSmall
+import com.infosys.presenters.ui.TextTitleSmall
 import com.infosys.presenters.ui.roundShapeCorner
 import com.infosys.presenters.ui.theme.White
 import com.infosys.presenters.ui.theme.Yellow
@@ -46,7 +49,7 @@ fun GridListView(items: List<SubCategory>, spanCount: Int = 1) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(max = 300.dp)
+            .heightIn(max = if (spanCount == 2) 300.dp else Int.MAX_VALUE.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(spanCount),
@@ -59,13 +62,32 @@ fun GridListView(items: List<SubCategory>, spanCount: Int = 1) {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    LoadImage(
-                        item.strMealThumb.toString(),
-                        modifier = Modifier
-                            .size(100.dp)
-                            .padding(bottom = 8.dp)
-                    )
-                    TextHeadlineSmall(text = item.strMeal.toString())
+                    if (spanCount == 2) {
+                        LoadImage(
+                            item.strMealThumb.toString(),
+                            modifier = Modifier
+                                .size(100.dp)
+                                .padding(bottom = 8.dp)
+                        )
+                        TextHeadlineSmall(text = item.strMeal.toString())
+                    } else {
+                        Row (modifier = Modifier.fillMaxWidth().border(BorderStroke(1.dp, Yellow), roundShapeCorner())) {
+                            Box (modifier = Modifier.fillMaxWidth().padding(12.dp).border(BorderStroke(1.dp, Yellow), roundShapeCorner()).weight(0.4f), Alignment.Center) {
+                                LoadImage(
+                                    item.strMealThumb.toString(),
+                                    modifier = Modifier
+                                        .size(80.dp)
+                                        .padding(8.dp)
+                                )
+                            }
+                            Box (modifier = Modifier.fillMaxWidth().padding(12.dp).weight(0.6f)) {
+                                Column {
+                                    TextTitleSmall(item.strMeal.toString(), textAlign = TextAlign.Start)
+                                    TextTitleSmall("$15", textAlign = TextAlign.Start)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -73,7 +95,7 @@ fun GridListView(items: List<SubCategory>, spanCount: Int = 1) {
 }
 
 @Composable
-fun HorizontalCategoriesListView(items: List<Category>, spanCount: Int = 1) {
+fun HorizontalCategoriesListView(items: List<Category>, spanCount: Int = 1, clickEvent: (Category) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -89,7 +111,8 @@ fun HorizontalCategoriesListView(items: List<Category>, spanCount: Int = 1) {
                         .width(110.dp)
                         .height(130.dp)
                         .padding(8.dp)
-                        .background(Yellow, roundShapeCorner(8)),
+                        .background(Yellow, roundShapeCorner(8))
+                        .clickable { clickEvent(item) },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -103,7 +126,7 @@ fun HorizontalCategoriesListView(items: List<Category>, spanCount: Int = 1) {
 }
 
 @Composable
-fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2) {
+fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2, clickEvent: (SubCategoryDetails) -> Unit) {
 
     val count = remember { mutableIntStateOf(1) }
 
@@ -129,7 +152,9 @@ fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2) {
                         item.strMealThumb.toString(),
                         modifier = Modifier
                             .size(100.dp)
-                    )
+                    ) {
+                        clickEvent.invoke(item)
+                    }
                     Spacer(5)
                     TextHeadlineMedium(text = item.strMeal.toString())
                     TextLabelLarge(text = item.strArea.toString())

@@ -66,12 +66,12 @@ fun TextTitleSmall(text: String, modifier: Modifier = Modifier, color: Color = B
 }
 
 @Composable
-fun TextTitleLarge(text: String, modifier: Modifier = Modifier, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+fun TextTitleLarge(text: String, modifier: Modifier = Modifier, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center, clickEvent: () -> Unit) {
     Text(
         text = text,
         style = Typography.titleLarge,
         color = color,
-        modifier = modifier,
+        modifier = modifier.clickable { clickEvent.invoke() },
         maxLines = maxLines,
         textAlign = textAlign
     )
@@ -275,6 +275,24 @@ fun LoadImage(url: String,
         model = url,
         contentDescription = "Image Description",
         modifier = modifier.clip(roundShapeCorner(5)),
+        contentScale = ContentScale.Crop,
+        placeholder = painterResource(R.drawable.placeholder),
+        error = painterResource(R.drawable.no_image_found),
+        onError = { exception -> Log.e("AsyncImage", "Error loading image: ${exception.result}") }
+    )
+}
+
+@Composable
+fun LoadImage(url: String,
+              modifier: Modifier = Modifier
+                  .width(50.dp)
+                  .height(50.dp),
+              clickEvent: () -> Unit
+){
+    AsyncImage(
+        model = url,
+        contentDescription = "Image Description",
+        modifier = modifier.clip(roundShapeCorner(5)).clickable { clickEvent.invoke() },
         contentScale = ContentScale.Crop,
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.no_image_found),

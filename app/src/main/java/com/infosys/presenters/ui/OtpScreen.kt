@@ -44,7 +44,7 @@ fun OtpScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Orange, roundShapeCorner(0,0,30,30))
-                .weight(0.2f),
+                .weight(0.15f),
             contentAlignment = Alignment.Center
         ) {
             Column (
@@ -60,7 +60,7 @@ fun OtpScreen(
         Box (
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.8f),
+                .weight(0.85f),
             contentAlignment = Alignment.Center
         ) {
             Column(

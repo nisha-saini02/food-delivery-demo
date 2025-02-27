@@ -25,6 +25,7 @@ open class MainViewModel @Inject constructor(
 
     private var _subcategories = MutableStateFlow<Resource<List<SubCategory>?>>(Resource.Loading())
     val subcategories: StateFlow<Resource<List<SubCategory>?>> = _subcategories
+    val category = MutableStateFlow("")
 
     private var _subcategoriesDetails = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
     val subcategoriesDetails: StateFlow<Resource<List<SubCategoryDetails>?>> = _subcategoriesDetails

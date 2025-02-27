@@ -9,6 +9,7 @@ import com.infosys.presenters.ui.main.CartScreen
 import com.infosys.presenters.ui.main.MainMenuScreen
 import com.infosys.presenters.ui.main.MainScreen
 import com.infosys.presenters.ui.main.ProfileScreen
+import com.infosys.presenters.ui.main.SubCategoryScreen
 import com.infosys.presenters.viewmodel.MainViewModel
 
 @Composable
@@ -20,13 +21,16 @@ fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel
         }
         composable(navigationItems[1].name) {
             viewModel.getMenuList()
-            MainMenuScreen(paddingValues, viewModel)
+            MainMenuScreen(paddingValues, viewModel, navHostController)
         }
         composable(navigationItems[2].name) {
             CartScreen()
         }
         composable(navigationItems[3].name) {
             ProfileScreen()
+        }
+        composable(navigationItems[4].name) {
+            SubCategoryScreen(viewModel)
         }
     }
 }
