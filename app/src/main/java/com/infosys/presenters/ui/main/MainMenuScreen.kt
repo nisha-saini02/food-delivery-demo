@@ -116,6 +116,7 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
                 categories.data?.let {
                     HorizontalCategoriesListView(it) {
                         viewModel.getSubCategories(it.strCategory.toString())
+                        viewModel.category.value = it.strCategory.toString()
                         navigationHostController.navigate(navigationItems[4].name)
                     }
                 }
@@ -136,7 +137,6 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
                 meals.data?.let {
                     MainMenuListView(it) { subCategoryDetails ->
                         item.value = subCategoryDetails
-                        viewModel.category.value = subCategoryDetails.strCategory.toString()
                         scope.launch {
                             isBottomSheetVisible = true
                             sheetState.expand()
@@ -162,6 +162,7 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
 @Composable
 fun SubCategoryScreen(viewModel: MainViewModel) {
     val subCategories = viewModel.subcategories.collectAsState().value
+    val category = viewModel.category.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -182,7 +183,7 @@ fun SubCategoryScreen(viewModel: MainViewModel) {
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
             ) {
-                TextTitleMedium (viewModel.category.collectAsState().value, color = White)
+                TextTitleMedium (category, color = White)
             }
         }
 
