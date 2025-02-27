@@ -108,7 +108,9 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
                         modifier = Modifier
                             .wrapContentSize()
                             .weight(0.1f)
-                    )
+                    ) {
+                        navigationHostController.navigate(navigationItems[0].name)
+                    }
                 }
 
                 Spacer()
@@ -180,6 +182,7 @@ fun SubCategoryScreen(viewModel: MainViewModel) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
             ) {
