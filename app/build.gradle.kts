@@ -2,9 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    kotlin("kapt")
+//    kotlin("kapt")
     id("com.google.dagger.hilt.android")
-//    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -58,7 +58,7 @@ dependencies {
 
     //Hilt
     implementation(libs.dagger.hilt)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     //Gson
     implementation(libs.gson.converter)
@@ -90,5 +90,10 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
 
     // Android Maps Compose composables for the Maps SDK for Android
-//    implementation("com.google.maps.android:maps-compose:6.4.1")
+    implementation("com.google.maps.android:maps-compose:6.4.1")
+
+    //Room db
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.1.0")
 }

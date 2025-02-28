@@ -38,6 +38,7 @@ import com.infosys.presenters.ui.Image
 import com.infosys.presenters.ui.LoadImage
 import com.infosys.presenters.ui.Spacer
 import com.infosys.presenters.ui.TextHeadlineLarge
+import com.infosys.presenters.ui.TextTitleLarge
 import com.infosys.presenters.ui.TextTitleSmall
 import com.infosys.presenters.ui.roundShapeCorner
 import com.infosys.presenters.ui.theme.Orange
@@ -139,10 +140,10 @@ fun ExpandableListItem(
                     .padding(horizontal = 5.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                TextTitleSmall(
+                TextTitleLarge(
                     text = item.strCategory.toString(),
                     textAlign = TextAlign.Start
-                )
+                ) {}
                 Spacer(5)
                 TextTitleSmall(
                     text = item.strCategoryDescription.toString(),

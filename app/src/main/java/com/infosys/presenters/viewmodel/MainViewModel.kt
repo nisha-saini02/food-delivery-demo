@@ -6,6 +6,7 @@ import com.infosys.data.resources.Resource
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
+import com.infosys.domain.usecase.LocalUseCase
 import com.infosys.domain.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class MainViewModel @Inject constructor(
-    val useCase: UseCase
+    val useCase: UseCase,
+    val localUseCase: LocalUseCase,
 ): ViewModel() {
     private var _categories = MutableStateFlow<Resource<List<Category>?>>(Resource.Loading())
     //StateFlow: observable data holder classes; emit the new & update state to collector; holds only last known state

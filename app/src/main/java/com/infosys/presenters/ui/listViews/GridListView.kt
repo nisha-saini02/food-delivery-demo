@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -32,6 +33,7 @@ import com.infosys.R
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
+import com.infosys.presenters.ui.ButtonCr
 import com.infosys.presenters.ui.Image
 import com.infosys.presenters.ui.LoadImage
 import com.infosys.presenters.ui.Spacer
@@ -128,8 +130,6 @@ fun HorizontalCategoriesListView(items: List<Category>, spanCount: Int = 1, clic
 @Composable
 fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2, clickEvent: (SubCategoryDetails) -> Unit) {
 
-    val count = remember { mutableIntStateOf(1) }
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,6 +140,8 @@ fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2, clickE
 //            contentPadding = PaddingValues(16.dp)
         ) {
             items(items) { item ->
+                val count = remember { mutableIntStateOf(item.addToCartCount) }
+
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
@@ -162,16 +164,27 @@ fun MainMenuListView(items: List<SubCategoryDetails>, spanCount: Int = 2, clickE
 
                     Row {
                         Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
-                            if (count.value > 1) {
-                                count.value -= 1
+                            if (count.value > 0) {
+                                item.addToCartCount -= 1
+                                count.value = item.addToCartCount
                             }
                         }
                         Spacer(8)
                         TextLabelLarge(text = count.value.toString())
                         Spacer(8)
                         Image(R.drawable.ic_add, modifier = Modifier.wrapContentSize()) {
-                            count.value += 1
+                            item.addToCartCount += 1
+                            count.value = item.addToCartCount
                         }
+                    }
+
+                    ButtonCr(
+                        text = "Add To Cart",
+                        modifier =
+                        if (count.value > 0)
+                            Modifier.wrapContentSize()
+                        else Modifier.size(0.dp)) {
+                        //TODO add to cart
                     }
 
                     Spacer()

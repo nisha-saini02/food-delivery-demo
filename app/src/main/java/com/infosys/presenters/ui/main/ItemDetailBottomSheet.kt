@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -65,7 +64,7 @@ fun ItemDetailBottomSheet(
                 shape = RectangleShape,
                 dragHandle = null,
                 scrimColor = Color.Black.copy(alpha = .5f),
-                windowInsets = WindowInsets(0, 0, 0, 0)
+//                windowInsets = WindowInsets(0, 0, 0, 0)
             ) {
 
                 Box (modifier = Modifier.fillMaxWidth().padding(top = 50.dp).background(White, roundShapeCorner(20, 20, 0, 0))) {

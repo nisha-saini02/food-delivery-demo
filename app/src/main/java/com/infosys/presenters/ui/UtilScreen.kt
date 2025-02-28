@@ -236,7 +236,7 @@ fun ButtonCr(
         modifier = modifier,
     ) {
         Text(
-            style = Typography.titleLarge,
+            style = Typography.titleMedium,
             color = textColor,
             text = text,
             modifier = modifier

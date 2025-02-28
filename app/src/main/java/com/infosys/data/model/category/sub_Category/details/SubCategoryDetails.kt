@@ -53,5 +53,6 @@ data class SubCategoryDetails(
     val strSource: String? = null,
     val strImageSource: String? = null,
     val strCreativeCommonsConfirmed: String? = null,
-    val dateModified: String? = null
+    val dateModified: String? = null,
+    var addToCartCount: Int = 0
 )
