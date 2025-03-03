@@ -4,4 +4,5 @@ data class SubCategory (
     var idMeal: String? = null,
     var strMeal: String? = null,
     var strMealThumb: String? = null,
+    var addToCartCount: Int = 0,
 )

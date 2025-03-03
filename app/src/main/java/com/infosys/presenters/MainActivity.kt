@@ -10,19 +10,21 @@ import androidx.activity.viewModels
 import com.infosys.presenters.ui.navigation.BottomNavigationController
 import com.infosys.presenters.viewmodel.MainViewModel
 import com.infosys.presenters.ui.theme.FoodDeliveryDemoTheme
+import com.infosys.presenters.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private val localViewModel: LocalViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FoodDeliveryDemoTheme {
-                BottomNavigationController(viewModel)
+                BottomNavigationController(viewModel, localViewModel)
             }
         }
     }

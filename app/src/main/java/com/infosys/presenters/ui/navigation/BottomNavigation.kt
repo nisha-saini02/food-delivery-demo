@@ -13,17 +13,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
+import com.infosys.presenters.viewmodel.LocalViewModel
 import com.infosys.presenters.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavigationController(viewModel: MainViewModel) {
+fun BottomNavigationController(viewModel: MainViewModel, localViewModel: LocalViewModel) {
     val navHostController = rememberNavController()
     Scaffold (
         bottomBar = {
             BottomBar(navHostController)
         }
     ) { paddingValues ->
-        BottomNavHost(navHostController, viewModel, paddingValues)
+        BottomNavHost(navHostController, viewModel, localViewModel, paddingValues)
     }
 }
 

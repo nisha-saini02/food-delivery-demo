@@ -34,6 +34,7 @@ import com.infosys.R
 import com.infosys.presenters.viewmodel.MainViewModel
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
+import com.infosys.data.model.enums.ItemsCategory
 import com.infosys.presenters.ui.Image
 import com.infosys.presenters.ui.LoadImage
 import com.infosys.presenters.ui.Spacer
@@ -168,7 +169,7 @@ fun ExpandableListItem(
                     .fillMaxWidth()
                     .padding(top = 12.dp)
             ) {
-                data?.let { GridListView(it, 2) }
+                data?.let { GridListView(it, ItemsCategory.CategoryItems) {_, _, _ -> } }
             }
         }
     }

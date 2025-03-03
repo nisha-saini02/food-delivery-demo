@@ -16,4 +16,44 @@ class LocalRepositoryImpl(private val localDataSource: LocalDataSource): LocalRe
                 }
         }
     }
+
+    override suspend fun fetchItem(itemId: String): Flow<Cart?> {
+        return channelFlow {
+            val result = localDataSource.fetchItem(itemId)
+            trySend(result)
+                .onFailure {
+                    send(Cart())
+                }
+        }
+    }
+
+    override suspend fun insertItem(cart: Cart): Flow<Long> {
+        return channelFlow {
+            val result = localDataSource.insertItem(cart)
+            trySend(result)
+                .onFailure {
+                    send(-1)
+                }
+        }
+    }
+
+    override suspend fun updateItem(cart: Cart): Flow<Int> {
+        return channelFlow {
+            val result = localDataSource.updateItem(cart)
+            trySend(result)
+                .onFailure {
+                    send(-1)
+                }
+        }
+    }
+
+    override suspend fun delete(cart: Cart): Flow<Int> {
+        return channelFlow {
+            val result = localDataSource.delete(cart)
+            trySend(result)
+                .onFailure {
+                    send(-1)
+                }
+        }
+    }
 }

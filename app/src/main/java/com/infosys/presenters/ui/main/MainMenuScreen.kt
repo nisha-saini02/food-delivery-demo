@@ -1,5 +1,6 @@
 package com.infosys.presenters.ui.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,7 +28,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
+import com.infosys.data.model.cart.Cart
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
+import com.infosys.data.model.enums.CartFunctions
+import com.infosys.data.model.enums.ItemsCategory
 import com.infosys.presenters.ui.EditTextBodyMedium
 import com.infosys.presenters.ui.Image
 import com.infosys.presenters.ui.Spacer
@@ -40,15 +44,17 @@ import com.infosys.presenters.ui.theme.White
 import com.infosys.presenters.ui.listViews.HorizontalCategoriesListView
 import com.infosys.presenters.ui.listViews.MainMenuListView
 import com.infosys.presenters.ui.navigation.navigationItems
+import com.infosys.presenters.viewmodel.LocalViewModel
 import com.infosys.presenters.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navigationHostController: NavHostController) {
+fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, localViewModel: LocalViewModel, navigationHostController: NavHostController) {
     val search = remember { mutableStateOf("") }
     val categories = viewModel.categories.collectAsState().value
     val meals = viewModel.meals.collectAsState().value
+    val insertItem = localViewModel.insertItem.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -88,7 +94,7 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 120.dp)
                 .weight(0.85f),
         ) {
             Column {
@@ -137,21 +143,52 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
                 val item = remember { mutableStateOf(SubCategoryDetails()) }
 
                 meals.data?.let {
-                    MainMenuListView(it) { subCategoryDetails ->
-                        item.value = subCategoryDetails
-                        scope.launch {
-                            isBottomSheetVisible = true
-                            sheetState.expand()
+                    MainMenuListView(
+                        it,
+                        clickEvent = { subCategoryDetails ->
+                            item.value = subCategoryDetails
+                            scope.launch {
+                                isBottomSheetVisible = true
+                                sheetState.expand()
+                            }
+                        },
+                        addToCartEvent = { subCategoryDetails, count ->
+                            localViewModel.insertItem(
+                                Cart(
+                                    subCategoryDetails.idMeal.toString(),
+                                    subCategoryDetails.strMeal.toString(),
+                                    subCategoryDetails.strInstructions.toString(),
+                                    subCategoryDetails.strMealThumb.toString(),
+                                    count
+                                )
+                            )
+
+                            if (insertItem.data != null) {
+                                Log.e("Local", "MainMenuScreen: inserted item")
+                            }
                         }
-                    }
+                    )
                 }
 
                 ItemDetailBottomSheet(
-                    item.value.strMeal.toString(),
-                    item.value.strInstructions.toString(),
-                    item.value.strMealThumb.toString(),
+                    item.value,
                     isBottomSheetVisible = isBottomSheetVisible,
                     sheetState = sheetState,
+                    addToCartEvent = { subCategoryDetails, count ->
+                        localViewModel.insertItem(
+                            Cart(
+                                subCategoryDetails.idMeal.toString(),
+                                subCategoryDetails.strMeal.toString(),
+                                subCategoryDetails.strInstructions.toString(),
+                                subCategoryDetails.strMealThumb.toString(),
+                                count
+                            )
+                        )
+
+                        if (insertItem.data != null) {
+                            Log.e("Local", "MainMenuScreen: inserted item")
+                        }
+                    }
                 ) {
                     scope.launch { sheetState.hide() }
                         .invokeOnCompletion { isBottomSheetVisible = false }
@@ -162,7 +199,7 @@ fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, navig
 }
 
 @Composable
-fun SubCategoryScreen(viewModel: MainViewModel) {
+fun SubCategoryScreen(viewModel: MainViewModel, localViewModel: LocalViewModel) {
     val subCategories = viewModel.subcategories.collectAsState().value
     val category = viewModel.category.collectAsState().value
 
@@ -197,7 +234,22 @@ fun SubCategoryScreen(viewModel: MainViewModel) {
                 .weight(0.85f),
         ) {
             Column {
-                subCategories.data?.let { GridListView(it) }
+                subCategories.data?.let {
+                    GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
+                        if(cartFunction == CartFunctions.INSERT) {
+                            localViewModel.insertItem(
+                                Cart(
+                                    subCategory.idMeal.toString(),
+                                    subCategory.strMeal.toString(),
+                                    null,
+                                    subCategory.strMealThumb.toString(),
+                                    count
+                                )
+                            )
+                            Log.e("Local", "MainMenuScreen: inserting item")
+                        }
+                    }
+                }
             }
         }
     }

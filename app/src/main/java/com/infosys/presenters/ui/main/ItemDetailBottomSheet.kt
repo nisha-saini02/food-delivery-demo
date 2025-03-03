@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.R
+import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
 import com.infosys.presenters.ui.ButtonCr
 import com.infosys.presenters.ui.Image
 import com.infosys.presenters.ui.LoadImage
@@ -42,19 +43,20 @@ import com.infosys.presenters.ui.theme.White
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemDetailBottomSheet(
-    itemName: String,
-    itemInstruction: String,
-    itemThumbnail: String,
+    item: SubCategoryDetails,
     itemPrice: String = "$15",
     count: MutableIntState = remember { mutableIntStateOf(1) },
     isBottomSheetVisible: Boolean,
     sheetState: SheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
     ),
+    addToCartEvent: (SubCategoryDetails, Int) -> Unit,
     onDismiss: () -> Unit
 ) {
 
         if (isBottomSheetVisible) {
+
+            count.value = 0
 
             ModalBottomSheet(
                 onDismissRequest = onDismiss,
@@ -67,42 +69,56 @@ fun ItemDetailBottomSheet(
 //                windowInsets = WindowInsets(0, 0, 0, 0)
             ) {
 
-                Box (modifier = Modifier.fillMaxWidth().padding(top = 50.dp).background(White, roundShapeCorner(20, 20, 0, 0))) {
+                Box (modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp)
+                    .background(White, roundShapeCorner(20, 20, 0, 0))) {
                     Column (
-                        modifier = Modifier.fillMaxWidth().padding(16.dp).verticalScroll(
-                            rememberScrollState()
-                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .verticalScroll(
+                                rememberScrollState()
+                            ),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        TextTitleLarge(itemName) {}
+                        TextTitleLarge(item.strMeal.toString()) {}
 
                         Spacer()
 
-                        LoadImage(itemThumbnail, Modifier.size(150.dp))
+                        LoadImage(item.strMealThumb.toString(), Modifier.size(150.dp))
 
                         Spacer()
 
-                        TextTitleSmall("Instructions :=\n$itemInstruction", maxLines = Int.MAX_VALUE, textAlign = TextAlign.Start)
+                        TextTitleSmall("Instructions :=\n${item.strInstructions}", maxLines = Int.MAX_VALUE, textAlign = TextAlign.Start)
 
                         Spacer()
 
                         Row {
-                            Box(Modifier.fillMaxWidth().weight(0.3f), Alignment.CenterStart) {
+                            Box(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(0.3f), Alignment.CenterStart) {
                                 TextTitleMedium(itemPrice, textAlign = TextAlign.Start)
                             }
-                            Box(Modifier.fillMaxWidth().weight(0.7f), Alignment.CenterEnd) {
+                            Box(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(0.7f), Alignment.CenterEnd) {
                                 Row {
                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
                                         if (count.value > 1) {
-                                            count.value -= 1
+                                            item.addToCartCount -= 1
+                                            count.value = item.addToCartCount
                                         }
                                     }
                                     Spacer(8)
                                     TextLabelLarge(text = count.value.toString())
                                     Spacer(8)
                                     Image(R.drawable.ic_add, modifier = Modifier.wrapContentSize()) {
-                                        count.value += 1
+                                        item.addToCartCount += 1
+                                        count.value = item.addToCartCount
                                     }
                                 }
                             }
@@ -111,7 +127,11 @@ fun ItemDetailBottomSheet(
                         Spacer()
 
                         ButtonCr(text = "Add Item To Cart") {
+                            addToCartEvent.invoke(item, count.value)
+                            item.addToCartCount = 0
+                            count.value = item.addToCartCount
 
+                            onDismiss.invoke()
                         }
                     }
                 }
