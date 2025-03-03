@@ -18,22 +18,26 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.infosys.data.model.card.getCardType
+import com.infosys.presenters.ui.ButtonCr
 import com.infosys.presenters.ui.OutlineTextBodySmall
 import com.infosys.presenters.ui.Spacer
 import com.infosys.presenters.ui.TextLabelLarge
 import com.infosys.presenters.ui.TextLabelMedium
 import com.infosys.presenters.ui.TextLabelSmall
 import com.infosys.presenters.ui.TextTitleMedium
+import com.infosys.presenters.ui.navigation.navigationItems
 import com.infosys.presenters.ui.roundShapeCorner
 import com.infosys.presenters.ui.theme.Black
 import com.infosys.presenters.ui.theme.Blue
 import com.infosys.presenters.ui.theme.Cream
 import com.infosys.presenters.ui.theme.Orange
 import com.infosys.presenters.ui.theme.White
+import com.infosys.presenters.ui.theme.Yellow
 
 @Composable
-fun CheckoutScreen() {
+fun CheckoutScreen(navHostController: NavHostController) {
 
     val name = remember { mutableStateOf("") }
     val account = remember { mutableStateOf("") }
@@ -194,6 +198,15 @@ fun CheckoutScreen() {
                     maxLength = 3
                 ) {
                     cvv.value = it
+                }
+
+                Spacer()
+
+                ButtonCr(
+                    text = "Select Address",
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                ) {
+                    navHostController.navigate(navigationItems[6].name)
                 }
             }
         }

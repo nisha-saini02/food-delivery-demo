@@ -3,6 +3,7 @@ package com.infosys.presenters.ui
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -126,35 +127,38 @@ fun TextHeadlineSmall(text: String, color: Color = Black, maxLines: Int = 2, tex
 }
 
 @Composable
-fun TextLabelLarge(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+fun TextLabelLarge(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = Typography.labelLarge,
         color = color,
         maxLines = maxLines,
+        modifier = modifier,
         textAlign = textAlign,
     )
 }
 
 @Composable
-fun TextLabelMedium(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+fun TextLabelMedium(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = Typography.labelMedium,
         color = color,
         maxLines = maxLines,
+        modifier = modifier,
         textAlign = textAlign,
     )
 }
 
 @Composable
-fun TextLabelSmall(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+fun TextLabelSmall(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = Typography.labelSmall,
         color = color,
         maxLines = maxLines,
         textAlign = textAlign,
+        modifier = modifier,
     )
 }
 
@@ -364,7 +368,6 @@ fun Spacer(size: Int = 16) =
     androidx.compose.foundation.layout.Spacer(modifier = Modifier.size(size.dp))
 
 
-
 /***************************************** todo: Shape ************************************************/
 @Composable
 fun roundShapeCorner(shape: Int = 12) = RoundedCornerShape(shape.dp)
@@ -388,3 +391,14 @@ fun Switch(flag: Boolean, onCheckedChange: (Boolean) -> Unit) {
         )
     )
 }
+
+/**************************************** todo: Horizontal line *****************************************/
+@Composable
+fun HorizontalLine(height: Int = 1, color: Color = White) =
+    androidx.compose.foundation.layout.Spacer(
+        modifier = Modifier
+            .height(height.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .background(color)
+    )

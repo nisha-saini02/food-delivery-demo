@@ -10,6 +10,7 @@ import com.infosys.presenters.ui.main.CheckoutScreen
 import com.infosys.presenters.ui.main.MainMenuScreen
 import com.infosys.presenters.ui.main.MainScreen
 import com.infosys.presenters.ui.main.ProfileScreen
+import com.infosys.presenters.ui.main.SearchAddressScreen
 import com.infosys.presenters.ui.main.SubCategoryScreen
 import com.infosys.presenters.viewmodel.LocalViewModel
 import com.infosys.presenters.viewmodel.MainViewModel
@@ -36,7 +37,13 @@ fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel
             SubCategoryScreen(viewModel, localViewModel)
         }
         composable(navigationItems[5].name) {
-            CheckoutScreen()
+            CheckoutScreen(navHostController)
+        }
+        composable(navigationItems[6].name) {
+            SearchAddressScreen(navHostController)
+        }
+        composable(navigationItems[7].name) {
+//            OrderScreen(navHostController)
         }
     }
 }
