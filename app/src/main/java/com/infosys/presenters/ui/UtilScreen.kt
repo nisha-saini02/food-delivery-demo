@@ -137,6 +137,17 @@ fun TextLabelLarge(text: String, color: Color = Black, maxLines: Int = 2, textAl
 }
 
 @Composable
+fun TextLabelMedium(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
+    Text(
+        text = text,
+        style = Typography.labelMedium,
+        color = color,
+        maxLines = maxLines,
+        textAlign = textAlign,
+    )
+}
+
+@Composable
 fun TextLabelSmall(text: String, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
     Text(
         text = text,
@@ -179,6 +190,48 @@ fun OutlineTextBodyMedium(
 }
 
 @Composable
+fun OutlineTextBodySmall(
+    text: String = "",
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = true,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    textAlign: TextAlign = TextAlign.Start,
+    hint: String = "",
+    label: String = "",
+    textColor: Color = White,
+    hintColor: Color = White,
+    borderColor: Color = Transparent,
+    maxLength: Int = Int.MAX_VALUE,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        text,
+        onValueChange = {
+            if (it.length <= maxLength) onValueChange.invoke(it)
+        },
+        textStyle = Typography.bodySmall.copy(textAlign = textAlign),
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = textColor,
+            unfocusedTextColor = textColor,
+            focusedBorderColor = borderColor,
+            unfocusedBorderColor = borderColor,
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = keyboardType
+        ),
+        label = {
+            TextHeadlineSmall(label, color = hintColor)
+        },
+        placeholder = {
+            TextHeadlineSmall(hint, color = hintColor)
+        },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
 fun EditTextBodyMedium(
     text: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -188,28 +241,32 @@ fun EditTextBodyMedium(
     modifier: Modifier = Modifier
         .fillMaxWidth(),
     hint: String = "",
+    textColor: Color = White,
+    hintColor: Color = White,
+    borderColor: Color = Transparent,
+    maxLength: Int = Int.MAX_VALUE,
     onValueChange: (String) -> Unit
 ) {
     TextField(
         text,
         onValueChange = {
-            onValueChange.invoke(it)
+            if (it.length <= maxLength) onValueChange.invoke(it)
         },
         textStyle = Typography.bodyMedium.copy(textAlign = textAlign),
         modifier = modifier,
         visualTransformation = visualTransformation,
         singleLine = singleLine,
         colors = OutlinedTextFieldDefaults.colors(
-            focusedTextColor = White,
-            unfocusedTextColor = White,
-            focusedBorderColor = Transparent,
-            unfocusedBorderColor = Transparent,
+            focusedTextColor = textColor,
+            unfocusedTextColor = textColor,
+            focusedBorderColor = borderColor,
+            unfocusedBorderColor = borderColor,
         ),
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = keyboardType
         ),
         placeholder = {
-            TextHeadlineSmall(hint, color = White)
+            TextHeadlineSmall(hint, color = hintColor)
         }
     )
 }
