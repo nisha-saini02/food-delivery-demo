@@ -13,6 +13,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
+import com.infosys.presenters.ui.theme.Gray
+import com.infosys.presenters.ui.theme.Orange
 import com.infosys.presenters.viewmodel.LocalViewModel
 import com.infosys.presenters.viewmodel.MainViewModel
 
@@ -60,11 +62,12 @@ fun BottomBar(navHostController: NavHostController) {
                                     } else {
                                         navigationItem.unfocusedIcon
                                     }
-                                ), null
+                                ), null,
+                                tint = if (index.value == i) Orange else Gray,
                             )
                         }
                     },
-                    alwaysShowLabel = false
+                    alwaysShowLabel = false,
                 )
             }
         }
