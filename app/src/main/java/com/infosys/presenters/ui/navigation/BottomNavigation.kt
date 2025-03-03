@@ -77,6 +77,7 @@ val navigationItems = listOf(
     NavigationItem("cart", R.drawable.cart_selected, R.drawable.cart_unselected),
     NavigationItem("profile", R.drawable.person_selected, R.drawable.person_unselected),
     NavigationItem("subcategory", R.drawable.person_selected, R.drawable.person_unselected),
+    NavigationItem("checkout", R.drawable.person_selected, R.drawable.person_unselected),
 )
 
 data class NavigationItem(

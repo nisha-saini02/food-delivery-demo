@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.infosys.presenters.ui.main.CartScreen
+import com.infosys.presenters.ui.main.CheckoutScreen
 import com.infosys.presenters.ui.main.MainMenuScreen
 import com.infosys.presenters.ui.main.MainScreen
 import com.infosys.presenters.ui.main.ProfileScreen
@@ -26,13 +27,16 @@ fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel
         }
         composable(navigationItems[2].name) {
             localViewModel.getAllCartItems()
-            CartScreen(localViewModel)
+            CartScreen(localViewModel, navHostController)
         }
         composable(navigationItems[3].name) {
             ProfileScreen()
         }
         composable(navigationItems[4].name) {
             SubCategoryScreen(viewModel, localViewModel)
+        }
+        composable(navigationItems[5].name) {
+            CheckoutScreen()
         }
     }
 }
