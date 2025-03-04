@@ -13,17 +13,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.presenters.MainActivity
 import com.infosys.presenters.ui.theme.Orange
 import com.infosys.presenters.ui.theme.White
 import com.infosys.presenters.ui.theme.Yellow
+import kotlinx.coroutines.launch
 
 @Composable
 fun OtpScreen(
@@ -33,95 +40,122 @@ fun OtpScreen(
     val otp2 = remember { mutableStateOf("") }
     val otp3 = remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
+    val snackBarHost = remember { SnackbarHostState() }
+    val coroutineState = rememberCoroutineScope()
 
-        Box (
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHost) }
+    ) { _ ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(Orange, roundShapeCorner(0,0,30,30))
-                .weight(0.15f),
-            contentAlignment = Alignment.Center
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Column (
-                horizontalAlignment = Alignment.CenterHorizontally,
 
-                ) {
-                TextHeadlineLarge("OTP Verification", color = White)
-            }
-        }
-
-        Spacer()
-
-        Box (
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.85f),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp, vertical = 18.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .background(Orange, roundShapeCorner(0, 0, 30, 30))
+                    .weight(0.15f),
+                contentAlignment = Alignment.Center
             ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
 
-                TextTitleSmall("Enter the 3-digit OTP sent to your phone")
+                    ) {
+                    TextHeadlineLarge("OTP Verification", color = White)
+                }
+            }
 
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+            Spacer()
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.85f),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp, vertical = 18.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    OutlineTextBodyMedium (
-                        otp1.value,
+                    TextTitleSmall("Enter the 3-digit OTP sent to your phone")
+
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
                         modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp)
-                            .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
-                        textAlign = TextAlign.Center) {
-                        if (it.length == 1) {
-                            otp1.value = it
+                            .fillMaxWidth()
+                            .padding(top = 16.dp)
+                    ) {
+
+                        OutlineTextBodyMedium(
+                            otp1.value,
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp)
+                                .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
+                            textAlign = TextAlign.Center,
+                            keyboardType = KeyboardType.Number
+                        ) {
+                            if (it.length == 1) {
+                                otp1.value = it
+                            }
+                        }
+
+                        Spacer()
+
+                        OutlineTextBodyMedium(
+                            otp2.value,
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp)
+                                .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
+                            textAlign = TextAlign.Center,
+                            keyboardType = KeyboardType.Number
+                        ) {
+                            if (it.length == 1) {
+                                otp2.value = it
+                            }
+                        }
+
+                        Spacer()
+
+                        OutlineTextBodyMedium(
+                            otp3.value,
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp)
+                                .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
+                            textAlign = TextAlign.Center,
+                            keyboardType = KeyboardType.Number
+                        ) {
+                            if (it.length == 1) {
+                                otp3.value = it
+                            }
                         }
                     }
 
-                    Spacer()
-                    
-                    OutlineTextBodyMedium (
-                        otp2.value,
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp)
-                            .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
-                        textAlign = TextAlign.Center) {
-                        if (it.length == 1) {
-                            otp2.value = it
+                    Spacer(24)
+
+                    ButtonCr(text = "Verify") {
+                        if (otp1.value.isNotEmpty() && otp2.value.isNotEmpty() && otp3.value.isNotEmpty()) {
+                            MainActivity.startActivity(context)
+                        } else {
+                            coroutineState.launch {
+                                snackBarHost.showSnackbar(
+                                    "Please enter otp",
+                                    null,
+                                    true,
+                                    SnackbarDuration.Short
+                                )
+                            }
                         }
                     }
-
-                    Spacer()
-                    
-                    OutlineTextBodyMedium (
-                        otp3.value,
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp)
-                            .border(BorderStroke(2.dp, Yellow), roundShapeCorner(10)),
-                        textAlign = TextAlign.Center) {
-                        if (it.length == 1) {
-                            otp3.value = it
-                        }
-                    }
-                }
-
-                Spacer(24)
-
-                ButtonCr(text = "Verify") {
-                    MainActivity.startActivity(context)
                 }
             }
         }

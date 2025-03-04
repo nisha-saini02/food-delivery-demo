@@ -1,6 +1,6 @@
 package com.infosys.presenters.ui.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,19 +12,20 @@ import com.infosys.presenters.ui.main.MainScreen
 import com.infosys.presenters.ui.main.ProfileScreen
 import com.infosys.presenters.ui.main.SearchAddressScreen
 import com.infosys.presenters.ui.main.SubCategoryScreen
+import com.infosys.presenters.ui.map.OrderPlaceScreen
 import com.infosys.presenters.viewmodel.LocalViewModel
 import com.infosys.presenters.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel, localViewModel: LocalViewModel, paddingValues: PaddingValues) {
+fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel, localViewModel: LocalViewModel, snackBarHost: SnackbarHostState) {
     NavHost(navController = navHostController, startDestination = navigationItems[0].name) {
         composable(navigationItems[0].name) {
             viewModel.getAllCategories()
-            MainScreen(paddingValues, viewModel)
+            MainScreen(viewModel)
         }
         composable(navigationItems[1].name) {
             viewModel.getMenuList()
-            MainMenuScreen(paddingValues, viewModel, localViewModel, navHostController)
+            MainMenuScreen(viewModel, localViewModel, navHostController)
         }
         composable(navigationItems[2].name) {
             localViewModel.getAllCartItems()
@@ -37,13 +38,13 @@ fun BottomNavHost(navHostController: NavHostController, viewModel: MainViewModel
             SubCategoryScreen(viewModel, localViewModel)
         }
         composable(navigationItems[5].name) {
-            CheckoutScreen(navHostController)
+            CheckoutScreen(navHostController, snackBarHost)
         }
         composable(navigationItems[6].name) {
             SearchAddressScreen(navHostController)
         }
         composable(navigationItems[7].name) {
-//            OrderScreen(navHostController)
+            OrderPlaceScreen()
         }
     }
 }

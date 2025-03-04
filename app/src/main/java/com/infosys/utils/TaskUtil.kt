@@ -1,10 +1,1 @@
 package com.infosys.utils
-
-import android.content.Context
-import android.widget.Toast
-
-object TaskUtil {
-
-    fun Context.showToast(msg: String) =
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-}

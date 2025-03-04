@@ -113,12 +113,9 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                                                 TextTitleMedium("$3", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
                                                 Row (modifier = Modifier.weight(0.6f)) {
                                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
-                                                        if (count.value > 1) {
+                                                        if (count.value >= 1) {
                                                             item.addToCartCount -= 1
                                                             count.value = item.addToCartCount
-                                                            //show cart button
-                                                        } else {
-                                                            //hide add to cart button
                                                         }
                                                     }
                                                     Spacer(8)

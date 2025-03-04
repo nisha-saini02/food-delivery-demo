@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,7 +49,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuScreen(paddingValues: PaddingValues, viewModel: MainViewModel, localViewModel: LocalViewModel, navigationHostController: NavHostController) {
+fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, navigationHostController: NavHostController) {
     val search = remember { mutableStateOf("") }
     val categories = viewModel.categories.collectAsState().value
     val meals = viewModel.meals.collectAsState().value

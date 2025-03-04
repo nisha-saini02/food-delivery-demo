@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -108,17 +107,15 @@ fun ItemDetailBottomSheet(
                                     .weight(0.7f), Alignment.CenterEnd) {
                                 Row {
                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
-                                        if (count.value > 1) {
-                                            item.addToCartCount -= 1
-                                            count.value = item.addToCartCount
+                                        if (count.value >= 1) {
+                                            count.value -= 1
                                         }
                                     }
                                     Spacer(8)
                                     TextLabelLarge(text = count.value.toString())
                                     Spacer(8)
                                     Image(R.drawable.ic_add, modifier = Modifier.wrapContentSize()) {
-                                        item.addToCartCount += 1
-                                        count.value = item.addToCartCount
+                                        count.value += 1
                                     }
                                 }
                             }
