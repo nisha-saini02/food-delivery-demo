@@ -1,6 +1,6 @@
 package com.infosys.utils.validations
 
-import com.infosys.presentation.enums.SignUpValidation
+import com.infosys.utils.enums.SignUpValidation
 import com.infosys.utils.Constants.emailRegex
 import com.infosys.utils.Constants.passwordRegex
 

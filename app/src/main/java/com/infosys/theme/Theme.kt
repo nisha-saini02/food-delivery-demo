@@ -1,4 +1,4 @@
-package com.infosys.presentation.theme
+package com.infosys.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

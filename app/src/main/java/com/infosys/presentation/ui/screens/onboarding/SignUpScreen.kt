@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui
+package com.infosys.presentation.ui.screens.onboarding
 
 import android.app.Activity
 import androidx.compose.foundation.background
@@ -23,12 +23,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.infosys.presentation.enums.SignUpValidation
+import com.infosys.utils.enums.SignUpValidation
 import com.infosys.presentation.OtpActivity
-import com.infosys.presentation.theme.Gray
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.White
-import com.infosys.presentation.theme.Yellow
+import com.infosys.presentation.ui.screens.ButtonCr
+import com.infosys.presentation.ui.screens.OutlineTextBodyMedium
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.Switch
+import com.infosys.presentation.ui.screens.TextHeadlineLarge
+import com.infosys.presentation.ui.screens.TextHeadlineSmall
+import com.infosys.presentation.ui.screens.TextTitleSmall
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Gray
+import com.infosys.theme.Orange
+import com.infosys.theme.White
+import com.infosys.theme.Yellow
 import com.infosys.utils.validations.signup
 import kotlinx.coroutines.launch
 

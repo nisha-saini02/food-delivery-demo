@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.main
+package com.infosys.presentation.ui.screens.main
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -17,18 +17,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.data.model.cart.Cart
 import com.infosys.data.model.category.sub_Category.SubCategory
-import com.infosys.presentation.enums.CartFunctions
-import com.infosys.presentation.enums.ItemsCategory
+import com.infosys.utils.enums.CartFunctions
+import com.infosys.utils.enums.ItemsCategory
 import com.infosys.data.remote.Resource
-import com.infosys.presentation.ui.ButtonCr
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextTitleMedium
-import com.infosys.presentation.ui.listViews.GridListView
-import com.infosys.presentation.ui.navigation.navigationItems
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.White
-import com.infosys.presentation.theme.Yellow
+import com.infosys.presentation.ui.screens.ButtonCr
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextTitleMedium
+import com.infosys.presentation.ui.screens.listViews.GridListView
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Orange
+import com.infosys.theme.White
+import com.infosys.theme.Yellow
 import com.infosys.presentation.viewmodel.LocalViewModel
 
 @Composable
@@ -95,7 +95,7 @@ fun CartScreen(localViewModel: LocalViewModel, navHostController: NavHostControl
                             text = "Checkout",
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
                         ) {
-                            navHostController.navigate(navigationItems[5].name)
+                            navHostController.navigate(NavigationRoute.CHECKOUT.route)
                         }
                     }
                 }

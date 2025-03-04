@@ -1,4 +1,4 @@
-package com.infosys.presentation.theme
+package com.infosys.theme
 
 import androidx.compose.ui.graphics.Color
 

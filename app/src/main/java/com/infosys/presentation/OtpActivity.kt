@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.infosys.presentation.ui.OtpScreen
-import com.infosys.presentation.theme.FoodDeliveryDemoTheme
+import com.infosys.presentation.ui.screens.onboarding.OtpScreen
+import com.infosys.theme.FoodDeliveryDemoTheme
 
 class OtpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

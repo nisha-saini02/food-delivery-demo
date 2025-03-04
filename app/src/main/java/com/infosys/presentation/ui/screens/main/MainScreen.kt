@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.main
+package com.infosys.presentation.ui.screens.main
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -33,18 +33,18 @@ import com.infosys.R
 import com.infosys.presentation.viewmodel.MainViewModel
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
-import com.infosys.presentation.enums.ItemsCategory
-import com.infosys.presentation.ui.Image
-import com.infosys.presentation.ui.LoadImage
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextHeadlineLarge
-import com.infosys.presentation.ui.TextTitleLarge
-import com.infosys.presentation.ui.TextTitleSmall
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.Yellow
-import com.infosys.presentation.theme.White
-import com.infosys.presentation.ui.listViews.GridListView
+import com.infosys.utils.enums.ItemsCategory
+import com.infosys.presentation.ui.screens.Image
+import com.infosys.presentation.ui.screens.LoadImage
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextHeadlineLarge
+import com.infosys.presentation.ui.screens.TextTitleLarge
+import com.infosys.presentation.ui.screens.TextTitleSmall
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Orange
+import com.infosys.theme.Yellow
+import com.infosys.theme.White
+import com.infosys.presentation.ui.screens.listViews.GridListView
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {

@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.main
+package com.infosys.presentation.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,21 +22,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.infosys.presentation.enums.CheckoutValidation
-import com.infosys.presentation.ui.ButtonCr
-import com.infosys.presentation.ui.OutlineTextBodySmall
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextLabelLarge
-import com.infosys.presentation.ui.TextLabelMedium
-import com.infosys.presentation.ui.TextLabelSmall
-import com.infosys.presentation.ui.TextTitleMedium
-import com.infosys.presentation.ui.navigation.navigationItems
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Black
-import com.infosys.presentation.theme.Blue
-import com.infosys.presentation.theme.Cream
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.White
+import com.infosys.utils.enums.CheckoutValidation
+import com.infosys.presentation.ui.screens.ButtonCr
+import com.infosys.presentation.ui.screens.OutlineTextBodySmall
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextLabelLarge
+import com.infosys.presentation.ui.screens.TextLabelMedium
+import com.infosys.presentation.ui.screens.TextLabelSmall
+import com.infosys.presentation.ui.screens.TextTitleMedium
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Black
+import com.infosys.theme.Blue
+import com.infosys.theme.Cream
+import com.infosys.theme.Orange
+import com.infosys.theme.White
 import com.infosys.utils.TaskUtil.getCardType
 import com.infosys.utils.validations.checkout
 import kotlinx.coroutines.launch
@@ -271,7 +271,7 @@ fun CheckoutScreen(navHostController: NavHostController, snackBarHost: SnackbarH
                             }
                         }
                         CheckoutValidation.VALIDATE -> {
-                            navHostController.navigate(navigationItems[6].name)
+                            navHostController.navigate(NavigationRoute.ADDRESS.route)
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package com.infosys.presentation.enums
+package com.infosys.utils.enums
 
 enum class SignUpValidation {
     EMAIL_NOT_CORRECT,

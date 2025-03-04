@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.main
+package com.infosys.presentation.ui.screens.main
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -29,20 +29,20 @@ import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.data.model.cart.Cart
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
-import com.infosys.presentation.enums.CartFunctions
-import com.infosys.presentation.enums.ItemsCategory
-import com.infosys.presentation.ui.EditTextBodyMedium
-import com.infosys.presentation.ui.Image
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextHeadlineSmall
-import com.infosys.presentation.ui.TextTitleMedium
-import com.infosys.presentation.ui.listViews.GridListView
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.White
-import com.infosys.presentation.ui.listViews.HorizontalCategoriesListView
-import com.infosys.presentation.ui.listViews.MainMenuListView
-import com.infosys.presentation.ui.navigation.navigationItems
+import com.infosys.utils.enums.CartFunctions
+import com.infosys.utils.enums.ItemsCategory
+import com.infosys.presentation.ui.screens.EditTextBodyMedium
+import com.infosys.presentation.ui.screens.Image
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextHeadlineSmall
+import com.infosys.presentation.ui.screens.TextTitleMedium
+import com.infosys.presentation.ui.screens.listViews.GridListView
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Orange
+import com.infosys.theme.White
+import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListView
+import com.infosys.presentation.ui.screens.listViews.MainMenuListView
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
@@ -114,7 +114,7 @@ fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, nav
                             .wrapContentSize()
                             .weight(0.1f)
                     ) {
-                        navigationHostController.navigate(navigationItems[0].name)
+                        navigationHostController.navigate(NavigationRoute.HOME.route)
                     }
                 }
 
@@ -124,7 +124,7 @@ fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, nav
                     HorizontalCategoriesListView(it) {
                         viewModel.getSubCategories(it.strCategory.toString())
                         viewModel.category.value = it.strCategory.toString()
-                        navigationHostController.navigate(navigationItems[4].name)
+                        navigationHostController.navigate(NavigationRoute.SUBCATEGORY.route)
                     }
                 }
 

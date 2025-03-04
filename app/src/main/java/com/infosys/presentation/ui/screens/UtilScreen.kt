@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui
+package com.infosys.presentation.ui.screens
 
 import android.util.Log
 import androidx.annotation.DrawableRes
@@ -34,12 +34,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.infosys.R
-import com.infosys.presentation.theme.Black
-import com.infosys.presentation.theme.Gray
-import com.infosys.presentation.theme.Transparent
-import com.infosys.presentation.theme.Typography
-import com.infosys.presentation.theme.White
-import com.infosys.presentation.theme.Yellow
+import com.infosys.theme.Black
+import com.infosys.theme.Gray
+import com.infosys.theme.Transparent
+import com.infosys.theme.Typography
+import com.infosys.theme.White
+import com.infosys.theme.Yellow
 
 /***************************************** todo: Texts ************************************************/
 @Composable

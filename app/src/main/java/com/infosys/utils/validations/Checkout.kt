@@ -1,6 +1,6 @@
 package com.infosys.utils.validations
 
-import com.infosys.presentation.enums.CheckoutValidation
+import com.infosys.utils.enums.CheckoutValidation
 import com.infosys.utils.TaskUtil.getCardType
 import java.util.Calendar
 

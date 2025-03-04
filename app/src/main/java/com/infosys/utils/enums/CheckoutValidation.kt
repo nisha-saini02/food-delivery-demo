@@ -1,4 +1,4 @@
-package com.infosys.presentation.enums
+package com.infosys.utils.enums
 
 enum class CheckoutValidation {
     ENTER_VALID_ACCOUNT_NUMBER,

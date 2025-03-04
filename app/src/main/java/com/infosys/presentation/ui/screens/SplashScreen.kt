@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui
+package com.infosys.presentation.ui.screens
 
 import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.infosys.R
 import com.infosys.presentation.SignupActivity
-import com.infosys.presentation.theme.Yellow
+import com.infosys.presentation.ui.MainActivity
+import com.infosys.theme.Yellow
 
 @Composable
 fun SplashScreen(

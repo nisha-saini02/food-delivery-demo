@@ -7,9 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.infosys.presentation.ui.navigation.BottomNavigationController
+import com.infosys.presentation.ui.screens.navigation.BottomNavigationController
 import com.infosys.presentation.viewmodel.MainViewModel
-import com.infosys.presentation.theme.FoodDeliveryDemoTheme
+import com.infosys.theme.FoodDeliveryDemoTheme
 import com.infosys.presentation.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.main
+package com.infosys.presentation.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,18 +25,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
-import com.infosys.presentation.ui.EditTextBodyMedium
-import com.infosys.presentation.ui.HorizontalLine
-import com.infosys.presentation.ui.Image
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextLabelMedium
-import com.infosys.presentation.ui.TextLabelSmall
-import com.infosys.presentation.ui.navigation.navigationItems
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Black
-import com.infosys.presentation.theme.Gray
-import com.infosys.presentation.theme.Orange
-import com.infosys.presentation.theme.White
+import com.infosys.presentation.ui.screens.EditTextBodyMedium
+import com.infosys.presentation.ui.screens.HorizontalLine
+import com.infosys.presentation.ui.screens.Image
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextLabelMedium
+import com.infosys.presentation.ui.screens.TextLabelSmall
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Black
+import com.infosys.theme.Gray
+import com.infosys.theme.Orange
+import com.infosys.theme.White
 
 @Composable
 fun SearchAddressScreen(navHostController: NavHostController) {
@@ -103,7 +103,7 @@ fun SearchAddressScreen(navHostController: NavHostController) {
                     LocationItems(
                         listOfCities.filter { it.contains(search.value, ignoreCase = true) }
                     ) {
-                        navHostController.navigate(navigationItems[7].name)
+                        navHostController.navigate(NavigationRoute.ORDER.route)
                     }
                 }
             }

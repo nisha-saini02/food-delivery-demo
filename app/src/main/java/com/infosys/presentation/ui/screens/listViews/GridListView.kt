@@ -1,4 +1,4 @@
-package com.infosys.presentation.ui.listViews
+package com.infosys.presentation.ui.screens.listViews
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -32,20 +32,20 @@ import com.infosys.R
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
-import com.infosys.presentation.enums.CartFunctions
-import com.infosys.presentation.enums.ItemsCategory
-import com.infosys.presentation.ui.ButtonCr
-import com.infosys.presentation.ui.Image
-import com.infosys.presentation.ui.LoadImage
-import com.infosys.presentation.ui.Spacer
-import com.infosys.presentation.ui.TextHeadlineMedium
-import com.infosys.presentation.ui.TextHeadlineSmall
-import com.infosys.presentation.ui.TextLabelLarge
-import com.infosys.presentation.ui.TextLabelSmall
-import com.infosys.presentation.ui.TextTitleMedium
-import com.infosys.presentation.ui.TextTitleSmall
-import com.infosys.presentation.ui.roundShapeCorner
-import com.infosys.presentation.theme.Yellow
+import com.infosys.utils.enums.CartFunctions
+import com.infosys.utils.enums.ItemsCategory
+import com.infosys.presentation.ui.screens.ButtonCr
+import com.infosys.presentation.ui.screens.Image
+import com.infosys.presentation.ui.screens.LoadImage
+import com.infosys.presentation.ui.screens.Spacer
+import com.infosys.presentation.ui.screens.TextHeadlineMedium
+import com.infosys.presentation.ui.screens.TextHeadlineSmall
+import com.infosys.presentation.ui.screens.TextLabelLarge
+import com.infosys.presentation.ui.screens.TextLabelSmall
+import com.infosys.presentation.ui.screens.TextTitleMedium
+import com.infosys.presentation.ui.screens.TextTitleSmall
+import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.theme.Yellow
 
 @Composable
 fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (SubCategory, Int, CartFunctions) -> Unit) {
