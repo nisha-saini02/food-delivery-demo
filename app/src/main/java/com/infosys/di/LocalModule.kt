@@ -2,8 +2,8 @@ package com.infosys.di
 
 import android.content.Context
 import androidx.room.Room
-import com.infosys.data.local.AppDatabase
-import com.infosys.data.local.CartDao
+import com.infosys.data.localDatabase.AppDatabase
+import com.infosys.data.localDatabase.CartDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,14 +1,7 @@
 package com.infosys.di
 
-import com.infosys.data.datasource.AllCartItemsLocalDataSource
-import com.infosys.data.datasource.AllCategoriesDataSource
-import com.infosys.data.datasource.DeleteCartItemLocalDataSource
-import com.infosys.data.datasource.FetchCartItemLocalDataSource
-import com.infosys.data.datasource.InsertCartItemLocalDataSource
-import com.infosys.data.datasource.MenuDataSource
-import com.infosys.data.datasource.SubCategoriesDataSource
-import com.infosys.data.datasource.SubCategoryDetailsDataSource
-import com.infosys.data.datasource.UpdateCartItemLocalDataSource
+import com.infosys.data.localDatabase.CartDao
+import com.infosys.data.remote.FoodService
 import com.infosys.data.repositoryImpl.AllCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.AllCategoriesRepositoryImpl
 import com.infosys.data.repositoryImpl.DeleteCartItemLocalRepositoryImpl
@@ -31,81 +24,71 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class RepositoryModule {
 
-    @Singleton
     @Provides
     fun provideAllCategoriesRepository(
-        dataSource: AllCategoriesDataSource
+        service: FoodService
     ): AllCategoriesRepository {
-        return AllCategoriesRepositoryImpl(dataSource)
+        return AllCategoriesRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideSubCategoriesRepository(
-        dataSource: SubCategoriesDataSource
+        service: FoodService
     ): SubCategoriesRepository {
-        return SubCategoriesRepositoryImpl(dataSource)
+        return SubCategoriesRepositoryImpl(service)
     }
-
-    @Singleton
+    
     @Provides
     fun provideSubCategoryDetailsRepository(
-        dataSource: SubCategoryDetailsDataSource
+        service: FoodService
     ): SubCategoryDetailsRepository {
-        return SubCategoryDetailsRepositoryImpl(dataSource)
+        return SubCategoryDetailsRepositoryImpl(service)
     }
-
-    @Singleton
+    
     @Provides
     fun provideMenuRepository(
-        dataSource: MenuDataSource
+        service: FoodService
     ): MenuListRepository {
-        return MenuListRepositoryImpl(dataSource)
+        return MenuListRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideAllCartItemsLocalRepository(
-        dataSource: AllCartItemsLocalDataSource
+        service: CartDao
     ): AllCartItemsLocalRepository {
-        return AllCartItemsLocalRepositoryImpl(dataSource)
+        return AllCartItemsLocalRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideFetchCartItemLocalRepository(
-        dataSource: FetchCartItemLocalDataSource
+        service: CartDao
     ): FetchCartItemLocalRepository {
-        return FetchCartItemLocalRepositoryImpl(dataSource)
+        return FetchCartItemLocalRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideInsertCartItemLocalRepository(
-        dataSource: InsertCartItemLocalDataSource
+        service: CartDao
     ): InsertCartItemLocalRepository {
-        return InsertCartItemLocalRepositoryImpl(dataSource)
+        return InsertCartItemLocalRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideUpdateCartItemLocalRepository(
-        dataSource: UpdateCartItemLocalDataSource
+        service: CartDao
     ): UpdateCartItemLocalRepository {
-        return UpdateCartItemLocalRepositoryImpl(dataSource)
+        return UpdateCartItemLocalRepositoryImpl(service)
     }
 
-    @Singleton
     @Provides
     fun provideDeleteCartItemLocalRepository(
-        dataSource: DeleteCartItemLocalDataSource
+        service: CartDao
     ): DeleteCartItemLocalRepository {
-        return DeleteCartItemLocalRepositoryImpl(dataSource)
+        return DeleteCartItemLocalRepositoryImpl(service)
     }
 }

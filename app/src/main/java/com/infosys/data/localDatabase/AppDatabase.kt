@@ -1,4 +1,4 @@
-package com.infosys.data.local
+package com.infosys.data.localDatabase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

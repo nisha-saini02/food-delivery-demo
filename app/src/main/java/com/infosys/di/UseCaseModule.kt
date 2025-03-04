@@ -24,13 +24,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class UseCaseModule {
 
-    @Singleton
     @Provides
     fun provideAllCategoriesUseCase(
         repository: AllCategoriesRepository
@@ -38,7 +36,6 @@ class UseCaseModule {
         return AllCategoriesUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideSubCategoriesUseCase(
         repository: SubCategoriesRepository
@@ -46,7 +43,6 @@ class UseCaseModule {
         return SubCategoriesUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideSubCategoryDetailsUseCase(
         repository: SubCategoryDetailsRepository
@@ -54,7 +50,6 @@ class UseCaseModule {
         return SubCategoryDetailsUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideMenuListUseCase(
         repository: MenuListRepository
@@ -62,7 +57,6 @@ class UseCaseModule {
         return MenuListUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideAllCartItemsLocalUseCase(
         repository: AllCartItemsLocalRepository
@@ -70,7 +64,6 @@ class UseCaseModule {
         return AllCartItemsLocalUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideFetchCartItemLocalUseCase(
         repository: FetchCartItemLocalRepository
@@ -78,7 +71,6 @@ class UseCaseModule {
         return FetchCartItemLocalUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideInsertCartItemLocalUseCase(
         repository: InsertCartItemLocalRepository
@@ -86,7 +78,6 @@ class UseCaseModule {
         return InsertCartItemLocalUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideUpdateCartItemLocalUseCase(
         repository: UpdateCartItemLocalRepository
@@ -94,7 +85,6 @@ class UseCaseModule {
         return UpdateCartItemLocalUseCase(repository)
     }
 
-    @Singleton
     @Provides
     fun provideDeleteCartItemLocalUseCase(
         repository: DeleteCartItemLocalRepository

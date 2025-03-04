@@ -19,7 +19,7 @@ import com.infosys.data.model.cart.Cart
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.presentation.enums.CartFunctions
 import com.infosys.presentation.enums.ItemsCategory
-import com.infosys.data.resources.Resource
+import com.infosys.data.remote.Resource
 import com.infosys.presentation.ui.ButtonCr
 import com.infosys.presentation.ui.Spacer
 import com.infosys.presentation.ui.TextTitleMedium

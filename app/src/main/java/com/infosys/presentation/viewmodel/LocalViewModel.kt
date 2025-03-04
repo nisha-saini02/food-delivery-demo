@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.infosys.data.model.cart.Cart
 import com.infosys.data.model.usecase.LocalUseCase
-import com.infosys.data.resources.Resource
+import com.infosys.data.remote.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

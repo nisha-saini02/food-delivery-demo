@@ -3,7 +3,7 @@ package com.infosys.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.infosys.data.model.usecase.RemoteUseCase
-import com.infosys.data.resources.Resource
+import com.infosys.data.remote.Resource
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
@@ -27,7 +27,8 @@ open class MainViewModel @Inject constructor(
     val subcategories: StateFlow<Resource<List<SubCategory>?>> = _subcategories
     val category = MutableStateFlow("")
 
-    private var _subcategoriesDetails = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
+    private var _subcategoriesDetails = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(
+        Resource.Loading())
     val subcategoriesDetails: StateFlow<Resource<List<SubCategoryDetails>?>> = _subcategoriesDetails
 
     private var _meals = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
