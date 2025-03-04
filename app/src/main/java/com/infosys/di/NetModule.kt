@@ -2,8 +2,8 @@ package com.infosys.di
 
 import com.infosys.BuildConfig
 import com.google.gson.GsonBuilder
-import com.infosys.domain.remote.FoodService
-import com.infosys.domain.remote.NullOnEmptyConverterFactory
+import com.infosys.data.remote.FoodService
+import com.infosys.data.remote.NullOnEmptyConverterFactory
 import com.infosys.utils.HttpUtils
 import dagger.Module
 import dagger.Provides

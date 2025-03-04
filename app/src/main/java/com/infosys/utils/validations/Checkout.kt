@@ -1,7 +1,7 @@
 package com.infosys.utils.validations
 
-import com.infosys.data.model.card.getCardType
-import com.infosys.data.model.enums.CheckoutValidation
+import com.infosys.presentation.enums.CheckoutValidation
+import com.infosys.utils.TaskUtil.getCardType
 import java.util.Calendar
 
 fun checkout(name: String, account: String, month: String, year: String, cvv: String): CheckoutValidation {

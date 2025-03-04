@@ -1,6 +1,8 @@
 package com.infosys.utils.validations
 
-import com.infosys.data.model.enums.SignUpValidation
+import com.infosys.presentation.enums.SignUpValidation
+import com.infosys.utils.Constants.emailRegex
+import com.infosys.utils.Constants.passwordRegex
 
 fun signup(name: String, email: String, password: String, termRead: Boolean): SignUpValidation {
     return if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && termRead) {
@@ -18,6 +20,3 @@ fun signup(name: String, email: String, password: String, termRead: Boolean): Si
         SignUpValidation.FIELD_IS_EMPTY
     }
 }
-
-val passwordRegex = Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+\$).{8,20}\$")
-val emailRegex = Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
