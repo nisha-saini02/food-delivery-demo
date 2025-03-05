@@ -1,5 +1,6 @@
 package com.infosys.presentation.ui.screens.navigation
 
+import android.util.Log
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -28,9 +29,13 @@ fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: Car
 
     Scaffold (
         bottomBar = {
-            if (currentRoute(navHostController) != NavigationRoute.SPLASH.route &&
-                currentRoute(navHostController) != NavigationRoute.SIGNUP.route &&
-                currentRoute(navHostController) != NavigationRoute.OTP.route) {
+            val currentRoute = currentRoute(navHostController)
+            if (
+                currentRoute != null &&
+                currentRoute != NavigationRoute.SPLASH.route &&
+                currentRoute != NavigationRoute.SIGNUP.route &&
+                currentRoute != NavigationRoute.OTP.route
+                ) {
                 BottomBar(navHostController)
             }
         },
@@ -43,7 +48,9 @@ fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: Car
 @Composable
 fun currentRoute(navController: NavHostController): String? {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    return navBackStackEntry?.destination?.route
+    val route = navBackStackEntry?.destination?.route
+    Log.e("TAG", "currentRoute: $route")
+    return route
 }
 
 @Composable

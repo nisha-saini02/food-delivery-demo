@@ -214,7 +214,7 @@ fun CheckoutScreen(navHostController: NavHostController, snackBarHost: SnackbarH
                 Spacer()
 
                 ButtonCr(
-                    text = "Select Address",
+                    text = "Add Card",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
