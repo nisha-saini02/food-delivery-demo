@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class LocalViewModel @Inject constructor(
+open class CartLocalViewModel @Inject constructor(
     val localUseCase: LocalUseCase,
 ): ViewModel() {
     private var _cart = MutableStateFlow<Resource<List<Cart>?>>(Resource.Loading())

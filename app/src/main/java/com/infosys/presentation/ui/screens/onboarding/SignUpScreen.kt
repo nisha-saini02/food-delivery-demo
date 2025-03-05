@@ -1,6 +1,5 @@
 package com.infosys.presentation.ui.screens.onboarding
 
-import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,8 +22,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.infosys.utils.enums.SignUpValidation
-import com.infosys.presentation.OtpActivity
 import com.infosys.presentation.ui.screens.ButtonCr
 import com.infosys.presentation.ui.screens.OutlineTextBodyMedium
 import com.infosys.presentation.ui.screens.Spacer
@@ -32,6 +31,7 @@ import com.infosys.presentation.ui.screens.Switch
 import com.infosys.presentation.ui.screens.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.TextTitleSmall
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.roundShapeCorner
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
-    context: Activity
+    navHostController: NavHostController
 ) {
     val termsAccepted = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }
@@ -198,7 +198,7 @@ fun SignUpScreen(
                             }
 
                             SignUpValidation.VALIDATE -> {
-                                OtpActivity.startActivity(context)
+                                navHostController.navigate(NavigationRoute.OTP.route)
                             }
                         }
                     }

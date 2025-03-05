@@ -43,17 +43,17 @@ import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListView
 import com.infosys.presentation.ui.screens.listViews.MainMenuListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.CartLocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, navigationHostController: NavHostController) {
+fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel, navigationHostController: NavHostController) {
     val search = remember { mutableStateOf("") }
     val categories = viewModel.categories.collectAsState().value
     val meals = viewModel.meals.collectAsState().value
-    val insertItem = localViewModel.insertItem.collectAsState().value
+    val insertItem = cartLocalViewModel.insertItem.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -152,7 +152,7 @@ fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, nav
                             }
                         },
                         addToCartEvent = { subCategoryDetails, count ->
-                            localViewModel.insertItem(
+                            cartLocalViewModel.insertItem(
                                 Cart(
                                     subCategoryDetails.idMeal.toString(),
                                     subCategoryDetails.strMeal.toString(),
@@ -174,7 +174,7 @@ fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, nav
                     isBottomSheetVisible = isBottomSheetVisible,
                     sheetState = sheetState,
                     addToCartEvent = { subCategoryDetails, count ->
-                        localViewModel.insertItem(
+                        cartLocalViewModel.insertItem(
                             Cart(
                                 subCategoryDetails.idMeal.toString(),
                                 subCategoryDetails.strMeal.toString(),
@@ -198,7 +198,7 @@ fun MainMenuScreen(viewModel: MainViewModel, localViewModel: LocalViewModel, nav
 }
 
 @Composable
-fun SubCategoryScreen(viewModel: MainViewModel, localViewModel: LocalViewModel) {
+fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel) {
     val subCategories = viewModel.subcategories.collectAsState().value
     val category = viewModel.category.collectAsState().value
 
@@ -236,7 +236,7 @@ fun SubCategoryScreen(viewModel: MainViewModel, localViewModel: LocalViewModel) 
                 subCategories.data?.let {
                     GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
                         if(cartFunction == CartFunctions.INSERT) {
-                            localViewModel.insertItem(
+                            cartLocalViewModel.insertItem(
                                 Cart(
                                     subCategory.idMeal.toString(),
                                     subCategory.strMeal.toString(),

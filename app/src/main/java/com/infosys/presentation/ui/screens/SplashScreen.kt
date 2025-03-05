@@ -1,6 +1,5 @@
 package com.infosys.presentation.ui.screens
 
-import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,14 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.infosys.R
-import com.infosys.presentation.SignupActivity
-import com.infosys.presentation.ui.MainActivity
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.theme.Yellow
 
 @Composable
 fun SplashScreen(
-    context: Activity
+    navHostController: NavHostController
 ) {
     Column(
         modifier = Modifier
@@ -53,12 +52,16 @@ fun SplashScreen(
                 ButtonCr(
                     bgColor = Yellow,
                     text = "GET STARTED",
-                    clickEvent = { SignupActivity.startActivity(context) })
+                    clickEvent = { navHostController.navigate(NavigationRoute.SIGNUP.route) })
 
                 Spacer()
 
                 TextTitleLarge("Take me there") {
-                    MainActivity.startActivity(context)
+                    navHostController.navigate(NavigationRoute.HOME.route){
+                        popUpTo(NavigationRoute.SPLASH.route){
+                            inclusive = true
+                        }
+                    }
                 }
             }
         }

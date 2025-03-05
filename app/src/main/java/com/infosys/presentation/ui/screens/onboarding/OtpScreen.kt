@@ -1,6 +1,5 @@
 package com.infosys.presentation.ui.screens.onboarding
 
-import android.app.Activity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,12 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.infosys.presentation.ui.MainActivity
+import androidx.navigation.NavHostController
 import com.infosys.presentation.ui.screens.ButtonCr
 import com.infosys.presentation.ui.screens.OutlineTextBodyMedium
 import com.infosys.presentation.ui.screens.Spacer
 import com.infosys.presentation.ui.screens.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.TextTitleSmall
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.roundShapeCorner
 import com.infosys.theme.Orange
 import com.infosys.theme.White
@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun OtpScreen(
-    context: Activity
+    navHostController: NavHostController
 ) {
     val otp1 = remember { mutableStateOf("") }
     val otp2 = remember { mutableStateOf("") }
@@ -150,7 +150,17 @@ fun OtpScreen(
 
                     ButtonCr(text = "Verify") {
                         if (otp1.value.isNotEmpty() && otp2.value.isNotEmpty() && otp3.value.isNotEmpty()) {
-                            MainActivity.startActivity(context)
+                            navHostController.navigate(NavigationRoute.HOME.route) {
+                                popUpTo(NavigationRoute.OTP.route){
+                                    inclusive = true
+                                }
+                                popUpTo(NavigationRoute.SIGNUP.route){
+                                    inclusive = true
+                                }
+                                popUpTo(NavigationRoute.SPLASH.route){
+                                    inclusive = true
+                                }
+                            }
                         } else {
                             coroutineState.launch {
                                 snackBarHost.showSnackbar(

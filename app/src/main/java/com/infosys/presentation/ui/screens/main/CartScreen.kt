@@ -29,11 +29,11 @@ import com.infosys.presentation.ui.screens.roundShapeCorner
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.CartLocalViewModel
 
 @Composable
-fun CartScreen(localViewModel: LocalViewModel, navHostController: NavHostController) {
-    val cart = localViewModel.cart.collectAsState().value
+fun CartScreen(cartLocalViewModel: CartLocalViewModel, navHostController: NavHostController) {
+    val cart = cartLocalViewModel.cart.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -78,11 +78,11 @@ fun CartScreen(localViewModel: LocalViewModel, navHostController: NavHostControl
                             when(cartFunction) {
                                 CartFunctions.INSERT -> TODO("Insertion item to cart is pending")
                                 CartFunctions.UPDATE -> {
-                                    localViewModel.updateItem(myCart)
+                                    cartLocalViewModel.updateItem(myCart)
                                 }
                                 CartFunctions.DELETE -> {
-                                    localViewModel.deleteItem(myCart)
-                                    localViewModel.getAllCartItems()
+                                    cartLocalViewModel.deleteItem(myCart)
+                                    cartLocalViewModel.getAllCartItems()
                                 }
                             }
                         }

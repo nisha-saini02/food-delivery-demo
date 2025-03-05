@@ -8,30 +8,42 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.CartLocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavigationController(viewModel: MainViewModel, localViewModel: LocalViewModel) {
+fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel) {
     val navHostController = rememberNavController()
     val snackBarHost = remember { SnackbarHostState() }
 
     Scaffold (
         bottomBar = {
-            BottomBar(navHostController)
+            if (currentRoute(navHostController) != NavigationRoute.SPLASH.route &&
+                currentRoute(navHostController) != NavigationRoute.SIGNUP.route &&
+                currentRoute(navHostController) != NavigationRoute.OTP.route) {
+                BottomBar(navHostController)
+            }
         },
         snackbarHost = { SnackbarHost(snackBarHost) }
     ) { _ ->
-        BottomNavHost(navHostController, viewModel, localViewModel, snackBarHost)
+        BottomNavHost(navHostController, viewModel, cartLocalViewModel, snackBarHost)
     }
+}
+
+@Composable
+fun currentRoute(navController: NavHostController): String? {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
 }
 
 @Composable

@@ -17,16 +17,12 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
-        <activity
-            android:name=".presentation.OtpActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FoodDeliveryDemo" />
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key"/>
 
         <activity
-            android:name=".presentation.SplashActivity"
+            android:name=".presentation.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.FoodDeliveryDemo">
             <intent-filter>
@@ -35,14 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.ui.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.FoodDeliveryDemo"/>
-        <activity
-            android:name=".presentation.SignupActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FoodDeliveryDemo" />
     </application>
 
 </manifest>
