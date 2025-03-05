@@ -1,24 +1,17 @@
 package com.infosys.presentation.ui.screens.listViews
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
@@ -29,19 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.R
-import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
-import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
 import com.infosys.utils.enums.CartFunctions
 import com.infosys.utils.enums.ItemsCategory
 import com.infosys.presentation.ui.screens.ButtonCr
 import com.infosys.presentation.ui.screens.Image
 import com.infosys.presentation.ui.screens.LoadImage
 import com.infosys.presentation.ui.screens.Spacer
-import com.infosys.presentation.ui.screens.TextHeadlineMedium
 import com.infosys.presentation.ui.screens.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.TextLabelLarge
-import com.infosys.presentation.ui.screens.TextLabelSmall
 import com.infosys.presentation.ui.screens.TextTitleMedium
 import com.infosys.presentation.ui.screens.TextTitleSmall
 import com.infosys.presentation.ui.screens.roundShapeCorner
@@ -110,7 +99,7 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                                         Spacer()
                                         Box {
                                             Row {
-                                                TextTitleMedium("$3", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
+                                                TextTitleMedium("₹25", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
                                                 Row (modifier = Modifier.weight(0.6f)) {
                                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
                                                         if (count.value >= 1) {
@@ -173,7 +162,7 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                                         Spacer()
                                         Box {
                                             Row {
-                                                TextTitleMedium("$${3*count.value}", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
+                                                TextTitleMedium("₹${25*count.value}", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
                                                 Row (modifier = Modifier.weight(0.6f)) {
                                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
                                                         if (count.value > 1) {

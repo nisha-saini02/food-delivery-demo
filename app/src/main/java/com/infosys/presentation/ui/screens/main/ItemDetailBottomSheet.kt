@@ -43,7 +43,7 @@ import com.infosys.theme.White
 @Composable
 fun ItemDetailBottomSheet(
     item: SubCategoryDetails,
-    itemPrice: String = "$15",
+    itemPrice: String = "₹25",
     count: MutableIntState = remember { mutableIntStateOf(1) },
     isBottomSheetVisible: Boolean,
     sheetState: SheetState = rememberModalBottomSheetState(

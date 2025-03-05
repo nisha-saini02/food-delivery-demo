@@ -1,6 +1,5 @@
 package com.infosys.presentation.ui.screens.main
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -67,8 +66,6 @@ fun CartScreen(cartLocalViewModel: CartLocalViewModel, navHostController: NavHos
         ) {
             Column {
                 if (cart is Resource.Success && !cart.data.isNullOrEmpty()) {
-                    Log.e("Local", "CartScreen: ${cart.data}")
-
                     Box (modifier = Modifier.weight(0.85f)) {
                         GridListView(
                             cart.data.map { SubCategory(idMeal = it.id, strMeal = it.name, strMealThumb = it.thumbnail, addToCartCount = it.cartCount ?: 1) },

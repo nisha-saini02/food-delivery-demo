@@ -71,7 +71,7 @@ fun MainScreen(viewModel: MainViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .weight(0.85f)
-                .padding(vertical = 16.dp, horizontal = 16.dp)
+                .padding(end = 16.dp, top = 16.dp, start = 16.dp, bottom = 85.dp)
         ) {
             data.data?.let {
                 AnimateExpandableList(data.data, viewModel)
