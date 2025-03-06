@@ -19,12 +19,12 @@ import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.utils.enums.CartFunctions
 import com.infosys.utils.enums.ItemsCategory
 import com.infosys.data.remote.Resource
-import com.infosys.presentation.ui.screens.ButtonCr
-import com.infosys.presentation.ui.screens.Spacer
-import com.infosys.presentation.ui.screens.TextTitleMedium
+import com.infosys.presentation.ui.screens.utility.ButtonCr
+import com.infosys.presentation.ui.screens.utility.Spacer
+import com.infosys.presentation.ui.screens.utility.TextTitleMedium
 import com.infosys.presentation.ui.screens.listViews.GridListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
-import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow

@@ -19,10 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.infosys.data.model.category.Category
-import com.infosys.presentation.ui.screens.LoadImage
-import com.infosys.presentation.ui.screens.Spacer
-import com.infosys.presentation.ui.screens.TextLabelSmall
-import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.presentation.ui.screens.utility.LoadImage
+import com.infosys.presentation.ui.screens.utility.Spacer
+import com.infosys.presentation.ui.screens.utility.TextLabelSmall
+import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.theme.Yellow
 
 @Composable

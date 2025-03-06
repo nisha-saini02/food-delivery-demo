@@ -28,15 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.R
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
-import com.infosys.presentation.ui.screens.ButtonCr
-import com.infosys.presentation.ui.screens.Image
-import com.infosys.presentation.ui.screens.LoadImage
-import com.infosys.presentation.ui.screens.Spacer
-import com.infosys.presentation.ui.screens.TextLabelLarge
-import com.infosys.presentation.ui.screens.TextTitleLarge
-import com.infosys.presentation.ui.screens.TextTitleMedium
-import com.infosys.presentation.ui.screens.TextTitleSmall
-import com.infosys.presentation.ui.screens.roundShapeCorner
+import com.infosys.presentation.ui.screens.utility.ButtonCr
+import com.infosys.presentation.ui.screens.utility.Image
+import com.infosys.presentation.ui.screens.utility.LoadImage
+import com.infosys.presentation.ui.screens.utility.Spacer
+import com.infosys.presentation.ui.screens.utility.TextLabelLarge
+import com.infosys.presentation.ui.screens.utility.TextTitleLarge
+import com.infosys.presentation.ui.screens.utility.TextTitleMedium
+import com.infosys.presentation.ui.screens.utility.TextTitleSmall
+import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
