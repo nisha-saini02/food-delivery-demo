@@ -62,8 +62,8 @@ fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: Local
                     OrderListView(
                         orders.data,
                     ) { orderItem ->
-                        //show map screen
-                        //navHostController.navigate(NavigationRoute.ORDER_DETAILS.route)
+                        localViewModel.getOrder(orderItem.id.toString())
+                        navHostController.navigate(NavigationRoute.ORDER_DETAILS.route)
                     }
                 }
             }

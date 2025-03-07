@@ -2,8 +2,10 @@ package com.infosys.data.model.usecase
 
 import com.infosys.domain.usecase.AllCartItemsLocalUseCase
 import com.infosys.domain.usecase.CountCartItemsLocalUseCase
+import com.infosys.domain.usecase.DeleteAllCartsLocalUseCase
 import com.infosys.domain.usecase.DeleteCartItemLocalUseCase
 import com.infosys.domain.usecase.FetchCartItemLocalUseCase
+import com.infosys.domain.usecase.FetchOrderLocalUserCase
 import com.infosys.domain.usecase.GrandTotalCartItemsLocalUseCase
 import com.infosys.domain.usecase.InsertCartItemLocalUseCase
 import com.infosys.domain.usecase.InsertOrderItemLocalUseCase
@@ -21,4 +23,6 @@ class LocalUseCase @Inject constructor(
     var insertOrderItemLocalUseCase: InsertOrderItemLocalUseCase,
     var countCartItemsLocalUseCase: CountCartItemsLocalUseCase,
     var grandTotalCartItemsLocalUseCase: GrandTotalCartItemsLocalUseCase,
+    var deleteAllCartsLocalUseCase: DeleteAllCartsLocalUseCase,
+    var fetchOrderLocalUserCase: FetchOrderLocalUserCase,
 )

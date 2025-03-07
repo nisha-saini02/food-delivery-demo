@@ -11,6 +11,9 @@ interface OrderDao {
     @Query("SELECT * FROM `order`")
     suspend fun getAll(): List<Order>
 
+    @Query("SELECT * FROM `order` where id = :itemId")
+    suspend fun getOrder(itemId: String): Order?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(order: Order): Long
 }

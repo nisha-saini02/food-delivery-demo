@@ -28,6 +28,7 @@ import com.infosys.presentation.ui.screens.utility.Spacer
 import com.infosys.presentation.ui.screens.utility.TextTitleMedium
 import com.infosys.presentation.ui.screens.listViews.GridListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.utility.TextHeadlineMedium
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Orange
@@ -128,6 +129,14 @@ fun CartScreen(
                                 navHostController.navigate(NavigationRoute.CHECKOUT.route)
                             }
                         }
+                    }
+                } else {
+                    Column (
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        TextHeadlineMedium("Cart is Empty", modifier = Modifier.fillMaxSize())
                     }
                 }
             }

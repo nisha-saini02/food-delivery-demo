@@ -2,6 +2,7 @@ package com.infosys.presentation.ui.screens.listViews
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,7 +26,7 @@ import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.theme.Yellow
 
 @Composable
-fun OrderListView(items: List<Order>, cartEvent: (Order) -> Unit) {
+fun OrderListView(items: List<Order>, event: (Order) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,23 +37,26 @@ fun OrderListView(items: List<Order>, cartEvent: (Order) -> Unit) {
             contentPadding = PaddingValues(16.dp)
         ) {
             items(items) { item ->
-                Column (modifier = Modifier
-                    .fillMaxWidth()
-                    .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
-                    .padding(16.dp)) {
+                Column (modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
+                    Column (modifier = Modifier
+                        .fillMaxWidth()
+                        .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
+                        .padding(16.dp)
+                        .clickable { event.invoke(item) }) {
 
-                    Row (verticalAlignment = Alignment.CenterVertically) {
-                        TextHeadlineLarge("Order ID: ")
-                        TextHeadlineSmall("ORD"+item.id.toString())
-                    }
-                    Spacer()
-
-                    Row {
-                        Box (Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
-                            TextLabelMedium("Total Items: "+item.orderItems)
+                        Row (verticalAlignment = Alignment.CenterVertically) {
+                            TextHeadlineLarge("Order ID: ")
+                            TextHeadlineSmall("ORD"+item.id.toString())
                         }
-                        Box (Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
-                            TextLabelMedium("Grant Total: "+item.orderGrandTotal)
+                        Spacer()
+
+                        Row {
+                            Box (Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                                TextLabelMedium("Total Items: "+item.orderItems)
+                            }
+                            Box (Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
+                                TextLabelMedium("Grant Total: "+((item.orderGrandTotal ?: 0.0f) * 25))
+                            }
                         }
                     }
                 }

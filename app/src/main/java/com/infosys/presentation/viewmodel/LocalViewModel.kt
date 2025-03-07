@@ -39,11 +39,17 @@ open class LocalViewModel @Inject constructor(
     private var _grandTotalCartItems = MutableStateFlow<Resource<Float?>>(Resource.Loading())
     val grandTotalCartItems: StateFlow<Resource<Float?>> = _grandTotalCartItems
 
+    private var _deleteAllCarts = MutableStateFlow<Resource<Int>>(Resource.Loading())
+    val deleteAllCarts: StateFlow<Resource<Int>> = _deleteAllCarts
+
     private var _orders = MutableStateFlow<Resource<List<Order>>>(Resource.Loading())
     val orders: StateFlow<Resource<List<Order>>> = _orders
 
     private var _insertOrder = MutableStateFlow<Resource<Long>>(Resource.Loading())
     val insertOrder: StateFlow<Resource<Long>> = _insertOrder
+
+    private var _fetchOrder = MutableStateFlow<Resource<Order?>>(Resource.Loading())
+    val fetchOrder: StateFlow<Resource<Order?>> = _fetchOrder
 
     fun getAllCartItems() {
         viewModelScope.launch {
@@ -165,33 +171,60 @@ open class LocalViewModel @Inject constructor(
         }
     }
 
+    fun deleteAllCarts() {
+        viewModelScope.launch {
+            _deleteAllCarts.value= Resource.Loading()
+            if (_deleteAllCarts.value.data == null)
+                localUseCase.deleteAllCartsLocalUseCase.deleteAllCarts()
+                    .onStart {  }
+                    .catch {
+                        _deleteAllCarts.value = Resource.Error(it.message.toString())
+                    }
+                    .collect {
+                        _deleteAllCarts.value = Resource.Success(it)
+                    }
+        }
+    }
+
     fun orderList() {
         viewModelScope.launch {
             _orders.value= Resource.Loading()
-            if (_orders.value.data == null)
-                localUseCase.orderListLocalUseCase.orderList()
-                    .onStart {  }
-                    .catch {
-                        _orders.value = Resource.Error(it.message.toString())
-                    }
-                    .collect {
-                        _orders.value = Resource.Success(it)
-                    }
+            localUseCase.orderListLocalUseCase.orderList()
+                .onStart {  }
+                .catch {
+                    _orders.value = Resource.Error(it.message.toString())
+                }
+                .collect {
+                    _orders.value = Resource.Success(it)
+                }
         }
     }
 
     fun insertOrderItem(order: Order) {
         viewModelScope.launch {
             _insertOrder.value= Resource.Loading()
-            if (_insertOrder.value.data == null)
-                localUseCase.insertOrderItemLocalUseCase.insertItem(order)
-                    .onStart {  }
-                    .catch {
-                        _insertOrder.value = Resource.Error(it.message.toString())
-                    }
-                    .collect {
-                        _insertOrder.value = Resource.Success(it)
-                    }
+            localUseCase.insertOrderItemLocalUseCase.insertItem(order)
+                .onStart {  }
+                .catch {
+                    _insertOrder.value = Resource.Error(it.message.toString())
+                }
+                .collect {
+                    _insertOrder.value = Resource.Success(it)
+                }
+        }
+    }
+
+    fun getOrder(orderId: String) {
+        viewModelScope.launch {
+            _fetchOrder.value= Resource.Loading()
+            localUseCase.fetchOrderLocalUserCase.getOrder(orderId)
+                .onStart {  }
+                .catch {
+                    _fetchOrder.value = Resource.Error(it.message.toString())
+                }
+                .collect {
+                    _fetchOrder.value = Resource.Success(it)
+                }
         }
     }
 }

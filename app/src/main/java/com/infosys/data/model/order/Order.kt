@@ -9,9 +9,9 @@ data class Order (
     @PrimaryKey (autoGenerate = true)
     val id: Long? = null,
     @ColumnInfo(name = "source_lat")
-    var sourceLat: Double? = null,
+    var sourceLat: Double? = 30.7405083,
     @ColumnInfo(name = "source_long")
-    var sourceLong: Double? = null,
+    var sourceLong: Double? = 76.6749134,
     @ColumnInfo(name = "destination_lat")
     var destinationLat: Double? = null,
     @ColumnInfo(name = "destination_long")

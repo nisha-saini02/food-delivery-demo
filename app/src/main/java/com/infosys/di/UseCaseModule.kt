@@ -7,8 +7,10 @@ import com.infosys.domain.repository.AllCartItemsLocalRepository
 import com.infosys.domain.repository.AllCategoriesRepository
 import com.infosys.domain.repository.ClearUserInfoLocalRepository
 import com.infosys.domain.repository.CountCartItemsLocalRepository
+import com.infosys.domain.repository.DeleteAllCartsLocalRepository
 import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
+import com.infosys.domain.repository.FetchOrderLocalRepository
 import com.infosys.domain.repository.GrandTotalCartItemsLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
 import com.infosys.domain.repository.InsertOrderItemLocalRepository
@@ -23,8 +25,10 @@ import com.infosys.domain.usecase.AllCartItemsLocalUseCase
 import com.infosys.domain.usecase.AllCategoriesUseCase
 import com.infosys.domain.usecase.ClearUserInfoLocalUseCase
 import com.infosys.domain.usecase.CountCartItemsLocalUseCase
+import com.infosys.domain.usecase.DeleteAllCartsLocalUseCase
 import com.infosys.domain.usecase.DeleteCartItemLocalUseCase
 import com.infosys.domain.usecase.FetchCartItemLocalUseCase
+import com.infosys.domain.usecase.FetchOrderLocalUserCase
 import com.infosys.domain.usecase.GrandTotalCartItemsLocalUseCase
 import com.infosys.domain.usecase.InsertCartItemLocalUseCase
 import com.infosys.domain.usecase.InsertOrderItemLocalUseCase
@@ -136,6 +140,20 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideDeleteAllCartsLocalUseCase(
+        repository: DeleteAllCartsLocalRepository
+    ): DeleteAllCartsLocalUseCase {
+        return DeleteAllCartsLocalUseCase(repository)
+    }
+
+    @Provides
+    fun provideFetchOrderLocalUserCase(
+        repository: FetchOrderLocalRepository
+    ): FetchOrderLocalUserCase {
+        return FetchOrderLocalUserCase(repository)
+    }
+
+    @Provides
     fun provideLocalUseCase(
         allCartItemsLocalUseCase: AllCartItemsLocalUseCase,
         fetchCartItemLocalUseCase: FetchCartItemLocalUseCase,
@@ -146,7 +164,9 @@ class UseCaseModule {
         orderListLocalUseCase: OrderListLocalUseCase,
         countCartItemsLocalUseCase: CountCartItemsLocalUseCase,
         grandTotalCartItemsLocalUseCase: GrandTotalCartItemsLocalUseCase,
-    ) = LocalUseCase(allCartItemsLocalUseCase, fetchCartItemLocalUseCase, insertCartItemLocalUseCase, updateCartItemLocalUseCase, deleteCartItemLocalUseCase, orderListLocalUseCase, insertOrderItemLocalUseCase, countCartItemsLocalUseCase, grandTotalCartItemsLocalUseCase)
+        deleteAllCartsLocalUseCase: DeleteAllCartsLocalUseCase,
+        fetchOrderLocalUserCase: FetchOrderLocalUserCase
+    ) = LocalUseCase(allCartItemsLocalUseCase, fetchCartItemLocalUseCase, insertCartItemLocalUseCase, updateCartItemLocalUseCase, deleteCartItemLocalUseCase, orderListLocalUseCase, insertOrderItemLocalUseCase, countCartItemsLocalUseCase, grandTotalCartItemsLocalUseCase, deleteAllCartsLocalUseCase, fetchOrderLocalUserCase)
 
     @Provides
     fun provideRemoteUseCase(

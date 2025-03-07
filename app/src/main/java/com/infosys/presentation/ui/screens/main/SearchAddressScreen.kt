@@ -106,14 +106,19 @@ fun SearchAddressScreen(navHostController: NavHostController, cartLocalViewModel
             Column {
                 search.value.let {
                     LocationItems(
-                        listOfCities.filter { it.contains(search.value, ignoreCase = true) }
+                        listOfCities.filter { it.name.contains(search.value, ignoreCase = true) }
                     ) {
                         cartLocalViewModel.insertOrderItem(
                             Order(
                                 orderGrandTotal = grandTotalCartItems.data,
-                                orderItems = countCartItems.data
+                                orderItems = countCartItems.data,
+                                destinationLat = it.lat,
+                                destinationLong = it.long
                             )
                         )
+
+                        cartLocalViewModel.deleteAllCarts()
+
                         navHostController.navigate(NavigationRoute.ORDER.route)
                     }
                 }
@@ -123,7 +128,7 @@ fun SearchAddressScreen(navHostController: NavHostController, cartLocalViewModel
 }
 
 @Composable
-fun LocationItems(items: List<String>, clickEvent: (String) -> Unit) {
+fun LocationItems(items: List<MyAddress>, clickEvent: (MyAddress) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -149,7 +154,7 @@ fun LocationItems(items: List<String>, clickEvent: (String) -> Unit) {
                     ) {
                         Image(R.drawable.ic_location, Modifier.wrapContentSize())
                         Spacer(5)
-                        TextLabelSmall(text = item)
+                        TextLabelSmall(text = item.name)
                     }
                     Spacer(5)
                     HorizontalLine(color = Gray)
@@ -159,37 +164,14 @@ fun LocationItems(items: List<String>, clickEvent: (String) -> Unit) {
     }
 }
 
-
-//Static list, needed to implement places api which requires credits in google map platform
 val listOfCities = listOf(
-    "Beas Town, Amritsar, India",
-    "Baba Deep Singh Nagar, Amritsar, India",
-    "Beas Market Area, Amritsar, India",
-    "Guru Nanak Nagar, Amritsar, India",
-    "New Beas Colony, Amritsar, India",
-    "Sarai Naurangabad, Amritsar, India",
-    "Ravi Nagar, Amritsar, India",
-    "Beas Mandi, Amritsar, India",
-    "Hardeep Nagar, Amritsar, India",
-    "New Model Town, Amritsar, India",
-    "Guru Nanak Enclave, Amritsar, India",
-    "Sultanwind Road Area, Amritsar, India",
-    "Beas Railway Station Area, Amritsar, India",
-    "Civil Lines, Amritsar, India",
-    "Gurunanak Pura, Amritsar, India",
-    "Basti Shankar, Amritsar, India",
-    "Beas Kalan, Amritsar, India",
-    "Chowk Beas, Amritsar, India",
-    "Harmandir Nagar, Amritsar, India",
-    "Prakash Colony, Amritsar, India",
-    "Shivpuri, Amritsar, India",
-    "Amar Nagar, Amritsar, India",
-    "Ajaib Nagar, Amritsar, India",
-    "Naiwala, Amritsar, India",
-    "Rajinder Nagar, Amritsar, India",
-    "Surjit Nagar, Amritsar, India",
-    "Ranjit Nagar, Amritsar, India",
-    "Saraswati Nagar, Amritsar, India",
-    "Vishwakarma Nagar, Amritsar, India",
-    "Baba Bakala Road Area, Amritsar, India"
+    MyAddress("Sunny Enclave, Kharar, India", 30.7110, 76.7720),
+    MyAddress("Palm Village, Mohali, India", 30.7115, 76.7815),
+    MyAddress("Royal Enfield, Kharar, India", 30.7408168,76.6749254),
+    MyAddress("Ivory Hotel, Kharar, India", 30.7420516,76.6731869),
+    MyAddress("Arista Hotel, Kharar, India", 30.7420516,76.6731869),
+    MyAddress("Prasad's Niwas, Kharar, India", 30.7429599,76.6729616),
+    MyAddress("Desu Majra, Kharar, India", 30.7427362,76.671127),
 )
+
+data class MyAddress(val name: String, val lat: Double, val long: Double)

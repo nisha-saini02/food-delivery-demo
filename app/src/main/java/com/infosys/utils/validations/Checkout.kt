@@ -9,11 +9,11 @@ fun checkout(name: String, account: String, month: String, year: String, cvv: St
     val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
 
     return if (name.isNotEmpty() && account.isNotEmpty() && month.isNotEmpty() && year.isNotEmpty() && cvv.isNotEmpty()) {
-        if (year < currentYear) {
+        if (year < currentYear || year.toInt() >= (currentYear.toInt() + 6)) {
             CheckoutValidation.ENTER_VALID_YEAR
         } else if (month.toInt() !in 1..12) {
             CheckoutValidation.ENTER_VALID_MONTH
-        } else if (year == currentYear && month.toInt() <= (currentMonth+1) && year < currentYear + 6) {
+        } else if (year == currentYear && month.toInt() <= (currentMonth+1)) {
             CheckoutValidation.ENTER_VALID_MONTH
         } else if (cvv.length != 3) {
             CheckoutValidation.INVALID_CVV

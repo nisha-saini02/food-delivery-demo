@@ -85,12 +85,15 @@ fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostContro
                     TextHeadlineSmall("Guest User")
                 } else {
                     TextHeadlineSmall("Name", Modifier.fillMaxWidth(), textAlign = TextAlign.Start)
+                    Spacer(6)
                     OutlineTextLabelSmall("${userInfo.name}")
                     Spacer()
                     TextHeadlineSmall("Email", Modifier.fillMaxWidth(), textAlign = TextAlign.Start)
+                    Spacer(6)
                     OutlineTextLabelSmall("${userInfo.email}")
                     Spacer()
                     TextHeadlineSmall("Password", Modifier.fillMaxWidth(), textAlign = TextAlign.Start)
+                    Spacer(6)
                     OutlineTextLabelSmall("${userInfo.password}")
                 }
             }

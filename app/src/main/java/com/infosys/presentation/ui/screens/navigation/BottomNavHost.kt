@@ -89,7 +89,7 @@ fun BottomNavHost(
             OrderPlaceScreen(navHostController, cartLocalViewModel)
         }
         composable(NavigationRoute.ORDER_DETAILS.route) {
-            OrderDetailScreen()
+            OrderDetailScreen(cartLocalViewModel)
         }
     }
 }

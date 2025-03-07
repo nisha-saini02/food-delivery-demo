@@ -147,7 +147,7 @@ fun OutlineTextLabelSmall(
     textAlign: TextAlign = TextAlign.Start,
     modifier: Modifier = Modifier
         .fillMaxWidth()
-        .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
+        .border(BorderStroke(1.dp, Black), roundShapeCorner(5))
         .padding(horizontal = 10.dp, vertical = 5.dp)
 ) {
     Text(

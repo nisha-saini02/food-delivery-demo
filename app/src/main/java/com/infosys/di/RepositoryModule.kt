@@ -8,8 +8,10 @@ import com.infosys.data.repositoryImpl.AllCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.AllCategoriesRepositoryImpl
 import com.infosys.data.repositoryImpl.ClearUserInfoLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.CountCartItemsLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.DeleteAllCartsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.DeleteCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.FetchCartItemLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.FetchOrderLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.GrandTotalCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.InsertCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.InsertOrderItemLocalRepositoryImpl
@@ -24,8 +26,10 @@ import com.infosys.domain.repository.AllCartItemsLocalRepository
 import com.infosys.domain.repository.AllCategoriesRepository
 import com.infosys.domain.repository.ClearUserInfoLocalRepository
 import com.infosys.domain.repository.CountCartItemsLocalRepository
+import com.infosys.domain.repository.DeleteAllCartsLocalRepository
 import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
+import com.infosys.domain.repository.FetchOrderLocalRepository
 import com.infosys.domain.repository.GrandTotalCartItemsLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
 import com.infosys.domain.repository.InsertOrderItemLocalRepository
@@ -134,6 +138,20 @@ class RepositoryModule {
         service: CartDao
     ): GrandTotalCartItemsLocalRepository {
         return GrandTotalCartItemsLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideDeleteAllCartsLocalRepository(
+        service: CartDao
+    ): DeleteAllCartsLocalRepository {
+        return DeleteAllCartsLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideFetchOrderLocalRepository(
+        service: OrderDao
+    ): FetchOrderLocalRepository {
+        return FetchOrderLocalRepositoryImpl(service)
     }
 
     @Provides

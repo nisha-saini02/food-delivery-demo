@@ -1,8 +1,10 @@
 package com.infosys.presentation.ui.screens.map
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,14 +15,20 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.infosys.presentation.viewmodel.LocalViewModel
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun OrderDetailScreen() {
-    val singapore = LatLng(1.35, 103.87)
-    val singapore2 = LatLng(1.39, 104.87)
+fun OrderDetailScreen(cartLocalViewModel: LocalViewModel) {
+    val order = cartLocalViewModel.fetchOrder.collectAsState().value
+
+    val source = LatLng(30.7405083,76.6749134)
+    val destination = LatLng(order.data?.destinationLat!!,order.data.destinationLong!!)
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 10f)
+        position = CameraPosition.fromLatLngZoom(source, 16f)
     }
     val uiSettings by remember {
         mutableStateOf(MapUiSettings(zoomControlsEnabled = true))
@@ -37,14 +45,14 @@ fun OrderDetailScreen() {
             properties = properties,
             uiSettings = uiSettings
         ) {
-//            Marker(
-//                state = MarkerState(position = singapore),
-//                title = "Marker 1"
-//            )
-//            Marker(
-//                state = MarkerState(position = singapore2),
-//                title = "Marker 2"
-//            )
+            Marker(
+                state = MarkerState(position = source),
+                title = "Store"
+            )
+            Marker(
+                state = MarkerState(position = destination),
+                title = "Your location"
+            )
         }
     }
 }
