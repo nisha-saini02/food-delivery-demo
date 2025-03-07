@@ -44,7 +44,7 @@ fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostContro
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Orange, roundShapeCorner(0, 0, 30, 30))
-                .weight(0.1f),
+                .weight(0.15f),
             contentAlignment = Alignment.Center
         ) {
             Column(
@@ -57,8 +57,8 @@ fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostContro
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .weight(0.8f)
-                .padding(end = 16.dp, top = 16.dp, start = 16.dp, bottom = 85.dp)
+                .weight(0.5f)
+                .padding(16.dp)
         ) {
             Column (
                 modifier = Modifier.fillMaxWidth(),
@@ -99,8 +99,8 @@ fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostContro
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Orange, roundShapeCorner(0, 0, 30, 30))
-                .weight(0.1f),
+                .weight(0.35f)
+                .padding(bottom = 85.dp),
             contentAlignment = Alignment.Center
         ) {
             Column(
@@ -111,10 +111,10 @@ fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostContro
                         "Login"
                     } else "Logout"
                 ) {
-                    navHostController.navigate(NavigationRoute.SIGNUP.route)
                     if (userInfo != null && userInfo.type == LoginType.User && userInfo.authenticate) {
                         authViewModel.clearUserInfo()
                     }
+                    navHostController.navigate(NavigationRoute.SIGNUP.route)
                 }
             }
         }
