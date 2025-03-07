@@ -1,13 +1,25 @@
 package com.infosys.presentation.ui.screens.utility
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.infosys.theme.Black
+import com.infosys.theme.Transparent
 import com.infosys.theme.Typography
+import com.infosys.theme.Yellow
 
 @Composable
 fun TextTitleMedium(text: String, modifier: Modifier = Modifier, color: Color = Black, maxLines: Int = 2, textAlign: TextAlign = TextAlign.Center) {
@@ -126,5 +138,23 @@ fun TextLabelSmall(text: String, color: Color = Black, maxLines: Int = 2, textAl
         maxLines = maxLines,
         textAlign = textAlign,
         modifier = modifier,
+    )
+}
+
+@Composable
+fun OutlineTextLabelSmall(
+    text: String = "",
+    textAlign: TextAlign = TextAlign.Start,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
+        .padding(horizontal = 10.dp, vertical = 5.dp)
+) {
+    Text(
+        text,
+        textAlign = textAlign,
+        modifier = modifier,
+        style = Typography.labelSmall,
+        color = Black,
     )
 }

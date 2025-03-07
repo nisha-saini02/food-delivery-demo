@@ -13,7 +13,7 @@ fun checkout(name: String, account: String, month: String, year: String, cvv: St
             CheckoutValidation.ENTER_VALID_YEAR
         } else if (month.toInt() !in 1..12) {
             CheckoutValidation.ENTER_VALID_MONTH
-        } else if (year == currentYear && month.toInt() <= (currentMonth+1)) {
+        } else if (year == currentYear && month.toInt() <= (currentMonth+1) && year < currentYear + 6) {
             CheckoutValidation.ENTER_VALID_MONTH
         } else if (cvv.length != 3) {
             CheckoutValidation.INVALID_CVV

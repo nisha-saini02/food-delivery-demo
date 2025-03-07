@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.infosys.data.model.user.User
 import com.infosys.utils.enums.SignUpValidation
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.OutlineTextBodyMedium
@@ -33,16 +34,19 @@ import com.infosys.presentation.ui.screens.utility.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.utility.TextTitleSmall
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
+import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
+import com.infosys.utils.enums.LoginType
 import com.infosys.utils.validations.signup
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    authViewModel: AuthViewModel
 ) {
     val termsAccepted = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }
@@ -198,6 +202,16 @@ fun SignUpScreen(
                             }
 
                             SignUpValidation.VALIDATE -> {
+
+                                authViewModel.writeUserInfo(
+                                    User(
+                                        name.value,
+                                        email.value,
+                                        password.value,
+                                        type = LoginType.User
+                                    )
+                                )
+
                                 navHostController.navigate(NavigationRoute.OTP.route)
                             }
                         }

@@ -118,4 +118,7 @@ open class CartLocalViewModel @Inject constructor(
                     }
         }
     }
+    fun resetDeleteObserver() {
+        _deleteItem.value = Resource.Success(0)
+    }
 }

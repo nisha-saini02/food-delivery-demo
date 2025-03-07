@@ -1,7 +1,9 @@
 package com.infosys.presentation.ui.screens.navigation
 
+import android.util.Log
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,27 +18,43 @@ import com.infosys.presentation.ui.screens.main.SubCategoryScreen
 import com.infosys.presentation.ui.screens.map.OrderPlaceScreen
 import com.infosys.presentation.ui.screens.onboarding.OtpScreen
 import com.infosys.presentation.ui.screens.onboarding.SignUpScreen
+import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.presentation.viewmodel.CartLocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
+import com.infosys.utils.enums.LoginType
 
 @Composable
 fun BottomNavHost(
     navHostController: NavHostController,
     viewModel: MainViewModel,
     cartLocalViewModel: CartLocalViewModel,
-    snackBarHost: SnackbarHostState
+    authViewModel: AuthViewModel,
+    snackBarHost: SnackbarHostState,
 ) {
-    NavHost(navController = navHostController, startDestination = NavigationRoute.SPLASH.route) {
+    val user = authViewModel.userInfo.collectAsState().value
+
+    NavHost(
+        navController = navHostController,
+        startDestination =
+        if (user == null || user.type == LoginType.Guest) {
+            NavigationRoute.SPLASH.route
+        } else if (!user.authenticate) {
+            NavigationRoute.OTP.route
+        } else {
+            NavigationRoute.HOME.route
+        }
+    ) {
         composable(NavigationRoute.SPLASH.route) {
             SplashScreen(navHostController)
         }
         composable(NavigationRoute.SIGNUP.route) {
-            SignUpScreen(navHostController)
+            SignUpScreen(navHostController, authViewModel)
         }
         composable(NavigationRoute.OTP.route) {
-            OtpScreen(navHostController)
+            OtpScreen(navHostController, authViewModel)
         }
         composable(NavigationRoute.HOME.route) {
+            Log.e("TAG", "BottomNavHost: HOME")
             viewModel.getAllCategories()
             MainScreen(viewModel)
         }
@@ -46,10 +64,13 @@ fun BottomNavHost(
         }
         composable(NavigationRoute.CART.route) {
             cartLocalViewModel.getAllCartItems()
-            CartScreen(cartLocalViewModel, navHostController)
+            authViewModel.readUserInfo()
+            CartScreen(cartLocalViewModel, authViewModel, navHostController, snackBarHost)
         }
         composable(NavigationRoute.PROFILE.route) {
-            ProfileScreen()
+            Log.e("TAG", "BottomNavHost: PROFILE")
+            authViewModel.readUserInfo()
+            ProfileScreen(authViewModel, navHostController)
         }
         composable(NavigationRoute.SUBCATEGORY.route) {
             SubCategoryScreen(viewModel, cartLocalViewModel)

@@ -1,25 +1,32 @@
 package com.infosys.di
 
+import com.infosys.data.model.usecase.AuthUseCase
 import com.infosys.data.model.usecase.LocalUseCase
 import com.infosys.data.model.usecase.RemoteUseCase
 import com.infosys.domain.repository.AllCartItemsLocalRepository
 import com.infosys.domain.repository.AllCategoriesRepository
+import com.infosys.domain.repository.ClearUserInfoLocalRepository
 import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
 import com.infosys.domain.repository.MenuListRepository
+import com.infosys.domain.repository.ReadUserInfoLocalRepository
 import com.infosys.domain.repository.SubCategoriesRepository
 import com.infosys.domain.repository.SubCategoryDetailsRepository
 import com.infosys.domain.repository.UpdateCartItemLocalRepository
+import com.infosys.domain.repository.WriteUserInfoLocalRepository
 import com.infosys.domain.usecase.AllCartItemsLocalUseCase
 import com.infosys.domain.usecase.AllCategoriesUseCase
+import com.infosys.domain.usecase.ClearUserInfoLocalUseCase
 import com.infosys.domain.usecase.DeleteCartItemLocalUseCase
 import com.infosys.domain.usecase.FetchCartItemLocalUseCase
 import com.infosys.domain.usecase.InsertCartItemLocalUseCase
 import com.infosys.domain.usecase.MenuListUseCase
+import com.infosys.domain.usecase.ReadUserInfoLocalUseCase
 import com.infosys.domain.usecase.SubCategoriesUseCase
 import com.infosys.domain.usecase.SubCategoryDetailsUseCase
 import com.infosys.domain.usecase.UpdateCartItemLocalUseCase
+import com.infosys.domain.usecase.WriteUserInfoLocalUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -108,4 +115,34 @@ class UseCaseModule {
         subCategoryDetailsUseCase: SubCategoryDetailsUseCase,
         menuListUseCase: MenuListUseCase
     ) = RemoteUseCase(allCategoriesUseCase, subCategoriesUseCase, subCategoryDetailsUseCase, menuListUseCase)
+
+    @Provides
+    fun provideReadUserInfoLocalUseCase(
+        repository: ReadUserInfoLocalRepository
+    ): ReadUserInfoLocalUseCase {
+        return ReadUserInfoLocalUseCase(repository)
+    }
+
+    @Provides
+    fun provideWriteUserInfoLocalUseCase(
+        repository: WriteUserInfoLocalRepository
+    ): WriteUserInfoLocalUseCase {
+        return WriteUserInfoLocalUseCase(repository)
+    }
+
+    @Provides
+    fun provideClearUserInfoLocalUseCase(
+        repository: ClearUserInfoLocalRepository
+    ): ClearUserInfoLocalUseCase {
+        return ClearUserInfoLocalUseCase(repository)
+    }
+
+    @Provides
+    fun provideAuthUseCase(
+        readUserInfoLocalUseCase: ReadUserInfoLocalUseCase,
+        writeUserInfoLocalUseCase: WriteUserInfoLocalUseCase,
+        clearUserInfoLocalUseCase: ClearUserInfoLocalUseCase
+    ): AuthUseCase {
+        return AuthUseCase(readUserInfoLocalUseCase, writeUserInfoLocalUseCase, clearUserInfoLocalUseCase)
+    }
 }

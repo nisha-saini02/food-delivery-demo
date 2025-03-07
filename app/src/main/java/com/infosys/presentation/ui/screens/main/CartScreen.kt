@@ -1,5 +1,6 @@
 package com.infosys.presentation.ui.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,8 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,14 +29,32 @@ import com.infosys.presentation.ui.screens.utility.TextTitleMedium
 import com.infosys.presentation.ui.screens.listViews.GridListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
+import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
 import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.utils.enums.LoginType
+import kotlinx.coroutines.launch
 
 @Composable
-fun CartScreen(cartLocalViewModel: CartLocalViewModel, navHostController: NavHostController) {
+fun CartScreen(
+    cartLocalViewModel: CartLocalViewModel,
+    authViewModel: AuthViewModel,
+    navHostController: NavHostController,
+    snackBarHost: SnackbarHostState
+) {
     val cart = cartLocalViewModel.cart.collectAsState().value
+    val deleteCart = cartLocalViewModel.deleteItem.collectAsState().value
+    val userInfo = authViewModel.userInfo.collectAsState().value
+
+    val coroutineState = rememberCoroutineScope()
+
+    if ((deleteCart.data ?: 0) > 0) {
+        Log.e("TAG", "CartScreen: CART ITEM DELETED")
+        cartLocalViewModel.getAllCartItems()
+        cartLocalViewModel.resetDeleteObserver()
+    }
 
     Column(
         modifier = Modifier
@@ -73,13 +95,12 @@ fun CartScreen(cartLocalViewModel: CartLocalViewModel, navHostController: NavHos
                         ) { subCategory, count, cartFunction ->
                             val myCart = Cart(subCategory.idMeal.toString(), subCategory.strMeal.toString(), null, subCategory.strMealThumb.toString(), count)
                             when(cartFunction) {
-                                CartFunctions.INSERT -> TODO("Insertion item to cart is pending")
+                                CartFunctions.INSERT -> {}
                                 CartFunctions.UPDATE -> {
                                     cartLocalViewModel.updateItem(myCart)
                                 }
                                 CartFunctions.DELETE -> {
                                     cartLocalViewModel.deleteItem(myCart)
-                                    cartLocalViewModel.getAllCartItems()
                                 }
                             }
                         }
@@ -90,9 +111,22 @@ fun CartScreen(cartLocalViewModel: CartLocalViewModel, navHostController: NavHos
                         ButtonCr(
                             Yellow,
                             text = "Checkout",
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
                         ) {
-                            navHostController.navigate(NavigationRoute.CHECKOUT.route)
+                            if (userInfo == null || userInfo.type == LoginType.Guest || !userInfo.authenticate) {
+                                coroutineState.launch {
+                                    snackBarHost.showSnackbar(
+                                        "Please login first to checkout these items.",
+                                        null,
+                                        true,
+                                        SnackbarDuration.Short
+                                    )
+                                }
+                            } else {
+                                navHostController.navigate(NavigationRoute.CHECKOUT.route)
+                            }
                         }
                     }
                 }

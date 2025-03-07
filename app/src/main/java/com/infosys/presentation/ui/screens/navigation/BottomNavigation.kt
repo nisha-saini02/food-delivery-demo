@@ -17,13 +17,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
+import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.presentation.viewmodel.CartLocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel) {
+fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel, authViewModel: AuthViewModel) {
     val navHostController = rememberNavController()
     val snackBarHost = remember { SnackbarHostState() }
 
@@ -41,7 +42,7 @@ fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: Car
         },
         snackbarHost = { SnackbarHost(snackBarHost) }
     ) { _ ->
-        BottomNavHost(navHostController, viewModel, cartLocalViewModel, snackBarHost)
+        BottomNavHost(navHostController, viewModel, cartLocalViewModel, authViewModel, snackBarHost)
     }
 }
 
@@ -62,7 +63,11 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 0,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.HOME.route)
+                    navHostController.navigate(NavigationRoute.HOME.route) {
+                        popUpTo(navHostController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                    }
                     index.value = 0
                 },
                 icon = {

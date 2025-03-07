@@ -165,13 +165,21 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                                                 TextTitleMedium("₹${25*count.value}", textAlign = TextAlign.Start, modifier = Modifier.weight(0.6f))
                                                 Row (modifier = Modifier.weight(0.6f)) {
                                                     Image(R.drawable.ic_remove, modifier = Modifier.wrapContentSize()) {
-                                                        if (count.value > 1) {
+                                                        if (count.value == 1) {
+                                                            cartEvent.invoke(
+                                                                item,
+                                                                item.addToCartCount,
+                                                                CartFunctions.DELETE
+                                                            )
+                                                        } else {
                                                             item.addToCartCount -= 1
                                                             count.value = item.addToCartCount
 
-                                                            cartEvent.invoke(item, item.addToCartCount, CartFunctions.UPDATE)
-                                                        } else {
-                                                            cartEvent.invoke(item, item.addToCartCount, CartFunctions.DELETE)
+                                                            cartEvent.invoke(
+                                                                item,
+                                                                item.addToCartCount,
+                                                                CartFunctions.UPDATE
+                                                            )
                                                         }
                                                     }
                                                     Spacer(8)
