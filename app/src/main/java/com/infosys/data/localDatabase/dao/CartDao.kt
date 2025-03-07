@@ -24,4 +24,10 @@ interface CartDao {
 
     @Delete
     suspend fun delete(cart: Cart): Int
+
+    @Query("SELECT SUM(cart_count) FROM cart")
+    suspend fun getCartGrandSum(): Float?
+
+    @Query("SELECT COUNT(*) FROM cart")
+    suspend fun getCartListCount(): Int
 }

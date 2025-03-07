@@ -1,6 +1,8 @@
 package com.infosys.data.localDatabase.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.infosys.data.model.order.Order
 
@@ -8,4 +10,7 @@ import com.infosys.data.model.order.Order
 interface OrderDao {
     @Query("SELECT * FROM `order`")
     suspend fun getAll(): List<Order>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(order: Order): Long
 }

@@ -80,7 +80,9 @@ fun BottomNavHost(
             CheckoutScreen(navHostController, snackBarHost)
         }
         composable(NavigationRoute.ADDRESS.route) {
-            SearchAddressScreen(navHostController)
+            cartLocalViewModel.countCartItems()
+            cartLocalViewModel.grandTotalCartItems()
+            SearchAddressScreen(navHostController, cartLocalViewModel)
         }
         composable(NavigationRoute.ORDER.route) {
             cartLocalViewModel.orderList()

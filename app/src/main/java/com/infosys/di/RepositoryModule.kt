@@ -7,9 +7,12 @@ import com.infosys.data.remote.FoodService
 import com.infosys.data.repositoryImpl.AllCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.AllCategoriesRepositoryImpl
 import com.infosys.data.repositoryImpl.ClearUserInfoLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.CountCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.DeleteCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.FetchCartItemLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.GrandTotalCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.InsertCartItemLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.InsertOrderItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.MenuListRepositoryImpl
 import com.infosys.data.repositoryImpl.OrderListLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.ReadUserInfoLocalRepositoryImpl
@@ -20,9 +23,12 @@ import com.infosys.data.repositoryImpl.WriteUserInfoLocalRepositoryImpl
 import com.infosys.domain.repository.AllCartItemsLocalRepository
 import com.infosys.domain.repository.AllCategoriesRepository
 import com.infosys.domain.repository.ClearUserInfoLocalRepository
+import com.infosys.domain.repository.CountCartItemsLocalRepository
 import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
+import com.infosys.domain.repository.GrandTotalCartItemsLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
+import com.infosys.domain.repository.InsertOrderItemLocalRepository
 import com.infosys.domain.repository.MenuListRepository
 import com.infosys.domain.repository.OrderListLocalRepository
 import com.infosys.domain.repository.ReadUserInfoLocalRepository
@@ -107,6 +113,27 @@ class RepositoryModule {
         service: OrderDao
     ): OrderListLocalRepository {
         return OrderListLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideInsertOrderLocalRepository(
+        service: OrderDao
+    ): InsertOrderItemLocalRepository {
+        return InsertOrderItemLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideCountCartItemsLocalRepository(
+        service: CartDao
+    ): CountCartItemsLocalRepository {
+        return CountCartItemsLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideGrandTotalCartItemsLocalRepository(
+        service: CartDao
+    ): GrandTotalCartItemsLocalRepository {
+        return GrandTotalCartItemsLocalRepositoryImpl(service)
     }
 
     @Provides

@@ -33,8 +33,17 @@ open class LocalViewModel @Inject constructor(
     private var _deleteItem = MutableStateFlow<Resource<Int>>(Resource.Loading())
     val deleteItem: StateFlow<Resource<Int>> = _deleteItem
 
+    private var _countCartItems = MutableStateFlow<Resource<Int?>>(Resource.Loading())
+    val countCartItems: StateFlow<Resource<Int?>> = _countCartItems
+
+    private var _grandTotalCartItems = MutableStateFlow<Resource<Float?>>(Resource.Loading())
+    val grandTotalCartItems: StateFlow<Resource<Float?>> = _grandTotalCartItems
+
     private var _orders = MutableStateFlow<Resource<List<Order>>>(Resource.Loading())
     val orders: StateFlow<Resource<List<Order>>> = _orders
+
+    private var _insertOrder = MutableStateFlow<Resource<Long>>(Resource.Loading())
+    val insertOrder: StateFlow<Resource<Long>> = _insertOrder
 
     fun getAllCartItems() {
         viewModelScope.launch {
@@ -126,6 +135,36 @@ open class LocalViewModel @Inject constructor(
         _deleteItem.value = Resource.Success(0)
     }
 
+    fun countCartItems() {
+        viewModelScope.launch {
+            _countCartItems.value= Resource.Loading()
+            if (_countCartItems.value.data == null)
+                localUseCase.countCartItemsLocalUseCase.getCartListCount()
+                    .onStart {  }
+                    .catch {
+                        _countCartItems.value = Resource.Error(it.message.toString())
+                    }
+                    .collect {
+                        _countCartItems.value = Resource.Success(it)
+                    }
+        }
+    }
+
+    fun grandTotalCartItems() {
+        viewModelScope.launch {
+            _grandTotalCartItems.value= Resource.Loading()
+            if (_grandTotalCartItems.value.data == null)
+                localUseCase.grandTotalCartItemsLocalUseCase.getCartGrandSum()
+                    .onStart {  }
+                    .catch {
+                        _grandTotalCartItems.value = Resource.Error(it.message.toString())
+                    }
+                    .collect {
+                        _grandTotalCartItems.value = Resource.Success(it)
+                    }
+        }
+    }
+
     fun orderList() {
         viewModelScope.launch {
             _orders.value= Resource.Loading()
@@ -137,6 +176,21 @@ open class LocalViewModel @Inject constructor(
                     }
                     .collect {
                         _orders.value = Resource.Success(it)
+                    }
+        }
+    }
+
+    fun insertOrderItem(order: Order) {
+        viewModelScope.launch {
+            _insertOrder.value= Resource.Loading()
+            if (_insertOrder.value.data == null)
+                localUseCase.insertOrderItemLocalUseCase.insertItem(order)
+                    .onStart {  }
+                    .catch {
+                        _insertOrder.value = Resource.Error(it.message.toString())
+                    }
+                    .collect {
+                        _insertOrder.value = Resource.Success(it)
                     }
         }
     }

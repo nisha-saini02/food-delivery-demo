@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
+import com.infosys.data.model.order.Order
 import com.infosys.presentation.ui.screens.utility.EditTextBodyMedium
 import com.infosys.presentation.ui.screens.utility.HorizontalLine
 import com.infosys.presentation.ui.screens.utility.Image
@@ -33,15 +35,18 @@ import com.infosys.presentation.ui.screens.utility.TextLabelMedium
 import com.infosys.presentation.ui.screens.utility.TextLabelSmall
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
+import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.theme.Black
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 
 @Composable
-fun SearchAddressScreen(navHostController: NavHostController) {
+fun SearchAddressScreen(navHostController: NavHostController, cartLocalViewModel: LocalViewModel) {
 
     val search = remember { mutableStateOf("") }
+    val countCartItems = cartLocalViewModel.countCartItems.collectAsState().value
+    val grandTotalCartItems = cartLocalViewModel.grandTotalCartItems.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -103,6 +108,12 @@ fun SearchAddressScreen(navHostController: NavHostController) {
                     LocationItems(
                         listOfCities.filter { it.contains(search.value, ignoreCase = true) }
                     ) {
+                        cartLocalViewModel.insertOrderItem(
+                            Order(
+                                orderGrandTotal = grandTotalCartItems.data,
+                                orderItems = countCartItems.data
+                            )
+                        )
                         navHostController.navigate(NavigationRoute.ORDER.route)
                     }
                 }
