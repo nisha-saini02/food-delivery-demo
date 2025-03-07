@@ -17,8 +17,10 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.theme.Orange
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -52,6 +54,10 @@ fun OrderDetailScreen(cartLocalViewModel: LocalViewModel) {
             Marker(
                 state = MarkerState(position = destination),
                 title = "Your location"
+            )
+            Polyline(
+                listOf(source, destination),
+                color = Orange
             )
         }
     }
