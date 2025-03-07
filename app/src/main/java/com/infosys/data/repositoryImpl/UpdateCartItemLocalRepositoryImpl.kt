@@ -1,6 +1,6 @@
 package com.infosys.data.repositoryImpl
 
-import com.infosys.data.localDatabase.CartDao
+import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.model.cart.Cart
 import com.infosys.domain.repository.UpdateCartItemLocalRepository
 import kotlinx.coroutines.channels.onFailure

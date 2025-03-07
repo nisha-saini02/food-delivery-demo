@@ -3,6 +3,7 @@ package com.infosys.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.infosys.data.model.cart.Cart
+import com.infosys.data.model.order.Order
 import com.infosys.data.model.usecase.LocalUseCase
 import com.infosys.data.remote.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class CartLocalViewModel @Inject constructor(
+open class LocalViewModel @Inject constructor(
     val localUseCase: LocalUseCase,
 ): ViewModel() {
     private var _cart = MutableStateFlow<Resource<List<Cart>?>>(Resource.Loading())
@@ -31,6 +32,9 @@ open class CartLocalViewModel @Inject constructor(
 
     private var _deleteItem = MutableStateFlow<Resource<Int>>(Resource.Loading())
     val deleteItem: StateFlow<Resource<Int>> = _deleteItem
+
+    private var _orders = MutableStateFlow<Resource<List<Order>>>(Resource.Loading())
+    val orders: StateFlow<Resource<List<Order>>> = _orders
 
     fun getAllCartItems() {
         viewModelScope.launch {
@@ -120,5 +124,20 @@ open class CartLocalViewModel @Inject constructor(
     }
     fun resetDeleteObserver() {
         _deleteItem.value = Resource.Success(0)
+    }
+
+    fun orderList() {
+        viewModelScope.launch {
+            _orders.value= Resource.Loading()
+            if (_orders.value.data == null)
+                localUseCase.orderListLocalUseCase.orderList()
+                    .onStart {  }
+                    .catch {
+                        _orders.value = Resource.Error(it.message.toString())
+                    }
+                    .collect {
+                        _orders.value = Resource.Success(it)
+                    }
+        }
     }
 }

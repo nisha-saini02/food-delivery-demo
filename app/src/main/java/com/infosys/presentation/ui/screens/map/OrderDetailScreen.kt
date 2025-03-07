@@ -16,7 +16,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun OrderPlaceScreen() {
+fun OrderDetailScreen() {
     val singapore = LatLng(1.35, 103.87)
     val singapore2 = LatLng(1.39, 104.87)
     val cameraPositionState = rememberCameraPositionState {

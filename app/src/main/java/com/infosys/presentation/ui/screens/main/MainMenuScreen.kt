@@ -43,13 +43,13 @@ import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListView
 import com.infosys.presentation.ui.screens.listViews.MainMenuListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
-import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel, navigationHostController: NavHostController) {
+fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel, navigationHostController: NavHostController) {
     val search = remember { mutableStateOf("") }
     val categories = viewModel.categories.collectAsState().value
     val meals = viewModel.meals.collectAsState().value
@@ -198,7 +198,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewMo
 }
 
 @Composable
-fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel) {
+fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel) {
     val subCategories = viewModel.subcategories.collectAsState().value
     val category = viewModel.category.collectAsState().value
 

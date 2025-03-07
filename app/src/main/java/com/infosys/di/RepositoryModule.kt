@@ -1,7 +1,8 @@
 package com.infosys.di
 
-import com.infosys.data.localDatabase.CartDao
+import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.localDatabase.MyDataStore
+import com.infosys.data.localDatabase.dao.OrderDao
 import com.infosys.data.remote.FoodService
 import com.infosys.data.repositoryImpl.AllCartItemsLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.AllCategoriesRepositoryImpl
@@ -10,6 +11,7 @@ import com.infosys.data.repositoryImpl.DeleteCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.FetchCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.InsertCartItemLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.MenuListRepositoryImpl
+import com.infosys.data.repositoryImpl.OrderListLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.ReadUserInfoLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.SubCategoriesRepositoryImpl
 import com.infosys.data.repositoryImpl.SubCategoryDetailsRepositoryImpl
@@ -22,6 +24,7 @@ import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
 import com.infosys.domain.repository.MenuListRepository
+import com.infosys.domain.repository.OrderListLocalRepository
 import com.infosys.domain.repository.ReadUserInfoLocalRepository
 import com.infosys.domain.repository.SubCategoriesRepository
 import com.infosys.domain.repository.SubCategoryDetailsRepository
@@ -97,6 +100,13 @@ class RepositoryModule {
         service: CartDao
     ): DeleteCartItemLocalRepository {
         return DeleteCartItemLocalRepositoryImpl(service)
+    }
+
+    @Provides
+    fun provideOrderListLocalRepository(
+        service: OrderDao
+    ): OrderListLocalRepository {
+        return OrderListLocalRepositoryImpl(service)
     }
 
     @Provides

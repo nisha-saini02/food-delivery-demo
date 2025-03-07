@@ -20,11 +20,11 @@ import com.infosys.R
 import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
-import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: CartLocalViewModel, authViewModel: AuthViewModel) {
+fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel, authViewModel: AuthViewModel) {
     val navHostController = rememberNavController()
     val snackBarHost = remember { SnackbarHostState() }
 
@@ -124,17 +124,35 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 3,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.PROFILE.route)
+                    navHostController.navigate(NavigationRoute.ORDER.route)
                     index.value = 3
                 },
                 icon = {
                     BadgedBox(badge = {}) {
                         Icon(
                             painterResource(
-                                if (index.value == 3) R.drawable.person_selected
-                                else R.drawable.person_unselected
+                                R.drawable.ic_orders
                             ), null,
                             tint = if (index.value == 3) Orange else Gray,
+                        )
+                    }
+                },
+                alwaysShowLabel = false,
+            ),
+            NavigationBarItem(
+                selected = index.value == 4,
+                onClick = {
+                    navHostController.navigate(NavigationRoute.PROFILE.route)
+                    index.value = 4
+                },
+                icon = {
+                    BadgedBox(badge = {}) {
+                        Icon(
+                            painterResource(
+                                if (index.value == 4) R.drawable.person_selected
+                                else R.drawable.person_unselected
+                            ), null,
+                            tint = if (index.value == 4) Orange else Gray,
                         )
                     }
                 },

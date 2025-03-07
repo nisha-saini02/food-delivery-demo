@@ -11,5 +11,6 @@ enum class NavigationRoute(val route: String) {
     SUBCATEGORY("subcategory"),
     CHECKOUT("checkout"),
     ADDRESS("address"),
-    ORDER("order")
+    ORDER("order"),
+    ORDER_DETAILS("order_details"),
 }

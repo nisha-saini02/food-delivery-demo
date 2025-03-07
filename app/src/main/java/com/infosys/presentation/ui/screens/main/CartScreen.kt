@@ -33,13 +33,13 @@ import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
-import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.utils.enums.LoginType
 import kotlinx.coroutines.launch
 
 @Composable
 fun CartScreen(
-    cartLocalViewModel: CartLocalViewModel,
+    cartLocalViewModel: LocalViewModel,
     authViewModel: AuthViewModel,
     navHostController: NavHostController,
     snackBarHost: SnackbarHostState

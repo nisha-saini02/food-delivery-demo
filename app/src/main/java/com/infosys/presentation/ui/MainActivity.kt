@@ -9,14 +9,14 @@ import com.infosys.presentation.ui.screens.navigation.BottomNavigationController
 import com.infosys.presentation.viewmodel.AuthViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import com.infosys.theme.FoodDeliveryDemoTheme
-import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.presentation.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-    private val cartLocalViewModel: CartLocalViewModel by viewModels()
+    private val cartLocalViewModel: LocalViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

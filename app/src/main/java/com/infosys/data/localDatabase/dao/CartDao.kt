@@ -1,4 +1,4 @@
-package com.infosys.data.localDatabase
+package com.infosys.data.localDatabase.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

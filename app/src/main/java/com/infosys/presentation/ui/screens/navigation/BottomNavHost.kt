@@ -15,11 +15,12 @@ import com.infosys.presentation.ui.screens.main.MainScreen
 import com.infosys.presentation.ui.screens.main.ProfileScreen
 import com.infosys.presentation.ui.screens.main.SearchAddressScreen
 import com.infosys.presentation.ui.screens.main.SubCategoryScreen
-import com.infosys.presentation.ui.screens.map.OrderPlaceScreen
+import com.infosys.presentation.ui.screens.main.OrderPlaceScreen
+import com.infosys.presentation.ui.screens.map.OrderDetailScreen
 import com.infosys.presentation.ui.screens.onboarding.OtpScreen
 import com.infosys.presentation.ui.screens.onboarding.SignUpScreen
 import com.infosys.presentation.viewmodel.AuthViewModel
-import com.infosys.presentation.viewmodel.CartLocalViewModel
+import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import com.infosys.utils.enums.LoginType
 
@@ -27,7 +28,7 @@ import com.infosys.utils.enums.LoginType
 fun BottomNavHost(
     navHostController: NavHostController,
     viewModel: MainViewModel,
-    cartLocalViewModel: CartLocalViewModel,
+    cartLocalViewModel: LocalViewModel,
     authViewModel: AuthViewModel,
     snackBarHost: SnackbarHostState,
 ) {
@@ -82,7 +83,11 @@ fun BottomNavHost(
             SearchAddressScreen(navHostController)
         }
         composable(NavigationRoute.ORDER.route) {
-            OrderPlaceScreen()
+            cartLocalViewModel.orderList()
+            OrderPlaceScreen(navHostController, cartLocalViewModel)
+        }
+        composable(NavigationRoute.ORDER_DETAILS.route) {
+            OrderDetailScreen()
         }
     }
 }

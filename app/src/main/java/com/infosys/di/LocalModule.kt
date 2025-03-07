@@ -3,8 +3,9 @@ package com.infosys.di
 import android.content.Context
 import androidx.room.Room
 import com.infosys.data.localDatabase.AppDatabase
-import com.infosys.data.localDatabase.CartDao
+import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.localDatabase.MyDataStore
+import com.infosys.data.localDatabase.dao.OrderDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +34,11 @@ class LocalModule {
     @Provides
     fun provideUserDao(database: AppDatabase): CartDao {
         return database.cartDao()
+    }
+
+    @Provides
+    fun provideOrderDao(database: AppDatabase): OrderDao {
+        return database.orderDao()
     }
 
     @Provides

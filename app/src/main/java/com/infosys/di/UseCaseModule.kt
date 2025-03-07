@@ -10,6 +10,7 @@ import com.infosys.domain.repository.DeleteCartItemLocalRepository
 import com.infosys.domain.repository.FetchCartItemLocalRepository
 import com.infosys.domain.repository.InsertCartItemLocalRepository
 import com.infosys.domain.repository.MenuListRepository
+import com.infosys.domain.repository.OrderListLocalRepository
 import com.infosys.domain.repository.ReadUserInfoLocalRepository
 import com.infosys.domain.repository.SubCategoriesRepository
 import com.infosys.domain.repository.SubCategoryDetailsRepository
@@ -22,6 +23,7 @@ import com.infosys.domain.usecase.DeleteCartItemLocalUseCase
 import com.infosys.domain.usecase.FetchCartItemLocalUseCase
 import com.infosys.domain.usecase.InsertCartItemLocalUseCase
 import com.infosys.domain.usecase.MenuListUseCase
+import com.infosys.domain.usecase.OrderListLocalUseCase
 import com.infosys.domain.usecase.ReadUserInfoLocalUseCase
 import com.infosys.domain.usecase.SubCategoriesUseCase
 import com.infosys.domain.usecase.SubCategoryDetailsUseCase
@@ -100,13 +102,21 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideOrderListLocalUseCase(
+        repository: OrderListLocalRepository
+    ): OrderListLocalUseCase {
+        return OrderListLocalUseCase(repository)
+    }
+
+    @Provides
     fun provideLocalUseCase(
         allCartItemsLocalUseCase: AllCartItemsLocalUseCase,
         fetchCartItemLocalUseCase: FetchCartItemLocalUseCase,
         insertCartItemLocalUseCase: InsertCartItemLocalUseCase,
         updateCartItemLocalUseCase: UpdateCartItemLocalUseCase,
-        deleteCartItemLocalUseCase: DeleteCartItemLocalUseCase
-    ) = LocalUseCase(allCartItemsLocalUseCase, fetchCartItemLocalUseCase, insertCartItemLocalUseCase, updateCartItemLocalUseCase, deleteCartItemLocalUseCase)
+        deleteCartItemLocalUseCase: DeleteCartItemLocalUseCase,
+        orderListLocalUseCase: OrderListLocalUseCase,
+    ) = LocalUseCase(allCartItemsLocalUseCase, fetchCartItemLocalUseCase, insertCartItemLocalUseCase, updateCartItemLocalUseCase, deleteCartItemLocalUseCase, orderListLocalUseCase)
 
     @Provides
     fun provideRemoteUseCase(
