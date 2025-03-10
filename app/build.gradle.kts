@@ -61,6 +61,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation (libs.mockk)
+    androidTestImplementation (libs.mockk.android)
 
     //navigation
     implementation(libs.androidx.navigation.compose)

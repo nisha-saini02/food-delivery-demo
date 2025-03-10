@@ -9,6 +9,9 @@ activityCompose = "1.10.0"
 composeBom = "2024.04.01"
 #daggerHilt = "2.48.1"
 daggerHilt = "2.51.1"
+mockitoCore = "2.19.0"
+mockk = "1.13.17"
+mockkAndroid = "1.13.17"
 retrofit = "2.11.0"
 coroutine = "1.8.0"
 viewmodel = "2.8.7"
@@ -35,6 +38,9 @@ hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-p
 gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
 coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkAndroid" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewmodel" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
