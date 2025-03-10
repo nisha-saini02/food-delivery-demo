@@ -18,11 +18,11 @@ import javax.inject.Inject
 open class LocalViewModel @Inject constructor(
     val localUseCase: LocalUseCase,
 ): ViewModel() {
-    private var _cart = MutableStateFlow<Resource<List<Cart>?>>(Resource.Loading())
-    val cart: StateFlow<Resource<List<Cart>?>> = _cart
+    private var _cart = MutableStateFlow<Resource<List<Cart>>>(Resource.Loading())
+    val cart: StateFlow<Resource<List<Cart>>> = _cart
 
-    private var _cartItem = MutableStateFlow<Resource<Cart>>(Resource.Loading())
-    val cartItem: StateFlow<Resource<Cart>> = _cartItem
+    private var _cartItem = MutableStateFlow<Resource<Cart?>>(Resource.Loading())
+    val cartItem: StateFlow<Resource<Cart?>> = _cartItem
 
     private var _insertItem = MutableStateFlow<Resource<Long>>(Resource.Loading())
     val insertItem: StateFlow<Resource<Long>> = _insertItem
@@ -61,7 +61,7 @@ open class LocalViewModel @Inject constructor(
                         _cart.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        _cart.value = Resource.Success(it)
+                        _cart.value = it
                     }
         }
     }
@@ -76,10 +76,7 @@ open class LocalViewModel @Inject constructor(
                         _cartItem.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        if (it != null)
-                            _cartItem.value = Resource.Success(it)
-                        else
-                            _cartItem.value = Resource.Error("data not present")
+                        _cartItem.value = it
                     }
         }
     }
@@ -94,10 +91,7 @@ open class LocalViewModel @Inject constructor(
                         _insertItem.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        if (it >= 1L)
-                            _insertItem.value = Resource.Success(it)
-                        else
-                            _insertItem.value = Resource.Error("data not present")
+                        _insertItem.value = it
                     }
         }
     }
@@ -112,10 +106,7 @@ open class LocalViewModel @Inject constructor(
                         _updateItem.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        if (it >= 1L)
-                            _updateItem.value = Resource.Success(it)
-                        else
-                            _updateItem.value = Resource.Error("data not present")
+                        _updateItem.value = it
                     }
         }
     }
@@ -130,10 +121,7 @@ open class LocalViewModel @Inject constructor(
                         _deleteItem.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        if (it >= 1L)
-                            _deleteItem.value = Resource.Success(it)
-                        else
-                            _deleteItem.value = Resource.Error("data not present")
+                        _deleteItem.value = it
                     }
         }
     }
@@ -151,7 +139,7 @@ open class LocalViewModel @Inject constructor(
                         _countCartItems.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        _countCartItems.value = Resource.Success(it)
+                        _countCartItems.value = it
                     }
         }
     }
@@ -166,7 +154,7 @@ open class LocalViewModel @Inject constructor(
                         _grandTotalCartItems.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        _grandTotalCartItems.value = Resource.Success(it)
+                        _grandTotalCartItems.value = it
                     }
         }
     }
@@ -181,7 +169,7 @@ open class LocalViewModel @Inject constructor(
                         _deleteAllCarts.value = Resource.Error(it.message.toString())
                     }
                     .collect {
-                        _deleteAllCarts.value = Resource.Success(it)
+                        _deleteAllCarts.value = it
                     }
         }
     }
@@ -195,7 +183,7 @@ open class LocalViewModel @Inject constructor(
                     _orders.value = Resource.Error(it.message.toString())
                 }
                 .collect {
-                    _orders.value = Resource.Success(it)
+                    _orders.value = it
                 }
         }
     }
@@ -209,7 +197,7 @@ open class LocalViewModel @Inject constructor(
                     _insertOrder.value = Resource.Error(it.message.toString())
                 }
                 .collect {
-                    _insertOrder.value = Resource.Success(it)
+                    _insertOrder.value = it
                 }
         }
     }
@@ -223,7 +211,7 @@ open class LocalViewModel @Inject constructor(
                     _fetchOrder.value = Resource.Error(it.message.toString())
                 }
                 .collect {
-                    _fetchOrder.value = Resource.Success(it)
+                    _fetchOrder.value = it
                 }
         }
     }

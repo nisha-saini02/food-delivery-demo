@@ -48,7 +48,7 @@ import com.infosys.presentation.ui.screens.listViews.GridListView
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-    val data = viewModel.categories.collectAsState().value
+    val data = viewModel.categories.collectAsState().value.data
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -73,8 +73,8 @@ fun MainScreen(viewModel: MainViewModel) {
                 .weight(0.85f)
                 .padding(end = 16.dp, top = 16.dp, start = 16.dp, bottom = 85.dp)
         ) {
-            data.data?.let {
-                AnimateExpandableList(data.data, viewModel)
+            data?.categories?.let {
+                AnimateExpandableList(it, viewModel)
             }
         }
     }
@@ -102,7 +102,7 @@ fun AnimateExpandableList(citiesResponse: List<Category>, viewModel: MainViewMod
                         viewModel.getSubCategories(item.strCategory.toString())
                     }
                                    },
-                data.data
+                data
             )
         }
     }

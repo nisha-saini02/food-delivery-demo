@@ -1,9 +1,9 @@
 package com.infosys.domain.repository
 
 import com.infosys.data.model.category.sub_Category.SubCategoryResponse
+import com.infosys.data.remote.Resource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
 
 interface SubCategoriesRepository {
-    suspend fun getSubCategories(category: String): Flow<Response<SubCategoryResponse>>
+    suspend fun getSubCategories(category: String): Flow<Resource<SubCategoryResponse?>>
 }

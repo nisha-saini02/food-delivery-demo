@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel, navigationHostController: NavHostController) {
     val search = remember { mutableStateOf("") }
-    val categories = viewModel.categories.collectAsState().value
+    val categories = viewModel.categories.collectAsState().value.data?.categories
     val meals = viewModel.meals.collectAsState().value
     val insertItem = cartLocalViewModel.insertItem.collectAsState().value
 
@@ -120,7 +120,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
 
                 Spacer()
 
-                categories.data?.let {
+                categories?.let {
                     HorizontalCategoriesListView(it) {
                         viewModel.getSubCategories(it.strCategory.toString())
                         viewModel.category.value = it.strCategory.toString()
@@ -141,7 +141,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                 )
                 val item = remember { mutableStateOf(SubCategoryDetails()) }
 
-                meals.data?.let {
+                meals?.let {
                     MainMenuListView(
                         it,
                         clickEvent = { subCategoryDetails ->
@@ -233,7 +233,7 @@ fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewMod
                 .weight(0.85f),
         ) {
             Column {
-                subCategories.data?.let {
+                subCategories?.let {
                     GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
                         if(cartFunction == CartFunctions.INSERT) {
                             cartLocalViewModel.insertItem(

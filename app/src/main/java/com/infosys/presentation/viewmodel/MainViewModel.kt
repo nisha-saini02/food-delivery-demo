@@ -1,10 +1,11 @@
 package com.infosys.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.infosys.data.model.usecase.RemoteUseCase
 import com.infosys.data.remote.Resource
-import com.infosys.data.model.category.Category
+import com.infosys.data.model.category.CategoryResponse
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,52 +20,51 @@ import javax.inject.Inject
 open class MainViewModel @Inject constructor(
     val useCase: RemoteUseCase
 ): ViewModel() {
-    private var _categories = MutableStateFlow<Resource<List<Category>?>>(Resource.Loading())
-    //StateFlow: observable data holder classes; emit the new & update state to collector; holds only last known state
-    val categories: StateFlow<Resource<List<Category>?>> = _categories
+    private val TAG = MainViewModel::class.java.name
 
-    private var _subcategories = MutableStateFlow<Resource<List<SubCategory>?>>(Resource.Loading())
-    val subcategories: StateFlow<Resource<List<SubCategory>?>> = _subcategories
+    private var _categories = MutableStateFlow<Resource<CategoryResponse?>>(Resource.Loading())
+    //StateFlow: observable data holder classes; emit the new & update state to collector; holds only last known state
+    val categories: StateFlow<Resource<CategoryResponse?>> = _categories
+
+    private var _subcategories = MutableStateFlow<List<SubCategory>?>(listOf())
+    val subcategories: StateFlow<List<SubCategory>?> = _subcategories
     val category = MutableStateFlow("")
 
-    private var _subcategoriesDetails = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(
-        Resource.Loading())
-    val subcategoriesDetails: StateFlow<Resource<List<SubCategoryDetails>?>> = _subcategoriesDetails
+    private var _subcategoriesDetails = MutableStateFlow<List<SubCategoryDetails>?>(listOf())
+    val subcategoriesDetails: StateFlow<List<SubCategoryDetails>?> = _subcategoriesDetails
 
-    private var _meals = MutableStateFlow<Resource<List<SubCategoryDetails>?>>(Resource.Loading())
-    val meals: StateFlow<Resource<List<SubCategoryDetails>?>> = _meals
+    private var _meals = MutableStateFlow<List<SubCategoryDetails>?>(listOf())
+    val meals: StateFlow<List<SubCategoryDetails>?> = _meals
 
     fun getAllCategories() {
         viewModelScope.launch {
             _categories.value= Resource.Loading()
-            if (_categories.value.data.isNullOrEmpty())
-                useCase.allCategoriesUseCase.getAllCategories()
-                    .onStart {  }
-                    .catch {
-                        _categories.value = Resource.Error(it.message.toString())
-                    }
-                    .collect {
-                        _categories.value = if (it.isSuccessful) {
-                            Resource.Success(it.body()?.categories)
-                        } else {
-                            Resource.Error(it.message())
-                        }
-                    }
+            useCase.allCategoriesUseCase.getAllCategories()
+                .onStart {  }
+                .catch {
+                    _categories.value = Resource.Error(it.message.toString())
+                }
+                .collect {
+                    _categories.value = it
+                }
         }
     }
 
     fun getSubCategories(category: String) {
         viewModelScope.launch {
-            _subcategories.value= Resource.Loading()
             useCase.subCategoriesUseCase.getSubCategories(category)
                 .catch {
-                    _subcategories.value = Resource.Error(it.message.toString())
+                    _subcategories.value = null
                 }
                 .collect {
-                    _subcategories.value = if (it.isSuccessful) {
-                        Resource.Success(it.body()?.meals)
-                    } else {
-                        Resource.Error(it.message())
+                    when(it) {
+                        is Resource.Error -> {
+                            Log.e(TAG, "getSubCategories: ${it.message}")
+                        }
+                        is Resource.Loading -> {}
+                        is Resource.Success -> {
+                            _subcategories.value = it.data?.meals
+                        }
                     }
                 }
         }
@@ -72,16 +72,19 @@ open class MainViewModel @Inject constructor(
 
     fun getSubCategoryDetails(subcategoryId: String) {
         viewModelScope.launch {
-            _subcategoriesDetails.value= Resource.Loading()
             useCase.subCategoryDetailsUseCase.getSubCategoryDetails(subcategoryId)
                 .catch {
-                    _subcategoriesDetails.value = Resource.Error(it.message.toString())
+                    Log.e(TAG, "getSubCategoryDetails: ${it.message}")
                 }
                 .collect {
-                    _subcategoriesDetails.value = if (it.isSuccessful) {
-                        Resource.Success(it.body()?.meals)
-                    } else {
-                        Resource.Error(it.message())
+                    when(it) {
+                        is Resource.Error -> {
+                            Log.e(TAG, "getSubCategoryDetails: ${it.message}")
+                        }
+                        is Resource.Loading -> {}
+                        is Resource.Success -> {
+                            _subcategoriesDetails.value = it.data?.meals
+                        }
                     }
                 }
         }
@@ -89,16 +92,19 @@ open class MainViewModel @Inject constructor(
 
     fun getMenuList(search: String = "") {
         viewModelScope.launch {
-            _meals.value= Resource.Loading()
             useCase.menuListUseCase.getMenuList(search)
                 .catch {
-                    _meals.value = Resource.Error(it.message.toString())
+                    Log.e(TAG, "getMenuList: ${it.message}")
                 }
                 .collect {
-                    _meals.value = if (it.isSuccessful) {
-                        Resource.Success(it.body()?.meals)
-                    } else {
-                        Resource.Error(it.message())
+                    when(it) {
+                        is Resource.Error -> {
+                            Log.e(TAG, "getMenuList: ${it.message}")
+                        }
+                        is Resource.Loading -> {}
+                        is Resource.Success -> {
+                            _meals.value = it.data?.meals
+                        }
                     }
                 }
         }
