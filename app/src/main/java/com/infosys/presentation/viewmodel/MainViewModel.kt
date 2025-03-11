@@ -1,18 +1,15 @@
 package com.infosys.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.infosys.data.model.usecase.RemoteUseCase
 import com.infosys.data.remote.Resource
 import com.infosys.data.model.category.CategoryResponse
-import com.infosys.data.model.category.sub_Category.SubCategory
-import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
+import com.infosys.data.model.category.sub_Category.SubCategoryResponse
+import com.infosys.data.model.category.sub_Category.details.SubCategoryDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,93 +17,74 @@ import javax.inject.Inject
 open class MainViewModel @Inject constructor(
     val useCase: RemoteUseCase
 ): ViewModel() {
-    private val TAG = MainViewModel::class.java.name
 
     private var _categories = MutableStateFlow<Resource<CategoryResponse?>>(Resource.Loading())
     //StateFlow: observable data holder classes; emit the new & update state to collector; holds only last known state
     val categories: StateFlow<Resource<CategoryResponse?>> = _categories
 
-    private var _subcategories = MutableStateFlow<List<SubCategory>?>(listOf())
-    val subcategories: StateFlow<List<SubCategory>?> = _subcategories
+    private var _subcategories = MutableStateFlow<Resource<SubCategoryResponse?>>(Resource.Loading())
+    val subcategories: StateFlow<Resource<SubCategoryResponse?>> = _subcategories
     val category = MutableStateFlow("")
 
-    private var _subcategoriesDetails = MutableStateFlow<List<SubCategoryDetails>?>(listOf())
-    val subcategoriesDetails: StateFlow<List<SubCategoryDetails>?> = _subcategoriesDetails
+    private var _subcategoriesDetails = MutableStateFlow<Resource<SubCategoryDetailsResponse?>>(Resource.Loading())
+    val subcategoriesDetails: StateFlow<Resource<SubCategoryDetailsResponse?>> = _subcategoriesDetails
 
-    private var _meals = MutableStateFlow<List<SubCategoryDetails>?>(listOf())
-    val meals: StateFlow<List<SubCategoryDetails>?> = _meals
+    private var _meals = MutableStateFlow<Resource<SubCategoryDetailsResponse?>>(Resource.Loading())
+    val meals: StateFlow<Resource<SubCategoryDetailsResponse?>> = _meals
 
     fun getAllCategories() {
         viewModelScope.launch {
             _categories.value= Resource.Loading()
-            useCase.allCategoriesUseCase.getAllCategories()
-                .onStart {  }
-                .catch {
-                    _categories.value = Resource.Error(it.message.toString())
-                }
-                .collect {
-                    _categories.value = it
-                }
+            try {
+                useCase.allCategoriesUseCase.getAllCategories()
+                    .collect {
+                        _categories.value = it
+                    }
+            } catch (e: Exception) {
+                _categories.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun getSubCategories(category: String) {
         viewModelScope.launch {
-            useCase.subCategoriesUseCase.getSubCategories(category)
-                .catch {
-                    _subcategories.value = null
-                }
-                .collect {
-                    when(it) {
-                        is Resource.Error -> {
-                            Log.e(TAG, "getSubCategories: ${it.message}")
-                        }
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            _subcategories.value = it.data?.meals
-                        }
+            _subcategories.value= Resource.Loading()
+            try {
+                useCase.subCategoriesUseCase.getSubCategories(category)
+                    .collect {
+                        _subcategories.value = it
                     }
-                }
+            } catch (e: Exception) {
+                _subcategories.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun getSubCategoryDetails(subcategoryId: String) {
         viewModelScope.launch {
-            useCase.subCategoryDetailsUseCase.getSubCategoryDetails(subcategoryId)
-                .catch {
-                    Log.e(TAG, "getSubCategoryDetails: ${it.message}")
-                }
-                .collect {
-                    when(it) {
-                        is Resource.Error -> {
-                            Log.e(TAG, "getSubCategoryDetails: ${it.message}")
-                        }
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            _subcategoriesDetails.value = it.data?.meals
-                        }
+            _subcategoriesDetails.value= Resource.Loading()
+            try {
+                useCase.subCategoryDetailsUseCase.getSubCategoryDetails(subcategoryId)
+                    .collect {
+                        _subcategoriesDetails.value = it
                     }
-                }
+            } catch (e: Exception) {
+                _subcategoriesDetails.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun getMenuList(search: String = "") {
         viewModelScope.launch {
-            useCase.menuListUseCase.getMenuList(search)
-                .catch {
-                    Log.e(TAG, "getMenuList: ${it.message}")
-                }
-                .collect {
-                    when(it) {
-                        is Resource.Error -> {
-                            Log.e(TAG, "getMenuList: ${it.message}")
-                        }
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            _meals.value = it.data?.meals
-                        }
+            _meals.value= Resource.Loading()
+            try {
+                useCase.menuListUseCase.getMenuList(search)
+                    .collect {
+                        _meals.value = it
                     }
-                }
+            } catch (e: Exception) {
+                _meals.value = Resource.Error(e.message.toString())
+            }
         }
     }
 }

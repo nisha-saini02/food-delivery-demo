@@ -154,7 +154,7 @@ fun OtpScreen(
                         if (otp1.value.isNotEmpty() && otp2.value.isNotEmpty() && otp3.value.isNotEmpty()) {
                             authViewModel.readUserInfo()
 
-                            val user = authViewModel.userInfo.value
+                            val user = authViewModel.userInfo.value.data
                             user?.authenticate = true
                             user?.let { authViewModel.writeUserInfo(it) }
 

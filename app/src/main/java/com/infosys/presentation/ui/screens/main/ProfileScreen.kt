@@ -34,7 +34,7 @@ import com.infosys.utils.enums.LoginType
 
 @Composable
 fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostController) {
-    val userInfo = authViewModel.userInfo.collectAsState().value
+    val userInfo = authViewModel.userInfo.collectAsState().value.data
 
     Column (
         modifier = Modifier

@@ -47,7 +47,7 @@ fun CartScreen(
 ) {
     val cart = cartLocalViewModel.cart.collectAsState().value
     val deleteCart = cartLocalViewModel.deleteItem.collectAsState().value
-    val userInfo = authViewModel.userInfo.collectAsState().value
+    val userInfo = authViewModel.userInfo.collectAsState().value.data
 
     val coroutineState = rememberCoroutineScope()
 

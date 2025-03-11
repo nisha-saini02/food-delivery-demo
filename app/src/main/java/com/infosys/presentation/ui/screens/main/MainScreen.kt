@@ -82,7 +82,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
 @Composable
 fun AnimateExpandableList(citiesResponse: List<Category>, viewModel: MainViewModel) {
-    val data = viewModel.subcategories.collectAsState().value
+    val data = viewModel.subcategories.collectAsState().value.data?.meals
     val expandedStates = remember { mutableStateListOf(*BooleanArray(citiesResponse.size) { false }.toTypedArray()) }
     val listState = rememberLazyListState()
 

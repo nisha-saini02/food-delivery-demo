@@ -59,12 +59,14 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation (libs.mockk)
     androidTestImplementation (libs.mockk.android)
+    testImplementation (libs.kotlinx.coroutines.test)
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    testImplementation ("app.cash.turbine:turbine:0.11.0")
 
     //navigation
     implementation(libs.androidx.navigation.compose)

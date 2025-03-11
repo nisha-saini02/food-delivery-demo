@@ -9,8 +9,6 @@ import com.infosys.data.remote.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -54,75 +52,70 @@ open class LocalViewModel @Inject constructor(
     fun getAllCartItems() {
         viewModelScope.launch {
             _cart.value= Resource.Loading()
-            if (_cart.value.data.isNullOrEmpty())
+            try {
                 localUseCase.allCartItemsLocalUseCase.fetchAllItems()
-                    .onStart {  }
-                    .catch {
-                        _cart.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _cart.value = it
                     }
+            } catch (e: Exception) {
+                _cart.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun getCartItem(itemId: String) {
         viewModelScope.launch {
             _cartItem.value= Resource.Loading()
-            if (_cartItem.value.data == null)
+            try {
                 localUseCase.fetchCartItemLocalUseCase.fetchItem(itemId)
-                    .onStart {  }
-                    .catch {
-                        _cartItem.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _cartItem.value = it
                     }
+            } catch (e: Exception) {
+                _cartItem.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun insertItem(cart: Cart) {
         viewModelScope.launch {
             _insertItem.value= Resource.Loading()
-            if (_insertItem.value.data == null)
+            try {
                 localUseCase.insertCartItemLocalUseCase.insertItem(cart)
-                    .onStart {  }
-                    .catch {
-                        _insertItem.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _insertItem.value = it
                     }
+            } catch (e: Exception) {
+                _insertItem.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun updateItem(cart: Cart) {
         viewModelScope.launch {
             _updateItem.value= Resource.Loading()
-            if (_updateItem.value.data == null)
+            try {
                 localUseCase.updateCartItemLocalUseCase.updateItem(cart)
-                    .onStart {  }
-                    .catch {
-                        _updateItem.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _updateItem.value = it
                     }
+            } catch (e: Exception) {
+                _updateItem.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun deleteItem(cart: Cart) {
         viewModelScope.launch {
             _deleteItem.value= Resource.Loading()
-            if (_deleteItem.value.data == null)
+            try {
                 localUseCase.deleteCartItemLocalUseCase.delete(cart)
-                    .onStart {  }
-                    .catch {
-                        _deleteItem.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _deleteItem.value = it
                     }
+            } catch (e: Exception) {
+                _deleteItem.value = Resource.Error(e.message.toString())
+            }
         }
     }
     fun resetDeleteObserver() {
@@ -132,87 +125,84 @@ open class LocalViewModel @Inject constructor(
     fun countCartItems() {
         viewModelScope.launch {
             _countCartItems.value= Resource.Loading()
-            if (_countCartItems.value.data == null)
+            try {
                 localUseCase.countCartItemsLocalUseCase.getCartListCount()
-                    .onStart {  }
-                    .catch {
-                        _countCartItems.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _countCartItems.value = it
                     }
+            } catch (e: Exception) {
+                _countCartItems.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun grandTotalCartItems() {
         viewModelScope.launch {
             _grandTotalCartItems.value= Resource.Loading()
-            if (_grandTotalCartItems.value.data == null)
+            try {
                 localUseCase.grandTotalCartItemsLocalUseCase.getCartGrandSum()
-                    .onStart {  }
-                    .catch {
-                        _grandTotalCartItems.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _grandTotalCartItems.value = it
                     }
+            } catch (e: Exception) {
+                _grandTotalCartItems.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun deleteAllCarts() {
         viewModelScope.launch {
             _deleteAllCarts.value= Resource.Loading()
-            if (_deleteAllCarts.value.data == null)
+            try {
                 localUseCase.deleteAllCartsLocalUseCase.deleteAllCarts()
-                    .onStart {  }
-                    .catch {
-                        _deleteAllCarts.value = Resource.Error(it.message.toString())
-                    }
                     .collect {
                         _deleteAllCarts.value = it
                     }
+            } catch (e: Exception) {
+                _deleteAllCarts.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun orderList() {
         viewModelScope.launch {
             _orders.value= Resource.Loading()
-            localUseCase.orderListLocalUseCase.orderList()
-                .onStart {  }
-                .catch {
-                    _orders.value = Resource.Error(it.message.toString())
-                }
-                .collect {
-                    _orders.value = it
-                }
+            try {
+                localUseCase.orderListLocalUseCase.orderList()
+                    .collect {
+                        _orders.value = it
+                    }
+            } catch (e: Exception) {
+                _orders.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun insertOrderItem(order: Order) {
         viewModelScope.launch {
             _insertOrder.value= Resource.Loading()
-            localUseCase.insertOrderItemLocalUseCase.insertItem(order)
-                .onStart {  }
-                .catch {
-                    _insertOrder.value = Resource.Error(it.message.toString())
-                }
-                .collect {
-                    _insertOrder.value = it
-                }
+            try {
+                localUseCase.insertOrderItemLocalUseCase.insertItem(order)
+                    .collect {
+                        _insertOrder.value = it
+                    }
+            } catch (e: Exception) {
+                _insertOrder.value = Resource.Error(e.message.toString())
+            }
         }
     }
 
     fun getOrder(orderId: String) {
         viewModelScope.launch {
             _fetchOrder.value= Resource.Loading()
-            localUseCase.fetchOrderLocalUserCase.getOrder(orderId)
-                .onStart {  }
-                .catch {
-                    _fetchOrder.value = Resource.Error(it.message.toString())
-                }
-                .collect {
-                    _fetchOrder.value = it
-                }
+            try {
+                localUseCase.fetchOrderLocalUserCase.getOrder(orderId)
+                    .collect {
+                        _fetchOrder.value = it
+                    }
+            } catch (e: Exception) {
+                _fetchOrder.value = Resource.Error(e.message.toString())
+            }
         }
     }
 }

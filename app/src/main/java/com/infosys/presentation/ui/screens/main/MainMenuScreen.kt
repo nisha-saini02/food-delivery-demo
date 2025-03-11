@@ -141,7 +141,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                 )
                 val item = remember { mutableStateOf(SubCategoryDetails()) }
 
-                meals?.let {
+                meals.data?.meals?.let {
                     MainMenuListView(
                         it,
                         clickEvent = { subCategoryDetails ->
@@ -199,7 +199,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
 
 @Composable
 fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel) {
-    val subCategories = viewModel.subcategories.collectAsState().value
+    val subCategories = viewModel.subcategories.collectAsState().value.data
     val category = viewModel.category.collectAsState().value
 
     Column(
@@ -233,7 +233,7 @@ fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewMod
                 .weight(0.85f),
         ) {
             Column {
-                subCategories?.let {
+                subCategories?.meals?.let {
                     GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
                         if(cartFunction == CartFunctions.INSERT) {
                             cartLocalViewModel.insertItem(

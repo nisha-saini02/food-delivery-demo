@@ -32,7 +32,7 @@ fun BottomNavHost(
     authViewModel: AuthViewModel,
     snackBarHost: SnackbarHostState,
 ) {
-    val user = authViewModel.userInfo.collectAsState().value
+    val user = authViewModel.userInfo.collectAsState().value.data
 
     NavHost(
         navController = navHostController,
