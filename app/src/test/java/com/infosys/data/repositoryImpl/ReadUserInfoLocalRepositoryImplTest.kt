@@ -1,0 +1,54 @@
+package com.infosys.data.repositoryImpl
+
+import com.infosys.data.localDatabase.MyDataStore
+import com.infosys.data.model.user.User
+import io.mockk.coEvery
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.junit.MockitoJUnitRunner
+
+@RunWith(MockitoJUnitRunner::class)
+class ReadUserInfoLocalRepositoryImplTest {
+
+    private lateinit var repository: ReadUserInfoLocalRepositoryImpl
+    private val dao: MyDataStore = mockk<MyDataStore>(relaxed = true)
+    private val dispatcher = StandardTestDispatcher()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Before
+    fun init() {
+        repository = ReadUserInfoLocalRepositoryImpl(dao)
+        Dispatchers.setMain(dispatcher)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun dispose() {
+        Dispatchers.resetMain()
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `read user info return SUCCESS`() = runTest {
+        val user = User()
+        coEvery { dao.readUserInfo } returns flowOf(user)
+
+        val result = repository.readUserInfo()
+        advanceUntilIdle()
+        result.collect {
+            assert(it == user)
+        }
+    }
+
+}
