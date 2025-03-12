@@ -4,6 +4,7 @@ import com.infosys.data.localDatabase.MyDataStore
 import com.infosys.data.model.user.User
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -44,7 +45,7 @@ class WriteUserInfoLocalRepositoryImplTest {
 
         val result = repository.writeUserInfo(User())
         advanceUntilIdle()
-        assert(result == Unit)
+        assertTrue(result == Unit)
     }
 
 }

@@ -5,6 +5,7 @@ import com.infosys.data.model.cart.Cart
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -46,7 +47,7 @@ class UpdateCartItemLocalRepositoryImplTest {
         val result = repository.updateItem(Cart())
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Success)
+            assertTrue(it is Resource.Success)
         }
     }
 
@@ -58,7 +59,7 @@ class UpdateCartItemLocalRepositoryImplTest {
         val result = repository.updateItem(Cart())
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Error)
+            assertTrue(it is Resource.Error)
         }
     }
 

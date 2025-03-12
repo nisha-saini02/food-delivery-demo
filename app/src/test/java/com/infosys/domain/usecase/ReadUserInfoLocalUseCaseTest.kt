@@ -4,6 +4,7 @@ import com.infosys.data.model.user.User
 import com.infosys.domain.repository.ReadUserInfoLocalRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -47,7 +48,7 @@ class ReadUserInfoLocalUseCaseTest {
         val result = useCase.getUserInfo()
         advanceUntilIdle()
         result.collect {
-            assert(it == user)
+            assertTrue(it == user)
         }
     }
 
@@ -59,7 +60,7 @@ class ReadUserInfoLocalUseCaseTest {
         val result = useCase.getUserInfo()
         advanceUntilIdle()
         result.collect {
-            assert(it == null)
+            assertTrue(it == null)
         }
     }
     

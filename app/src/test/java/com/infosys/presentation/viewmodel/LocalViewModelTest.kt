@@ -6,6 +6,7 @@ import com.infosys.data.model.order.Order
 import com.infosys.data.model.usecase.LocalUseCase
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
@@ -56,6 +57,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.allCartItemsLocalUseCase.fetchAllItems()
+            }
         }
     }
 
@@ -72,6 +77,10 @@ class LocalViewModelTest {
             localViewModel.cart.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.allCartItemsLocalUseCase.fetchAllItems()
             }
         }
     }
@@ -91,6 +100,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.allCartItemsLocalUseCase.fetchAllItems()
+            }
         }
     }
 
@@ -108,6 +121,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.fetchCartItemLocalUseCase.fetchItem("1")
+            }
         }
     }
 
@@ -124,6 +141,10 @@ class LocalViewModelTest {
             localViewModel.cartItem.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.fetchCartItemLocalUseCase.fetchItem("1")
             }
         }
     }
@@ -143,6 +164,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.fetchCartItemLocalUseCase.fetchItem("1")
+            }
         }
     }
 
@@ -160,6 +185,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.insertCartItemLocalUseCase.insertItem(Cart())
+            }
         }
     }
 
@@ -176,6 +205,10 @@ class LocalViewModelTest {
             localViewModel.insertItem.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.insertCartItemLocalUseCase.insertItem(Cart())
             }
         }
     }
@@ -195,6 +228,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.insertCartItemLocalUseCase.insertItem(Cart())
+            }
         }
     }
 
@@ -212,6 +249,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.updateCartItemLocalUseCase.updateItem(Cart())
+            }
         }
     }
 
@@ -228,6 +269,10 @@ class LocalViewModelTest {
             localViewModel.updateItem.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.updateCartItemLocalUseCase.updateItem(Cart())
             }
         }
     }
@@ -247,6 +292,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.updateCartItemLocalUseCase.updateItem(Cart())
+            }
         }
     }
 
@@ -263,6 +312,10 @@ class LocalViewModelTest {
             localViewModel.deleteItem.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.deleteCartItemLocalUseCase.delete(Cart())
             }
         }
     }
@@ -281,6 +334,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.deleteCartItemLocalUseCase.delete(Cart())
+            }
         }
     }
 
@@ -298,6 +355,10 @@ class LocalViewModelTest {
             localViewModel.deleteItem.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                localUseCase.deleteCartItemLocalUseCase.delete(Cart())
             }
         }
     }
@@ -326,6 +387,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.countCartItemsLocalUseCase.getCartListCount()
+            }
         }
     }
 
@@ -342,6 +407,10 @@ class LocalViewModelTest {
             localViewModel.countCartItems.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.countCartItemsLocalUseCase.getCartListCount()
             }
         }
     }
@@ -361,6 +430,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.countCartItemsLocalUseCase.getCartListCount()
+            }
         }
     }
 
@@ -378,6 +451,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.grandTotalCartItemsLocalUseCase.getCartGrandSum()
+            }
         }
     }
 
@@ -394,6 +471,10 @@ class LocalViewModelTest {
             localViewModel.grandTotalCartItems.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.grandTotalCartItemsLocalUseCase.getCartGrandSum()
             }
         }
     }
@@ -413,6 +494,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.grandTotalCartItemsLocalUseCase.getCartGrandSum()
+            }
         }
     }
 
@@ -430,6 +515,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.deleteAllCartsLocalUseCase.deleteAllCarts()
+            }
         }
     }
 
@@ -446,6 +535,10 @@ class LocalViewModelTest {
             localViewModel.deleteAllCarts.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.deleteAllCartsLocalUseCase.deleteAllCarts()
             }
         }
     }
@@ -465,6 +558,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.deleteAllCartsLocalUseCase.deleteAllCarts()
+            }
         }
     }
 
@@ -482,6 +579,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.orderListLocalUseCase.orderList()
+            }
         }
     }
 
@@ -498,6 +599,10 @@ class LocalViewModelTest {
             localViewModel.orders.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.orderListLocalUseCase.orderList()
             }
         }
     }
@@ -517,6 +622,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.orderListLocalUseCase.orderList()
+            }
         }
     }
 
@@ -534,6 +643,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.insertOrderItemLocalUseCase.insertItem(Order())
+            }
         }
     }
 
@@ -550,6 +663,10 @@ class LocalViewModelTest {
             localViewModel.insertOrder.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.insertOrderItemLocalUseCase.insertItem(Order())
             }
         }
     }
@@ -569,6 +686,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                localUseCase.insertOrderItemLocalUseCase.insertItem(Order())
+            }
         }
     }
 
@@ -585,6 +706,10 @@ class LocalViewModelTest {
             localViewModel.fetchOrder.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
+            }
+
+            coVerify {
+                localUseCase.fetchOrderLocalUserCase.getOrder("1")
             }
         }
     }
@@ -603,6 +728,10 @@ class LocalViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                localUseCase.fetchOrderLocalUserCase.getOrder("1")
+            }
         }
     }
 
@@ -620,6 +749,10 @@ class LocalViewModelTest {
             localViewModel.fetchOrder.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                localUseCase.fetchOrderLocalUserCase.getOrder("1")
             }
         }
     }

@@ -6,6 +6,7 @@ import com.infosys.data.remote.Resource
 import com.infosys.domain.repository.UpdateCartItemLocalRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -49,7 +50,7 @@ class UpdateCartItemLocalUseCaseTest {
         val result = useCase.updateItem(Cart())
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Success)
+            assertTrue(it is Resource.Success)
         }
     }
 
@@ -61,7 +62,7 @@ class UpdateCartItemLocalUseCaseTest {
         val result = useCase.updateItem(Cart())
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Error)
+            assertTrue(it is Resource.Error)
         }
     }
 

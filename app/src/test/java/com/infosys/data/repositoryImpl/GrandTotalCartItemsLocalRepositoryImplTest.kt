@@ -4,6 +4,7 @@ import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -45,7 +46,7 @@ class GrandTotalCartItemsLocalRepositoryImplTest {
         val result = repository.getCartListGrandTotalCount()
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Success)
+            assertTrue(it is Resource.Success)
         }
     }
 
@@ -57,7 +58,7 @@ class GrandTotalCartItemsLocalRepositoryImplTest {
         val result = repository.getCartListGrandTotalCount()
         advanceUntilIdle()
         result.collect {
-            assert(it is Resource.Error)
+            assertTrue(it is Resource.Error)
         }
     }
     

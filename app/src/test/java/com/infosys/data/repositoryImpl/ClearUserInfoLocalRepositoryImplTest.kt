@@ -3,6 +3,7 @@ package com.infosys.data.repositoryImpl
 import com.infosys.data.localDatabase.MyDataStore
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -43,7 +44,7 @@ class ClearUserInfoLocalRepositoryImplTest {
 
         val result = repository.clearUserInfo()
         advanceUntilIdle()
-        assert(result == Unit)
+        assertTrue(result == Unit)
     }
 
 }

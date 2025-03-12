@@ -4,6 +4,7 @@ import com.infosys.data.localDatabase.MyDataStore
 import com.infosys.data.model.user.User
 import io.mockk.coEvery
 import io.mockk.mockk
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -47,7 +48,7 @@ class ReadUserInfoLocalRepositoryImplTest {
         val result = repository.readUserInfo()
         advanceUntilIdle()
         result.collect {
-            assert(it == user)
+            assertTrue(it == user)
         }
     }
 

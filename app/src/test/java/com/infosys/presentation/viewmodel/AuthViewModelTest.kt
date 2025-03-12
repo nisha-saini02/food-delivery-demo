@@ -5,6 +5,7 @@ import com.infosys.data.model.usecase.AuthUseCase
 import com.infosys.data.model.user.User
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +51,8 @@ class AuthViewModelTest {
         val result = authViewModel.writeUserInfo(User())
         advanceUntilIdle()
         assertTrue(result == Unit)
+
+        coVerify { useCase.writeUserInfoLocalUseCase.writeUserInfo(User()) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -63,6 +66,8 @@ class AuthViewModelTest {
             val result = awaitItem()
             assertTrue(result is Resource.Success)
         }
+
+        coVerify { useCase.readUserInfoLocalUseCase.getUserInfo() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -76,6 +81,8 @@ class AuthViewModelTest {
             val result = awaitItem()
             assertTrue(result is Resource.Error)
         }
+
+        coVerify { useCase.readUserInfoLocalUseCase.getUserInfo() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -89,6 +96,8 @@ class AuthViewModelTest {
             val result = awaitItem()
             assertTrue(result is Resource.Error)
         }
+
+        coVerify { useCase.readUserInfoLocalUseCase.getUserInfo() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -99,5 +108,7 @@ class AuthViewModelTest {
         val result = authViewModel.clearUserInfo()
         advanceUntilIdle()
         assertTrue(result == Unit)
+
+        coVerify { useCase.clearUserInfoLocalUseCase.clearUserInfo() }
     }
 }

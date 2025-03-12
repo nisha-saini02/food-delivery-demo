@@ -7,6 +7,7 @@ import com.infosys.data.model.category.sub_Category.details.SubCategoryDetailsRe
 import com.infosys.data.model.usecase.RemoteUseCase
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +61,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                useCase.allCategoriesUseCase.getAllCategories()
+            }
         }
     }
 
@@ -77,6 +82,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                useCase.allCategoriesUseCase.getAllCategories()
+            }
         }
     }
 
@@ -93,6 +102,10 @@ class MainViewModelTest {
             viewModel.categories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                useCase.allCategoriesUseCase.getAllCategories()
             }
         }
     }
@@ -113,6 +126,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                useCase.subCategoriesUseCase.getSubCategories("1")
+            }
         }
     }
 
@@ -130,6 +147,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                useCase.subCategoriesUseCase.getSubCategories("1")
+            }
         }
     }
 
@@ -146,6 +167,10 @@ class MainViewModelTest {
             viewModel.subcategories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                useCase.subCategoriesUseCase.getSubCategories("1")
             }
         }
     }
@@ -166,6 +191,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                useCase.subCategoryDetailsUseCase.getSubCategoryDetails("1")
+            }
         }
     }
 
@@ -183,6 +212,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                useCase.subCategoryDetailsUseCase.getSubCategoryDetails("1")
+            }
         }
     }
 
@@ -199,6 +232,10 @@ class MainViewModelTest {
             viewModel.subcategoriesDetails.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                useCase.subCategoryDetailsUseCase.getSubCategoryDetails("1")
             }
         }
     }
@@ -219,6 +256,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
+
+            coVerify {
+                useCase.menuListUseCase.getMenuList("")
+            }
         }
     }
 
@@ -236,6 +277,10 @@ class MainViewModelTest {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
             }
+
+            coVerify {
+                useCase.menuListUseCase.getMenuList("")
+            }
         }
     }
 
@@ -252,6 +297,10 @@ class MainViewModelTest {
             viewModel.meals.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
+            }
+
+            coVerify {
+                useCase.menuListUseCase.getMenuList("")
             }
         }
     }
