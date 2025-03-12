@@ -45,6 +45,8 @@ import com.infosys.theme.Orange
 import com.infosys.theme.Yellow
 import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.GridListView
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -73,8 +75,18 @@ fun MainScreen(viewModel: MainViewModel) {
                 .weight(0.85f)
                 .padding(end = 16.dp, top = 16.dp, start = 16.dp, bottom = 85.dp)
         ) {
-            data?.categories?.let {
-                AnimateExpandableList(it, viewModel)
+            if (data?.categories.isNullOrEmpty()) {
+                LazyColumn {
+                    repeat(10) {
+                        item {
+                            ShimmerNavigator(NavigationRoute.HOME)
+                        }
+                    }
+                }
+            } else {
+                data?.categories?.let {
+                    AnimateExpandableList(it, viewModel)
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ enum class NavigationRoute(val route: String) {
     OTP("otp"),
     HOME("home"),
     MENU("menu"),
+    MENU_HORIZONTAL("menu_horizontal"),
     CART("cart"),
     PROFILE("profile"),
     SUBCATEGORY("subcategory"),

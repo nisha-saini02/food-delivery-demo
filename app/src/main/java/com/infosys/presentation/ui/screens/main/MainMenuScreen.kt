@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -43,6 +47,7 @@ import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListView
 import com.infosys.presentation.ui.screens.listViews.MainMenuListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 import com.infosys.presentation.viewmodel.LocalViewModel
 import com.infosys.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
@@ -120,10 +125,19 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
 
                 Spacer()
 
+                if (categories.isNullOrEmpty()) {
+                    LazyRow {
+                        repeat(6) {
+                            item {
+                                ShimmerNavigator(NavigationRoute.MENU_HORIZONTAL)
+                            }
+                        }
+                    }
+                }
                 categories?.let {
-                    HorizontalCategoriesListView(it) {
-                        viewModel.getSubCategories(it.strCategory.toString())
-                        viewModel.category.value = it.strCategory.toString()
+                    HorizontalCategoriesListView(it) { category ->
+                        viewModel.getSubCategories(category.strCategory.toString())
+                        viewModel.category.value = category.strCategory.toString()
                         navigationHostController.navigate(NavigationRoute.SUBCATEGORY.route)
                     }
                 }
@@ -141,6 +155,15 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                 )
                 val item = remember { mutableStateOf(SubCategoryDetails()) }
 
+                if (meals.data?.meals.isNullOrEmpty()) {
+                    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+                        repeat(6) {
+                            item {
+                                ShimmerNavigator(NavigationRoute.MENU)
+                            }
+                        }
+                    }
+                }
                 meals.data?.meals?.let {
                     MainMenuListView(
                         it,
@@ -233,6 +256,17 @@ fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewMod
                 .weight(0.85f),
         ) {
             Column {
+                if (subCategories?.meals.isNullOrEmpty()) {
+                    Column (modifier = Modifier.padding(16.dp)) {
+                        LazyColumn {
+                            repeat(10) {
+                                item {
+                                    ShimmerNavigator(NavigationRoute.SUBCATEGORY)
+                                }
+                            }
+                        }
+                    }
+                }
                 subCategories?.meals?.let {
                     GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
                         if(cartFunction == CartFunctions.INSERT) {
