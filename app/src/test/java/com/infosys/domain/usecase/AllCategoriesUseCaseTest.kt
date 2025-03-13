@@ -3,14 +3,11 @@ package com.infosys.domain.usecase
 import com.infosys.data.model.category.CategoryResponse
 import com.infosys.data.remote.Resource
 import com.infosys.domain.repository.AllCategoriesRepository
-import io.mockk.coEvery
-import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -18,18 +15,23 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class AllCategoriesUseCaseTest {
     
     private lateinit var useCase: AllCategoriesUseCase
-    private val repository: AllCategoriesRepository = mockk<AllCategoriesRepository>(relaxed = true)
+    @Mock private lateinit var repository: AllCategoriesRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun init() {
+        MockitoAnnotations.initMocks(this)
         useCase = AllCategoriesUseCase(repository)
         Dispatchers.setMain(dispatcher)
     }
@@ -40,30 +42,34 @@ class AllCategoriesUseCaseTest {
         Dispatchers.resetMain()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch all categories return SUCCESS`() = runTest {
-        coEvery { repository.getAllCategories() } returns flowOf(Resource.Success(CategoryResponse(
-            mutableListOf()
-        )))
+        `when`(
+            repository.getAllCategories()
+        ).thenReturn(flowOf(Resource.Success(CategoryResponse(mutableListOf()))))
 
         val result = useCase.getAllCategories()
-        advanceUntilIdle()
+        dispatcher.scheduler.advanceUntilIdle()
         result.collect {
             assertTrue(it is Resource.Success)
         }
+
+        verify(repository).getAllCategories()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch all categories return Error`() = runTest {
-        coEvery { repository.getAllCategories() } returns flowOf(Resource.Error("Test Error"))
+        `when`(
+            repository.getAllCategories()
+        ).thenReturn(flowOf(Resource.Error("Test Error")))
 
         val result = useCase.getAllCategories()
-        advanceUntilIdle()
+        dispatcher.scheduler.advanceUntilIdle()
         result.collect {
             assertTrue(it is Resource.Error)
         }
+
+        verify(repository).getAllCategories()
     }
     
 }

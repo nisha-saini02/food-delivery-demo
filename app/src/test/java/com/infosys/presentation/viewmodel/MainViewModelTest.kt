@@ -8,33 +8,41 @@ import com.infosys.data.model.usecase.RemoteUseCase
 import com.infosys.data.remote.Resource
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestWatcher
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
 
+    @Rule
+    val rule = object : TestWatcher() {}
+
     private lateinit var viewModel: MainViewModel
-    private val useCase: RemoteUseCase = mockk<RemoteUseCase>(relaxed = true)
+    @Mock
+    private lateinit var useCase: RemoteUseCase
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun init() {
+        MockitoAnnotations.initMocks(this)
         viewModel = MainViewModel(useCase)
         Dispatchers.setMain(dispatcher)
     }
@@ -45,30 +53,26 @@ class MainViewModelTest {
         Dispatchers.resetMain()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch categories return SUCCESS`() {
         runTest {
-            coEvery {
+            `when`(
                 useCase.allCategoriesUseCase.getAllCategories()
-            } returns flowOf(Resource.Success(
+            ).thenReturn(flowOf(Resource.Success(
                 CategoryResponse(mutableListOf())
-            ))
+            )))
 
             viewModel.getAllCategories()
-            advanceUntilIdle()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.categories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
             }
 
-            coVerify {
-                useCase.allCategoriesUseCase.getAllCategories()
-            }
+            verify(useCase.allCategoriesUseCase).getAllCategories()
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch categories return null`() {
         runTest {
@@ -77,7 +81,7 @@ class MainViewModelTest {
             } returns flowOf(Resource.Error("Test"))
 
             viewModel.getAllCategories()
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.categories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -89,7 +93,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch categories throw EXCEPTION`() {
         runTest {
@@ -98,7 +101,7 @@ class MainViewModelTest {
             } throws Exception("Test Exception")
 
             viewModel.getAllCategories()
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.categories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -110,7 +113,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub categories return SUCCESS`() {
         runTest {
@@ -121,7 +123,7 @@ class MainViewModelTest {
             ))
 
             viewModel.getSubCategories("1")
-            advanceUntilIdle()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
@@ -133,7 +135,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub categories return null`() {
         runTest {
@@ -142,7 +143,7 @@ class MainViewModelTest {
             } returns flowOf(Resource.Error("Test"))
 
             viewModel.getSubCategories("1")
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -154,7 +155,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub categories throw EXCEPTION`() {
         runTest {
@@ -163,7 +163,7 @@ class MainViewModelTest {
             } throws Exception("Test Exception")
 
             viewModel.getSubCategories("1")
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategories.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -175,7 +175,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub category details return SUCCESS`() {
         runTest {
@@ -186,7 +185,7 @@ class MainViewModelTest {
             ))
 
             viewModel.getSubCategoryDetails("1")
-            advanceUntilIdle()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategoriesDetails.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
@@ -198,7 +197,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub category details return null`() {
         runTest {
@@ -207,7 +205,7 @@ class MainViewModelTest {
             } returns flowOf(Resource.Error("Test"))
 
             viewModel.getSubCategoryDetails("1")
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategoriesDetails.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -219,7 +217,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch sub category details throw EXCEPTION`() {
         runTest {
@@ -228,7 +225,7 @@ class MainViewModelTest {
             } throws Exception("Test Exception")
 
             viewModel.getSubCategoryDetails("1")
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.subcategoriesDetails.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -240,7 +237,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch menu return SUCCESS`() {
         runTest {
@@ -251,7 +247,7 @@ class MainViewModelTest {
             ))
 
             viewModel.getMenuList()
-            advanceUntilIdle()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.meals.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Success)
@@ -263,7 +259,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch menu return null`() {
         runTest {
@@ -272,7 +267,7 @@ class MainViewModelTest {
             } returns flowOf(Resource.Error("Test"))
 
             viewModel.getMenuList()
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.meals.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
@@ -284,7 +279,6 @@ class MainViewModelTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `fetch menu throw EXCEPTION`() {
         runTest {
@@ -293,7 +287,7 @@ class MainViewModelTest {
             } throws Exception("Test Exception")
 
             viewModel.getMenuList()
-            runCurrent()
+            dispatcher.scheduler.advanceUntilIdle()
             viewModel.meals.test {
                 val result = awaitItem()
                 assertTrue(result is Resource.Error)
