@@ -1,7 +1,7 @@
 package com.infosys.domain.usecase
 
 import com.infosys.data.model.user.User
-import com.infosys.domain.repository.ReadUserInfoLocalRepository
+import com.infosys.domain.repository.UserInfoLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +25,7 @@ class ReadUserInfoLocalUseCaseTest {
 
     private lateinit var useCase: ReadUserInfoLocalUseCase
     @Mock
-    private lateinit var repository: ReadUserInfoLocalRepository
+    private lateinit var repository: UserInfoLocalRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)

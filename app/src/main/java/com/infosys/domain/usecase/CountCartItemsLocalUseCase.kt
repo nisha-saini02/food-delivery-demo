@@ -1,8 +1,7 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.CountCartItemsLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.CartsDetailLocalRepository
 
-class CountCartItemsLocalUseCase @Inject constructor(var repo: CountCartItemsLocalRepository) {
+class CountCartItemsLocalUseCase (var repo: CartsDetailLocalRepository) {
     suspend fun getCartListCount() = repo.getCartListCount()
 }

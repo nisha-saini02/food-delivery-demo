@@ -1,6 +1,5 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.ClearUserInfoLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

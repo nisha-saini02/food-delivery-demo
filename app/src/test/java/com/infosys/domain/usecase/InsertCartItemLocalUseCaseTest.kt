@@ -2,7 +2,7 @@ package com.infosys.domain.usecase
 
 import com.infosys.data.model.cart.Cart
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.InsertCartItemLocalRepository
+import com.infosys.domain.repository.MenuCartLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +26,7 @@ class InsertCartItemLocalUseCaseTest {
 
     private lateinit var useCase: InsertCartItemLocalUseCase
     @Mock
-    private lateinit var repository: InsertCartItemLocalRepository
+    private lateinit var repository: MenuCartLocalRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)

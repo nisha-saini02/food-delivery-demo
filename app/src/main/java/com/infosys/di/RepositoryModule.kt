@@ -4,42 +4,18 @@ import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.localDatabase.MyDataStore
 import com.infosys.data.localDatabase.dao.OrderDao
 import com.infosys.data.remote.FoodService
-import com.infosys.data.repositoryImpl.AllCartItemsLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.AllCategoriesRepositoryImpl
-import com.infosys.data.repositoryImpl.ClearUserInfoLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.CountCartItemsLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.DeleteAllCartsLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.DeleteCartItemLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.FetchCartItemLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.FetchOrderLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.GrandTotalCartItemsLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.InsertCartItemLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.InsertOrderItemLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.MenuListRepositoryImpl
-import com.infosys.data.repositoryImpl.OrderListLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.ReadUserInfoLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.SubCategoriesRepositoryImpl
-import com.infosys.data.repositoryImpl.SubCategoryDetailsRepositoryImpl
-import com.infosys.data.repositoryImpl.UpdateCartItemLocalRepositoryImpl
-import com.infosys.data.repositoryImpl.WriteUserInfoLocalRepositoryImpl
-import com.infosys.domain.repository.AllCartItemsLocalRepository
-import com.infosys.domain.repository.AllCategoriesRepository
-import com.infosys.domain.repository.ClearUserInfoLocalRepository
-import com.infosys.domain.repository.CountCartItemsLocalRepository
-import com.infosys.domain.repository.DeleteAllCartsLocalRepository
-import com.infosys.domain.repository.DeleteCartItemLocalRepository
-import com.infosys.domain.repository.FetchCartItemLocalRepository
-import com.infosys.domain.repository.FetchOrderLocalRepository
-import com.infosys.domain.repository.GrandTotalCartItemsLocalRepository
-import com.infosys.domain.repository.InsertCartItemLocalRepository
-import com.infosys.domain.repository.InsertOrderItemLocalRepository
-import com.infosys.domain.repository.MenuListRepository
-import com.infosys.domain.repository.OrderListLocalRepository
-import com.infosys.domain.repository.ReadUserInfoLocalRepository
-import com.infosys.domain.repository.SubCategoriesRepository
-import com.infosys.domain.repository.SubCategoryDetailsRepository
-import com.infosys.domain.repository.UpdateCartItemLocalRepository
-import com.infosys.domain.repository.WriteUserInfoLocalRepository
+import com.infosys.data.repositoryImpl.CartsDetailLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.AllCategoriesAndSubCategoriesRepositoryImpl
+import com.infosys.data.repositoryImpl.MenuCartLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.OrdersLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.UserInfoLocalRepositoryImpl
+import com.infosys.data.repositoryImpl.MenusAndSubCategoryDetailsRepositoryImpl
+import com.infosys.domain.repository.CartsDetailLocalRepository
+import com.infosys.domain.repository.AllCategoriesAndSubCategoriesRepository
+import com.infosys.domain.repository.MenuCartLocalRepository
+import com.infosys.domain.repository.OrdersLocalRepository
+import com.infosys.domain.repository.UserInfoLocalRepository
+import com.infosys.domain.repository.MenusAndSubCategoryDetailsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,128 +26,44 @@ import dagger.hilt.components.SingletonComponent
 class RepositoryModule {
 
     @Provides
-    fun provideAllCategoriesRepository(
+    fun provideAllCategoriesAndSubCategoriesRepository(
         service: FoodService
-    ): AllCategoriesRepository {
-        return AllCategoriesRepositoryImpl(service)
+    ): AllCategoriesAndSubCategoriesRepository {
+        return AllCategoriesAndSubCategoriesRepositoryImpl(service)
     }
 
     @Provides
-    fun provideSubCategoriesRepository(
+    fun provideMenusAndSubCategoryDetailsRepository(
         service: FoodService
-    ): SubCategoriesRepository {
-        return SubCategoriesRepositoryImpl(service)
-    }
-    
-    @Provides
-    fun provideSubCategoryDetailsRepository(
-        service: FoodService
-    ): SubCategoryDetailsRepository {
-        return SubCategoryDetailsRepositoryImpl(service)
-    }
-    
-    @Provides
-    fun provideMenuRepository(
-        service: FoodService
-    ): MenuListRepository {
-        return MenuListRepositoryImpl(service)
+    ): MenusAndSubCategoryDetailsRepository {
+        return MenusAndSubCategoryDetailsRepositoryImpl(service)
     }
 
     @Provides
-    fun provideAllCartItemsLocalRepository(
+    fun provideCartsDetailLocalRepository(
         service: CartDao
-    ): AllCartItemsLocalRepository {
-        return AllCartItemsLocalRepositoryImpl(service)
+    ): CartsDetailLocalRepository {
+        return CartsDetailLocalRepositoryImpl(service)
     }
 
     @Provides
-    fun provideFetchCartItemLocalRepository(
+    fun provideMenuCartLocalRepository(
         service: CartDao
-    ): FetchCartItemLocalRepository {
-        return FetchCartItemLocalRepositoryImpl(service)
+    ): MenuCartLocalRepository {
+        return MenuCartLocalRepositoryImpl(service)
     }
 
     @Provides
-    fun provideInsertCartItemLocalRepository(
-        service: CartDao
-    ): InsertCartItemLocalRepository {
-        return InsertCartItemLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideUpdateCartItemLocalRepository(
-        service: CartDao
-    ): UpdateCartItemLocalRepository {
-        return UpdateCartItemLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideDeleteCartItemLocalRepository(
-        service: CartDao
-    ): DeleteCartItemLocalRepository {
-        return DeleteCartItemLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideOrderListLocalRepository(
+    fun provideOrdersLocalRepository(
         service: OrderDao
-    ): OrderListLocalRepository {
-        return OrderListLocalRepositoryImpl(service)
+    ): OrdersLocalRepository {
+        return OrdersLocalRepositoryImpl(service)
     }
 
     @Provides
-    fun provideInsertOrderLocalRepository(
-        service: OrderDao
-    ): InsertOrderItemLocalRepository {
-        return InsertOrderItemLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideCountCartItemsLocalRepository(
-        service: CartDao
-    ): CountCartItemsLocalRepository {
-        return CountCartItemsLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideGrandTotalCartItemsLocalRepository(
-        service: CartDao
-    ): GrandTotalCartItemsLocalRepository {
-        return GrandTotalCartItemsLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideDeleteAllCartsLocalRepository(
-        service: CartDao
-    ): DeleteAllCartsLocalRepository {
-        return DeleteAllCartsLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideFetchOrderLocalRepository(
-        service: OrderDao
-    ): FetchOrderLocalRepository {
-        return FetchOrderLocalRepositoryImpl(service)
-    }
-
-    @Provides
-    fun provideReadUserInfoLocalRepository(
+    fun provideUserInfoLocalRepository(
         store: MyDataStore
-    ): ReadUserInfoLocalRepository {
-        return ReadUserInfoLocalRepositoryImpl(store)
-    }
-
-    @Provides
-    fun provideWriteUserInfoLocalRepository(
-        store: MyDataStore
-    ): WriteUserInfoLocalRepository {
-        return WriteUserInfoLocalRepositoryImpl(store)
-    }
-
-    @Provides
-    fun provideClearUserInfoLocalRepository(
-        store: MyDataStore
-    ): ClearUserInfoLocalRepository {
-        return ClearUserInfoLocalRepositoryImpl(store)
+    ): UserInfoLocalRepository {
+        return UserInfoLocalRepositoryImpl(store)
     }
 }

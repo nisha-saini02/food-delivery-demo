@@ -35,18 +35,23 @@ import com.infosys.presentation.ui.screens.utility.TextLabelMedium
 import com.infosys.presentation.ui.screens.utility.TextLabelSmall
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.LocalCartViewModel
+import com.infosys.presentation.viewmodel.OrdersLocalViewModel
 import com.infosys.theme.Black
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 
 @Composable
-fun SearchAddressScreen(navHostController: NavHostController, cartLocalViewModel: LocalViewModel) {
+fun SearchAddressScreen(
+    navHostController: NavHostController,
+    localCartViewModel: LocalCartViewModel,
+    ordersLocalViewModel: OrdersLocalViewModel
+) {
 
     val search = remember { mutableStateOf("") }
-    val countCartItems = cartLocalViewModel.countCartItems.collectAsState().value
-    val grandTotalCartItems = cartLocalViewModel.grandTotalCartItems.collectAsState().value
+    val countCartItems = localCartViewModel.countCartItems.collectAsState().value
+    val grandTotalCartItems = localCartViewModel.grandTotalCartItems.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -104,23 +109,21 @@ fun SearchAddressScreen(navHostController: NavHostController, cartLocalViewModel
         ) {
 
             Column {
-                search.value.let {
-                    LocationItems(
-                        listOfCities.filter { it.name.contains(search.value, ignoreCase = true) }
-                    ) {
-                        cartLocalViewModel.insertOrderItem(
-                            Order(
-                                orderGrandTotal = grandTotalCartItems.data,
-                                orderItems = countCartItems.data,
-                                destinationLat = it.lat,
-                                destinationLong = it.long
-                            )
+                LocationItems(
+                    listOfCities.filter { it.name.contains(search.value, ignoreCase = true) }
+                ) {
+                    ordersLocalViewModel.insertOrderItem(
+                        Order(
+                            orderGrandTotal = grandTotalCartItems,
+                            orderItems = countCartItems,
+                            destinationLat = it.lat,
+                            destinationLong = it.long
                         )
+                    )
 
-                        cartLocalViewModel.deleteAllCarts()
+                    ordersLocalViewModel.deleteAllCarts()
 
-                        navHostController.navigate(NavigationRoute.ORDER.route)
-                    }
+                    navHostController.navigate(NavigationRoute.ORDER.route)
                 }
             }
         }

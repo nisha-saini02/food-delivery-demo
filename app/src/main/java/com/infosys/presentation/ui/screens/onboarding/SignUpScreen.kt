@@ -34,7 +34,7 @@ import com.infosys.presentation.ui.screens.utility.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.utility.TextTitleSmall
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
-import com.infosys.presentation.viewmodel.AuthViewModel
+import com.infosys.presentation.viewmodel.SignupUserViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SignUpScreen(
     navHostController: NavHostController,
-    authViewModel: AuthViewModel
+    authViewModel: SignupUserViewModel
 ) {
     val termsAccepted = remember { mutableStateOf(false) }
     val email = remember { mutableStateOf("") }

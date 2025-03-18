@@ -19,20 +19,28 @@ import com.infosys.presentation.ui.screens.main.OrderPlaceScreen
 import com.infosys.presentation.ui.screens.map.OrderDetailScreen
 import com.infosys.presentation.ui.screens.onboarding.OtpScreen
 import com.infosys.presentation.ui.screens.onboarding.SignUpScreen
-import com.infosys.presentation.viewmodel.AuthViewModel
-import com.infosys.presentation.viewmodel.LocalViewModel
-import com.infosys.presentation.viewmodel.MainViewModel
+import com.infosys.presentation.viewmodel.UserViewModel
+import com.infosys.presentation.viewmodel.HomeViewModel
+import com.infosys.presentation.viewmodel.LocalCartViewModel
+import com.infosys.presentation.viewmodel.LocalMenuCartViewModel
+import com.infosys.presentation.viewmodel.OrdersLocalViewModel
+import com.infosys.presentation.viewmodel.MenuViewModel
+import com.infosys.presentation.viewmodel.SignupUserViewModel
 import com.infosys.utils.enums.LoginType
 
 @Composable
 fun BottomNavHost(
     navHostController: NavHostController,
-    viewModel: MainViewModel,
-    cartLocalViewModel: LocalViewModel,
-    authViewModel: AuthViewModel,
+    homeViewModel: HomeViewModel,
+    localCartViewModel: LocalCartViewModel,
+    localMenuCartViewModel: LocalMenuCartViewModel,
+    menuViewModel: MenuViewModel,
+    ordersLocalViewModel: OrdersLocalViewModel,
+    signupUserViewModel: SignupUserViewModel,
+    userViewModel: UserViewModel,
     snackBarHost: SnackbarHostState,
 ) {
-    val user = authViewModel.userInfo.collectAsState().value.data
+    val user = userViewModel.userInfo.collectAsState().value
 
     NavHost(
         navController = navHostController,
@@ -49,47 +57,47 @@ fun BottomNavHost(
             SplashScreen(navHostController)
         }
         composable(NavigationRoute.SIGNUP.route) {
-            SignUpScreen(navHostController, authViewModel)
+            SignUpScreen(navHostController, signupUserViewModel)
         }
         composable(NavigationRoute.OTP.route) {
-            OtpScreen(navHostController, authViewModel)
+            OtpScreen(navHostController, userViewModel, signupUserViewModel)
         }
         composable(NavigationRoute.HOME.route) {
             Log.e("TAG", "BottomNavHost: HOME")
-            viewModel.getAllCategories()
-            MainScreen(viewModel)
+            menuViewModel.getAllCategories()
+            MainScreen(menuViewModel)
         }
         composable(NavigationRoute.MENU.route) {
-            viewModel.getMenuList()
-            MainMenuScreen(viewModel, cartLocalViewModel, navHostController)
+            homeViewModel.getMenuList()
+            MainMenuScreen(homeViewModel, menuViewModel, localMenuCartViewModel, navHostController)
         }
         composable(NavigationRoute.CART.route) {
-            cartLocalViewModel.getAllCartItems()
-            authViewModel.readUserInfo()
-            CartScreen(cartLocalViewModel, authViewModel, navHostController, snackBarHost)
+            localCartViewModel.getAllCartItems()
+            userViewModel.readUserInfo()
+            CartScreen(localCartViewModel, localMenuCartViewModel, userViewModel, navHostController, snackBarHost)
         }
         composable(NavigationRoute.PROFILE.route) {
             Log.e("TAG", "BottomNavHost: PROFILE")
-            authViewModel.readUserInfo()
-            ProfileScreen(authViewModel, navHostController)
+            userViewModel.readUserInfo()
+            ProfileScreen(userViewModel, navHostController)
         }
         composable(NavigationRoute.SUBCATEGORY.route) {
-            SubCategoryScreen(viewModel, cartLocalViewModel)
+            SubCategoryScreen(menuViewModel, localMenuCartViewModel)
         }
         composable(NavigationRoute.CHECKOUT.route) {
             CheckoutScreen(navHostController, snackBarHost)
         }
         composable(NavigationRoute.ADDRESS.route) {
-            cartLocalViewModel.countCartItems()
-            cartLocalViewModel.grandTotalCartItems()
-            SearchAddressScreen(navHostController, cartLocalViewModel)
+            localCartViewModel.countCartItems()
+            localCartViewModel.grandTotalCartItems()
+            SearchAddressScreen(navHostController, localCartViewModel, ordersLocalViewModel)
         }
         composable(NavigationRoute.ORDER.route) {
-            cartLocalViewModel.orderList()
-            OrderPlaceScreen(navHostController, cartLocalViewModel)
+            ordersLocalViewModel.orderList()
+            OrderPlaceScreen(navHostController, ordersLocalViewModel)
         }
         composable(NavigationRoute.ORDER_DETAILS.route) {
-            OrderDetailScreen(cartLocalViewModel)
+            OrderDetailScreen(ordersLocalViewModel)
         }
     }
 }

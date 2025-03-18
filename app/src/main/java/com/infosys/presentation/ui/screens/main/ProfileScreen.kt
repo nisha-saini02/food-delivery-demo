@@ -26,15 +26,15 @@ import com.infosys.presentation.ui.screens.utility.Spacer
 import com.infosys.presentation.ui.screens.utility.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.utility.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
-import com.infosys.presentation.viewmodel.AuthViewModel
+import com.infosys.presentation.viewmodel.UserViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.utils.enums.LoginType
 
 @Composable
-fun ProfileScreen(authViewModel: AuthViewModel, navHostController: NavHostController) {
-    val userInfo = authViewModel.userInfo.collectAsState().value.data
+fun ProfileScreen(authViewModel: UserViewModel, navHostController: NavHostController) {
+    val userInfo = authViewModel.userInfo.collectAsState().value
 
     Column (
         modifier = Modifier

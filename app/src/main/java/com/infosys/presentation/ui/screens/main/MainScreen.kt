@@ -30,7 +30,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.infosys.R
-import com.infosys.presentation.viewmodel.MainViewModel
+import com.infosys.presentation.viewmodel.MenuViewModel
 import com.infosys.data.model.category.Category
 import com.infosys.data.model.category.sub_Category.SubCategory
 import com.infosys.utils.enums.ItemsCategory
@@ -49,8 +49,8 @@ import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
-    val data = viewModel.categories.collectAsState().value.data
+fun MainScreen(viewModel: MenuViewModel) {
+    val data = viewModel.categories.collectAsState().value
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -93,8 +93,8 @@ fun MainScreen(viewModel: MainViewModel) {
 }
 
 @Composable
-fun AnimateExpandableList(citiesResponse: List<Category>, viewModel: MainViewModel) {
-    val data = viewModel.subcategories.collectAsState().value.data?.meals
+fun AnimateExpandableList(citiesResponse: List<Category>, viewModel: MenuViewModel) {
+    val data = viewModel.subcategories.collectAsState().value?.meals
     val expandedStates = remember { mutableStateListOf(*BooleanArray(citiesResponse.size) { false }.toTypedArray()) }
     val listState = rememberLazyListState()
 

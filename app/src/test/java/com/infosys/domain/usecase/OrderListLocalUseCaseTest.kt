@@ -1,7 +1,7 @@
 package com.infosys.domain.usecase
 
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.OrderListLocalRepository
+import com.infosys.domain.repository.OrdersLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +25,7 @@ class OrderListLocalUseCaseTest {
 
     private lateinit var useCase: OrderListLocalUseCase
     @Mock
-    private lateinit var repository: OrderListLocalRepository
+    private lateinit var repository: OrdersLocalRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)

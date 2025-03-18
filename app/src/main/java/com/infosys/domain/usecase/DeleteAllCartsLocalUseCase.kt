@@ -1,8 +1,7 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.DeleteAllCartsLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.CartsDetailLocalRepository
 
-class DeleteAllCartsLocalUseCase @Inject constructor(var repo: DeleteAllCartsLocalRepository) {
+class DeleteAllCartsLocalUseCase(var repo: CartsDetailLocalRepository) {
     suspend fun deleteAllCarts() = repo.deleteAllCarts()
 }

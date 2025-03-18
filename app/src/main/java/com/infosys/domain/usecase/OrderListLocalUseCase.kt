@@ -1,8 +1,7 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.OrderListLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.OrdersLocalRepository
 
-class OrderListLocalUseCase @Inject constructor(var repo: OrderListLocalRepository) {
+class OrderListLocalUseCase(var repo: OrdersLocalRepository) {
     suspend fun orderList() = repo.orderList()
 }

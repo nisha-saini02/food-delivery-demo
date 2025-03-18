@@ -2,7 +2,6 @@ package com.infosys.domain.usecase
 
 import com.infosys.data.model.cart.Cart
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.FetchCartItemLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

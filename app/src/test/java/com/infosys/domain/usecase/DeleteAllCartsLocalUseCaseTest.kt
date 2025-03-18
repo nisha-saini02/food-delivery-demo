@@ -1,7 +1,6 @@
 package com.infosys.domain.usecase
 
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.DeleteAllCartsLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

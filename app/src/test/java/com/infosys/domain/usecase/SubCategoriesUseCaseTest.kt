@@ -2,7 +2,6 @@ package com.infosys.domain.usecase
 
 import com.infosys.data.model.category.sub_Category.SubCategoryResponse
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.SubCategoriesRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

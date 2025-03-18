@@ -1,7 +1,7 @@
 package com.infosys.domain.usecase
 
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.AllCartItemsLocalRepository
+import com.infosys.domain.repository.CartsDetailLocalRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class AllCartItemsLocalUseCaseTest {
 
     private lateinit var useCase: AllCartItemsLocalUseCase
-    @Mock private lateinit var repository: AllCartItemsLocalRepository
+    @Mock private lateinit var repository: CartsDetailLocalRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)

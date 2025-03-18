@@ -1,10 +1,9 @@
 package com.infosys.domain.usecase
 
 import com.infosys.data.model.user.User
-import com.infosys.domain.repository.WriteUserInfoLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.UserInfoLocalRepository
 
-class WriteUserInfoLocalUseCase @Inject constructor(var repository: WriteUserInfoLocalRepository) {
+data class WriteUserInfoLocalUseCase (var repository: UserInfoLocalRepository) {
     suspend fun writeUserInfo(userInfo: User) {
         return repository.writeUserInfo(userInfo)
     }

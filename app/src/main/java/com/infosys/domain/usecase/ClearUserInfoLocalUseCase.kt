@@ -1,9 +1,8 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.ClearUserInfoLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.UserInfoLocalRepository
 
-class ClearUserInfoLocalUseCase @Inject constructor(var repo: ClearUserInfoLocalRepository) {
+data class ClearUserInfoLocalUseCase(var repo: UserInfoLocalRepository) {
     suspend fun clearUserInfo() {
         repo.clearUserInfo()
     }

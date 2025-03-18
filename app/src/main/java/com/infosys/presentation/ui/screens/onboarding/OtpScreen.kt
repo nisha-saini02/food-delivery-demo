@@ -33,7 +33,8 @@ import com.infosys.presentation.ui.screens.utility.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.utility.TextTitleSmall
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
-import com.infosys.presentation.viewmodel.AuthViewModel
+import com.infosys.presentation.viewmodel.SignupUserViewModel
+import com.infosys.presentation.viewmodel.UserViewModel
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
@@ -42,7 +43,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun OtpScreen(
     navHostController: NavHostController,
-    authViewModel: AuthViewModel
+    authViewModel: UserViewModel,
+    signupUserViewModel: SignupUserViewModel
 ) {
     val otp1 = remember { mutableStateOf("") }
     val otp2 = remember { mutableStateOf("") }
@@ -154,9 +156,9 @@ fun OtpScreen(
                         if (otp1.value.isNotEmpty() && otp2.value.isNotEmpty() && otp3.value.isNotEmpty()) {
                             authViewModel.readUserInfo()
 
-                            val user = authViewModel.userInfo.value.data
+                            val user = authViewModel.userInfo.value
                             user?.authenticate = true
-                            user?.let { authViewModel.writeUserInfo(it) }
+                            user?.let { signupUserViewModel.writeUserInfo(it) }
 
                             navHostController.navigate(NavigationRoute.HOME.route) {
                                 popUpTo(NavigationRoute.OTP.route){

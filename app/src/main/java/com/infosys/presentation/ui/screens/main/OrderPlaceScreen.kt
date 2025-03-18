@@ -15,19 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.infosys.data.remote.Resource
 import com.infosys.presentation.ui.screens.listViews.OrderListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 import com.infosys.presentation.ui.screens.utility.TextHeadlineMedium
 import com.infosys.presentation.ui.screens.utility.TextTitleMedium
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.OrdersLocalViewModel
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 
 @Composable
-fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: LocalViewModel) {
+fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: OrdersLocalViewModel) {
     val orders = localViewModel.orders.collectAsState().value
 
     Column(
@@ -61,25 +60,29 @@ fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: Local
                 .weight(0.85f),
         ) {
             Column {
-                if (orders.data.isNullOrEmpty()) {
-                    Box (modifier = Modifier.weight(0.85f).padding(16.dp)) {
-                        LazyColumn {
-                            repeat(10) {
-                                item {
-                                    ShimmerNavigator(NavigationRoute.ORDER)
-                                }
+                Box (modifier = Modifier.weight(0.85f).padding(16.dp)) {
+                    LazyColumn {
+                        repeat(10) {
+                            item {
+                                ShimmerNavigator(NavigationRoute.ORDER)
                             }
                         }
                     }
                 }
-                if (orders is Resource.Success && !orders.data.isNullOrEmpty()) {
-                    OrderListView(
-                        orders.data,
-                    ) { orderItem ->
-                        localViewModel.getOrder(orderItem.id.toString())
-                        navHostController.navigate(NavigationRoute.ORDER_DETAILS.route)
+                if (!orders.isNullOrEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        OrderListView(
+                            orders,
+                        ) { orderItem ->
+                            localViewModel.getOrder(orderItem.id.toString())
+                            navHostController.navigate(NavigationRoute.ORDER_DETAILS.route)
+                        }
                     }
-                } else if (orders is Resource.Success || orders is Resource.Error) {
+                } else {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,

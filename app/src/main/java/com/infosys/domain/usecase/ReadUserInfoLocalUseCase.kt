@@ -1,8 +1,7 @@
 package com.infosys.domain.usecase
 
-import com.infosys.domain.repository.ReadUserInfoLocalRepository
-import javax.inject.Inject
+import com.infosys.domain.repository.UserInfoLocalRepository
 
-class ReadUserInfoLocalUseCase @Inject constructor(var repository: ReadUserInfoLocalRepository) {
+data class ReadUserInfoLocalUseCase (var repository: UserInfoLocalRepository) {
     fun getUserInfo() = repository.readUserInfo()
 }

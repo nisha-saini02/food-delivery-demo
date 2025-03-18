@@ -48,17 +48,22 @@ import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListVie
 import com.infosys.presentation.ui.screens.listViews.MainMenuListView
 import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
-import com.infosys.presentation.viewmodel.LocalViewModel
-import com.infosys.presentation.viewmodel.MainViewModel
+import com.infosys.presentation.viewmodel.HomeViewModel
+import com.infosys.presentation.viewmodel.LocalMenuCartViewModel
+import com.infosys.presentation.viewmodel.MenuViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel, navigationHostController: NavHostController) {
+fun MainMenuScreen(
+    viewModel: HomeViewModel,
+    menuViewModel: MenuViewModel,
+    localMenuCartViewModel: LocalMenuCartViewModel,
+    navigationHostController: NavHostController
+) {
     val search = remember { mutableStateOf("") }
-    val categories = viewModel.categories.collectAsState().value.data?.categories
+    val categories = menuViewModel.categories.collectAsState().value?.categories
     val meals = viewModel.meals.collectAsState().value
-    val insertItem = cartLocalViewModel.insertItem.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -136,8 +141,8 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                 }
                 categories?.let {
                     HorizontalCategoriesListView(it) { category ->
-                        viewModel.getSubCategories(category.strCategory.toString())
-                        viewModel.category.value = category.strCategory.toString()
+                        menuViewModel.getSubCategories(category.strCategory.toString())
+                        menuViewModel.category.value = category.strCategory.toString()
                         navigationHostController.navigate(NavigationRoute.SUBCATEGORY.route)
                     }
                 }
@@ -175,7 +180,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                             }
                         },
                         addToCartEvent = { subCategoryDetails, count ->
-                            cartLocalViewModel.insertItem(
+                            localMenuCartViewModel.insertItem(
                                 Cart(
                                     subCategoryDetails.idMeal.toString(),
                                     subCategoryDetails.strMeal.toString(),
@@ -185,9 +190,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                                 )
                             )
 
-                            if (insertItem.data != null) {
-                                Log.e("Local", "MainMenuScreen: inserted item")
-                            }
+                            Log.e("Local", "MainMenuScreen: inserted item")
                         }
                     )
                 }
@@ -197,7 +200,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                     isBottomSheetVisible = isBottomSheetVisible,
                     sheetState = sheetState,
                     addToCartEvent = { subCategoryDetails, count ->
-                        cartLocalViewModel.insertItem(
+                        localMenuCartViewModel.insertItem(
                             Cart(
                                 subCategoryDetails.idMeal.toString(),
                                 subCategoryDetails.strMeal.toString(),
@@ -207,9 +210,7 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
                             )
                         )
 
-                        if (insertItem.data != null) {
-                            Log.e("Local", "MainMenuScreen: inserted item")
-                        }
+                        Log.e("Local", "MainMenuScreen: inserted item")
                     }
                 ) {
                     scope.launch { sheetState.hide() }
@@ -221,8 +222,11 @@ fun MainMenuScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel,
 }
 
 @Composable
-fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel) {
-    val subCategories = viewModel.subcategories.collectAsState().value.data
+fun SubCategoryScreen(
+    viewModel: MenuViewModel,
+    localMenuCartViewModel: LocalMenuCartViewModel
+) {
+    val subCategories = viewModel.subcategories.collectAsState().value
     val category = viewModel.category.collectAsState().value
 
     Column(
@@ -270,7 +274,7 @@ fun SubCategoryScreen(viewModel: MainViewModel, cartLocalViewModel: LocalViewMod
                 subCategories?.meals?.let {
                     GridListView(it, ItemsCategory.SubCategoryList) { subCategory, count, cartFunction ->
                         if(cartFunction == CartFunctions.INSERT) {
-                            cartLocalViewModel.insertItem(
+                            localMenuCartViewModel.insertItem(
                                 Cart(
                                     subCategory.idMeal.toString(),
                                     subCategory.strMeal.toString(),

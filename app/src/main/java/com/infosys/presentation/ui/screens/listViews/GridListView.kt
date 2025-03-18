@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -76,15 +77,14 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                                 .fillMaxWidth()
                                 .border(BorderStroke(1.dp, Yellow), roundShapeCorner())) {
                                 Box (modifier = Modifier
-                                    .fillMaxWidth()
+                                    .size(100.dp)
                                     .padding(12.dp)
-                                    .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
+                                    .border(BorderStroke(1.5.dp, Yellow), roundShapeCorner())
                                     .weight(0.4f), Alignment.Center) {
                                     LoadImage(
                                         item.strMealThumb.toString(),
                                         modifier = Modifier
-                                            .size(width = 100.dp, height = 80.dp)
-                                            .padding(8.dp)
+                                            .fillMaxSize()
                                     )
                                 }
                                 Box (modifier = Modifier
@@ -137,17 +137,16 @@ fun GridListView(items: List<SubCategory>, category: ItemsCategory, cartEvent: (
                         ItemsCategory.CartItems -> {
                             Row (modifier = Modifier
                                 .fillMaxWidth()
-                                .border(BorderStroke(1.dp, Yellow), roundShapeCorner())) {
+                                .border(BorderStroke(1.5.dp, Yellow), roundShapeCorner())) {
                                 Box (modifier = Modifier
-                                    .fillMaxWidth()
+                                    .size(100.dp)
                                     .padding(12.dp)
                                     .border(BorderStroke(1.dp, Yellow), roundShapeCorner())
                                     .weight(0.4f), Alignment.Center) {
                                     LoadImage(
                                         item.strMealThumb.toString(),
                                         modifier = Modifier
-                                            .size(width = 100.dp, height = 80.dp)
-                                            .padding(8.dp)
+                                            .fillMaxSize()
                                     )
                                 }
                                 Box (modifier = Modifier

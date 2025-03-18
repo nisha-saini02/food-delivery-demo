@@ -42,7 +42,7 @@ fun LoadImage(url: String,
     AsyncImage(
         model = url,
         contentDescription = "Image Description",
-        modifier = modifier.clip(roundShapeCorner(5)),
+        modifier = modifier.clip(roundShapeCorner()),
         contentScale = ContentScale.Crop,
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.no_image_found),

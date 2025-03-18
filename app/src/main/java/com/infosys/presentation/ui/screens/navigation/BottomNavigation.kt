@@ -17,14 +17,26 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
-import com.infosys.presentation.viewmodel.AuthViewModel
+import com.infosys.presentation.viewmodel.HomeViewModel
+import com.infosys.presentation.viewmodel.LocalCartViewModel
+import com.infosys.presentation.viewmodel.LocalMenuCartViewModel
+import com.infosys.presentation.viewmodel.MenuViewModel
+import com.infosys.presentation.viewmodel.OrdersLocalViewModel
+import com.infosys.presentation.viewmodel.SignupUserViewModel
+import com.infosys.presentation.viewmodel.UserViewModel
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
-import com.infosys.presentation.viewmodel.LocalViewModel
-import com.infosys.presentation.viewmodel.MainViewModel
 
 @Composable
-fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: LocalViewModel, authViewModel: AuthViewModel) {
+fun BottomNavigationController(
+    homeViewModel: HomeViewModel,
+    localCartViewModel: LocalCartViewModel,
+    localMenuCartViewModel: LocalMenuCartViewModel,
+    menuViewModel: MenuViewModel,
+    ordersLocalViewModel: OrdersLocalViewModel,
+    signupUserViewModel: SignupUserViewModel,
+    userViewModel: UserViewModel
+) {
     val navHostController = rememberNavController()
     val snackBarHost = remember { SnackbarHostState() }
 
@@ -42,7 +54,17 @@ fun BottomNavigationController(viewModel: MainViewModel, cartLocalViewModel: Loc
         },
         snackbarHost = { SnackbarHost(snackBarHost) }
     ) { _ ->
-        BottomNavHost(navHostController, viewModel, cartLocalViewModel, authViewModel, snackBarHost)
+        BottomNavHost(
+            navHostController,
+            homeViewModel,
+            localCartViewModel,
+            localMenuCartViewModel,
+            menuViewModel,
+            ordersLocalViewModel,
+            signupUserViewModel,
+            userViewModel,
+            snackBarHost
+        )
     }
 }
 

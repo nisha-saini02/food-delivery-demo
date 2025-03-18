@@ -19,16 +19,16 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.infosys.presentation.viewmodel.LocalViewModel
+import com.infosys.presentation.viewmodel.OrdersLocalViewModel
 import com.infosys.theme.Orange
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun OrderDetailScreen(cartLocalViewModel: LocalViewModel) {
+fun OrderDetailScreen(cartLocalViewModel: OrdersLocalViewModel) {
     val order = cartLocalViewModel.fetchOrder.collectAsState().value
 
     val source = LatLng(30.7405083,76.6749134)
-    val destination = LatLng(order.data?.destinationLat!!,order.data.destinationLong!!)
+    val destination = LatLng(order?.destinationLat!!,order.destinationLong!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(source, 16f)
     }

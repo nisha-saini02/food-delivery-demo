@@ -2,7 +2,7 @@ package com.infosys.domain.usecase
 
 import com.infosys.data.model.category.sub_Category.details.SubCategoryDetailsResponse
 import com.infosys.data.remote.Resource
-import com.infosys.domain.repository.SubCategoryDetailsRepository
+import com.infosys.domain.repository.MenusAndSubCategoryDetailsRepository
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +26,7 @@ class SubCategoryDetailsUseCaseTest {
 
     private lateinit var useCase: SubCategoryDetailsUseCase
     @Mock
-    private lateinit var repository: SubCategoryDetailsRepository
+    private lateinit var repository: MenusAndSubCategoryDetailsRepository
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
