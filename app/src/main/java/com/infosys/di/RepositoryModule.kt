@@ -2,16 +2,19 @@ package com.infosys.di
 
 import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.localDatabase.MyDataStore
+import com.infosys.data.localDatabase.dao.CardDao
 import com.infosys.data.localDatabase.dao.OrderDao
 import com.infosys.data.remote.FoodService
 import com.infosys.data.repositoryImpl.CartsDetailLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.AllCategoriesAndSubCategoriesRepositoryImpl
+import com.infosys.data.repositoryImpl.CardsInfoRepositoryImpl
 import com.infosys.data.repositoryImpl.MenuCartLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.OrdersLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.UserInfoLocalRepositoryImpl
 import com.infosys.data.repositoryImpl.MenusAndSubCategoryDetailsRepositoryImpl
 import com.infosys.domain.repository.CartsDetailLocalRepository
 import com.infosys.domain.repository.AllCategoriesAndSubCategoriesRepository
+import com.infosys.domain.repository.CardsInfoRepository
 import com.infosys.domain.repository.MenuCartLocalRepository
 import com.infosys.domain.repository.OrdersLocalRepository
 import com.infosys.domain.repository.UserInfoLocalRepository
@@ -65,5 +68,12 @@ class RepositoryModule {
         store: MyDataStore
     ): UserInfoLocalRepository {
         return UserInfoLocalRepositoryImpl(store)
+    }
+
+    @Provides
+    fun provideCardsInfoRepository(
+        cardDao: CardDao
+    ): CardsInfoRepository {
+        return CardsInfoRepositoryImpl(cardDao)
     }
 }

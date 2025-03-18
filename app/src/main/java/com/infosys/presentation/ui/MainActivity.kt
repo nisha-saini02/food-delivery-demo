@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.infosys.presentation.ui.screens.navigation.BottomNavigationController
+import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.presentation.viewmodel.UserViewModel
 import com.infosys.presentation.viewmodel.HomeViewModel
 import com.infosys.presentation.viewmodel.LocalCartViewModel
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val cardInfoViewModel: CardInfoViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private val localCartViewModel: LocalCartViewModel by viewModels()
     private val localMenuCartViewModel: LocalMenuCartViewModel by viewModels()
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
             userViewModel.readUserInfo()
             FoodDeliveryDemoTheme {
                 BottomNavigationController(
+                    cardInfoViewModel,
                     homeViewModel,
                     localCartViewModel,
                     localMenuCartViewModel,

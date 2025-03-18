@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.infosys.data.localDatabase.AppDatabase
 import com.infosys.data.localDatabase.dao.CartDao
 import com.infosys.data.localDatabase.MyDataStore
+import com.infosys.data.localDatabase.dao.CardDao
 import com.infosys.data.localDatabase.dao.OrderDao
 import dagger.Module
 import dagger.Provides
@@ -39,6 +40,11 @@ class LocalModule {
     @Provides
     fun provideOrderDao(database: AppDatabase): OrderDao {
         return database.orderDao()
+    }
+
+    @Provides
+    fun provideCardDao(database: AppDatabase): CardDao {
+        return database.cardDao()
     }
 
     @Provides

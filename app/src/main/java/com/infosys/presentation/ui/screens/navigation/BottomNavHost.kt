@@ -19,6 +19,7 @@ import com.infosys.presentation.ui.screens.main.OrderPlaceScreen
 import com.infosys.presentation.ui.screens.map.OrderDetailScreen
 import com.infosys.presentation.ui.screens.onboarding.OtpScreen
 import com.infosys.presentation.ui.screens.onboarding.SignUpScreen
+import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.presentation.viewmodel.UserViewModel
 import com.infosys.presentation.viewmodel.HomeViewModel
 import com.infosys.presentation.viewmodel.LocalCartViewModel
@@ -31,6 +32,7 @@ import com.infosys.utils.enums.LoginType
 @Composable
 fun BottomNavHost(
     navHostController: NavHostController,
+    cardInfoViewModel: CardInfoViewModel,
     homeViewModel: HomeViewModel,
     localCartViewModel: LocalCartViewModel,
     localMenuCartViewModel: LocalMenuCartViewModel,
@@ -85,7 +87,8 @@ fun BottomNavHost(
             SubCategoryScreen(menuViewModel, localMenuCartViewModel)
         }
         composable(NavigationRoute.CHECKOUT.route) {
-            CheckoutScreen(navHostController, snackBarHost)
+            cardInfoViewModel.getAllCards()
+            CheckoutScreen(navHostController, snackBarHost, cardInfoViewModel)
         }
         composable(NavigationRoute.ADDRESS.route) {
             localCartViewModel.countCartItems()

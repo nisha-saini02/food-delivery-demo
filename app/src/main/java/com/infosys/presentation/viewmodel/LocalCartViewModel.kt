@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LocalCartViewModel  @Inject constructor(
+class LocalCartViewModel @Inject constructor(
     private var allCartItemsLocalUseCase: AllCartItemsLocalUseCase,
     private var countCartItemsLocalUseCase: CountCartItemsLocalUseCase,
     private var grandTotalCartItemsLocalUseCase: GrandTotalCartItemsLocalUseCase,

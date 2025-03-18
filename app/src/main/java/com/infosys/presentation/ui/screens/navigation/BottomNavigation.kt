@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
+import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.presentation.viewmodel.HomeViewModel
 import com.infosys.presentation.viewmodel.LocalCartViewModel
 import com.infosys.presentation.viewmodel.LocalMenuCartViewModel
@@ -29,6 +30,7 @@ import com.infosys.theme.Orange
 
 @Composable
 fun BottomNavigationController(
+    cardInfoViewModel: CardInfoViewModel,
     homeViewModel: HomeViewModel,
     localCartViewModel: LocalCartViewModel,
     localMenuCartViewModel: LocalMenuCartViewModel,
@@ -56,6 +58,7 @@ fun BottomNavigationController(
     ) { _ ->
         BottomNavHost(
             navHostController,
+            cardInfoViewModel,
             homeViewModel,
             localCartViewModel,
             localMenuCartViewModel,

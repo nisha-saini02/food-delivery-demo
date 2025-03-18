@@ -2,18 +2,22 @@ package com.infosys.di
 
 import com.infosys.domain.repository.CartsDetailLocalRepository
 import com.infosys.domain.repository.AllCategoriesAndSubCategoriesRepository
+import com.infosys.domain.repository.CardsInfoRepository
 import com.infosys.domain.repository.MenuCartLocalRepository
 import com.infosys.domain.repository.OrdersLocalRepository
 import com.infosys.domain.repository.UserInfoLocalRepository
 import com.infosys.domain.repository.MenusAndSubCategoryDetailsRepository
 import com.infosys.domain.usecase.AllCartItemsLocalUseCase
 import com.infosys.domain.usecase.AllCategoriesUseCase
+import com.infosys.domain.usecase.CardsInfoUseCase
 import com.infosys.domain.usecase.ClearUserInfoLocalUseCase
 import com.infosys.domain.usecase.CountCartItemsLocalUseCase
 import com.infosys.domain.usecase.DeleteAllCartsLocalUseCase
+import com.infosys.domain.usecase.DeleteCardInfoUseCase
 import com.infosys.domain.usecase.DeleteCartLocalUseCase
 import com.infosys.domain.usecase.FetchOrderLocalUserCase
 import com.infosys.domain.usecase.GrandTotalCartItemsLocalUseCase
+import com.infosys.domain.usecase.InsertCardInfoUseCase
 import com.infosys.domain.usecase.InsertCartItemLocalUseCase
 import com.infosys.domain.usecase.InsertOrderItemLocalUseCase
 import com.infosys.domain.usecase.MenuListUseCase
@@ -149,5 +153,26 @@ class UseCaseModule {
         repository: UserInfoLocalRepository
     ): ClearUserInfoLocalUseCase {
         return ClearUserInfoLocalUseCase(repository)
+    }
+
+    @Provides
+    fun provideCardsInfoUseCase(
+        repository: CardsInfoRepository
+    ): CardsInfoUseCase {
+        return CardsInfoUseCase(repository)
+    }
+
+    @Provides
+    fun provideInsertCardInfoUseCase(
+        repository: CardsInfoRepository
+    ): InsertCardInfoUseCase {
+        return InsertCardInfoUseCase(repository)
+    }
+
+    @Provides
+    fun provideDeleteCardInfoUseCase(
+        repository: CardsInfoRepository
+    ): DeleteCardInfoUseCase {
+        return DeleteCardInfoUseCase(repository)
     }
 }
