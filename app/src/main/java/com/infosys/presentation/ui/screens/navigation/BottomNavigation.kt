@@ -17,6 +17,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.infosys.R
+import com.infosys.data.firebase.FirebaseAuthentication
+import com.infosys.data.firebase.FirebaseFirestore
 import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.presentation.viewmodel.HomeViewModel
 import com.infosys.presentation.viewmodel.LocalCartViewModel
@@ -37,7 +39,9 @@ fun BottomNavigationController(
     menuViewModel: MenuViewModel,
     ordersLocalViewModel: OrdersLocalViewModel,
     signupUserViewModel: SignupUserViewModel,
-    userViewModel: UserViewModel
+    userViewModel: UserViewModel,
+    objFirebase: FirebaseAuthentication,
+    objFirebaseFirestore: FirebaseFirestore
 ) {
     val navHostController = rememberNavController()
     val snackBarHost = remember { SnackbarHostState() }
@@ -49,6 +53,7 @@ fun BottomNavigationController(
                 currentRoute != null &&
                 currentRoute != NavigationRoute.SPLASH.route &&
                 currentRoute != NavigationRoute.SIGNUP.route &&
+                currentRoute != NavigationRoute.SIGN_IN.route &&
                 currentRoute != NavigationRoute.OTP.route
                 ) {
                 BottomBar(navHostController)
@@ -66,7 +71,9 @@ fun BottomNavigationController(
             ordersLocalViewModel,
             signupUserViewModel,
             userViewModel,
-            snackBarHost
+            snackBarHost,
+            objFirebase,
+            objFirebaseFirestore
         )
     }
 }

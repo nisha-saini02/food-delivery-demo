@@ -122,7 +122,11 @@ fun CheckoutScreen(
                                 Alignment.Center
                             ) {
                                 TextLabelMedium(
-                                    getCardType(account.value) ?: "error",
+                                    if (account.value.isEmpty()) {
+                                        "card"
+                                    } else {
+                                        getCardType(account.value) ?: "error"
+                                    },
                                     Blue, maxLines = Int.MAX_VALUE
                                 )
                             }

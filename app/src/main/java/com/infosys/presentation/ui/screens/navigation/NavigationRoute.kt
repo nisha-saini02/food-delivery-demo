@@ -3,6 +3,7 @@ package com.infosys.presentation.ui.screens.navigation
 enum class NavigationRoute(val route: String) {
     SPLASH("splash"),
     SIGNUP("signup"),
+    SIGN_IN("signin"),
     OTP("otp"),
     HOME("home"),
     MENU("menu"),

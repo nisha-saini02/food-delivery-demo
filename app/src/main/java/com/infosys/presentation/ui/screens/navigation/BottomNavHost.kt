@@ -7,6 +7,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.infosys.data.firebase.FirebaseAuthentication
+import com.infosys.data.firebase.FirebaseFirestore
 import com.infosys.presentation.ui.screens.SplashScreen
 import com.infosys.presentation.ui.screens.main.CartScreen
 import com.infosys.presentation.ui.screens.main.CheckoutScreen
@@ -18,6 +20,7 @@ import com.infosys.presentation.ui.screens.main.SubCategoryScreen
 import com.infosys.presentation.ui.screens.main.OrderPlaceScreen
 import com.infosys.presentation.ui.screens.map.OrderDetailScreen
 import com.infosys.presentation.ui.screens.onboarding.OtpScreen
+import com.infosys.presentation.ui.screens.onboarding.SignInScreen
 import com.infosys.presentation.ui.screens.onboarding.SignUpScreen
 import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.presentation.viewmodel.UserViewModel
@@ -41,6 +44,8 @@ fun BottomNavHost(
     signupUserViewModel: SignupUserViewModel,
     userViewModel: UserViewModel,
     snackBarHost: SnackbarHostState,
+    objFirebase: FirebaseAuthentication,
+    objFirebaseFirestore: FirebaseFirestore
 ) {
     val user = userViewModel.userInfo.collectAsState().value
 
@@ -59,7 +64,10 @@ fun BottomNavHost(
             SplashScreen(navHostController)
         }
         composable(NavigationRoute.SIGNUP.route) {
-            SignUpScreen(navHostController, signupUserViewModel)
+            SignUpScreen(navHostController, signupUserViewModel, objFirebase, objFirebaseFirestore)
+        }
+        composable(NavigationRoute.SIGN_IN.route) {
+            SignInScreen(navHostController, signupUserViewModel, objFirebase, objFirebaseFirestore)
         }
         composable(NavigationRoute.OTP.route) {
             OtpScreen(navHostController, userViewModel, signupUserViewModel)

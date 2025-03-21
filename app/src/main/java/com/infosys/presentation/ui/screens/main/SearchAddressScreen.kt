@@ -1,5 +1,6 @@
 package com.infosys.presentation.ui.screens.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,18 +23,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.data.model.order.Order
+import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.EditTextBodyMedium
 import com.infosys.presentation.ui.screens.utility.HorizontalLine
 import com.infosys.presentation.ui.screens.utility.Image
 import com.infosys.presentation.ui.screens.utility.Spacer
+import com.infosys.presentation.ui.screens.utility.TextLabelLarge
 import com.infosys.presentation.ui.screens.utility.TextLabelMedium
 import com.infosys.presentation.ui.screens.utility.TextLabelSmall
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.presentation.viewmodel.LocalCartViewModel
 import com.infosys.presentation.viewmodel.OrdersLocalViewModel
@@ -41,6 +46,7 @@ import com.infosys.theme.Black
 import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
+import com.infosys.theme.Yellow
 
 @Composable
 fun SearchAddressScreen(
@@ -50,13 +56,15 @@ fun SearchAddressScreen(
 ) {
 
     val search = remember { mutableStateOf("") }
+    val orderPlace = remember { mutableStateOf(false) }
     val countCartItems = localCartViewModel.countCartItems.collectAsState().value
     val grandTotalCartItems = localCartViewModel.grandTotalCartItems.collectAsState().value
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White)) {
+        modifier =
+        if (orderPlace.value) Modifier.size(0.dp)
+        else Modifier.fillMaxSize().background(White)
+    ) {
 
         Box(
             modifier = Modifier
@@ -123,7 +131,48 @@ fun SearchAddressScreen(
 
                     ordersLocalViewModel.deleteAllCarts()
 
-                    navHostController.navigate(NavigationRoute.ORDER.route)
+                    orderPlace.value = true
+                }
+            }
+        }
+    }
+
+    Column(
+        modifier =
+        if (!orderPlace.value) Modifier.size(0.dp)
+        else Modifier.fillMaxSize().background(White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        BackHandler {
+            navHostController.popBackStack(NavigationRoute.CHECKOUT.route, inclusive = true)
+        }
+
+        Image(
+            R.drawable.success_checkout,
+            Modifier
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(Yellow, Orange),
+                        start = Offset(0f, 0f),
+                        end = Offset(1000f, 1000f)
+                    ), roundShapeCorner(100)
+                )
+                .padding(20.dp)
+                .size(150.dp)
+        )
+
+        Spacer()
+
+        TextLabelLarge("Successfully placed an Order", modifier = Modifier.fillMaxWidth())
+
+        Spacer()
+
+        ButtonCr(text = "Track Order") {
+            navHostController.navigate(NavigationRoute.ORDER.route){
+                popUpTo(NavigationRoute.CHECKOUT.route){
+                    inclusive = true
                 }
             }
         }

@@ -23,7 +23,7 @@ open class UserViewModel @Inject constructor(
     fun readUserInfo() {
         viewModelScope.launch {
             try {
-                readUserInfoLocalUseCase.getUserInfo()
+                readUserInfoLocalUseCase()
                     .collect {
                         if (it == null) {
                             _userInfo.value = null
