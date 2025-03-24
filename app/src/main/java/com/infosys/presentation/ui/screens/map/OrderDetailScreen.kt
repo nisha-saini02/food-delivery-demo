@@ -27,8 +27,8 @@ import com.infosys.theme.Orange
 fun OrderDetailScreen(cartLocalViewModel: OrdersLocalViewModel) {
     val order = cartLocalViewModel.fetchOrder.collectAsState().value
 
-    val source = LatLng(30.7405083,76.6749134)
-    val destination = LatLng(order?.destinationLat!!,order.destinationLong!!)
+    val source = LatLng(order?.sourceLat!!,order.sourceLong!!)
+    val destination = LatLng(order.destinationLat!!,order.destinationLong!!)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(source, 16f)
     }

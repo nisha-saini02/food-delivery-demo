@@ -1,9 +1,7 @@
 package com.infosys.data.repositoryImpl
 
-import com.infosys.data.model.category.Category
-import com.infosys.data.model.category.CategoryResponse
-import com.infosys.data.model.category.sub_Category.SubCategory
-import com.infosys.data.model.category.sub_Category.SubCategoryResponse
+import com.infosys.data.model.category.sub_Category.details.SubCategoryDetails
+import com.infosys.data.model.category.sub_Category.details.SubCategoryDetailsResponse
 import com.infosys.data.remote.FoodService
 import com.infosys.data.remote.Resource
 import io.mockk.mockk
@@ -23,16 +21,16 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import retrofit2.Response
 
-class AllCategoriesAndSubCategoriesRepositoryImplTest {
-
-    private lateinit var repository: AllCategoriesAndSubCategoriesRepositoryImpl
+class MenusAndSubCategoryDetailsRepositoryImplTest {
+    
+    private lateinit var repository: MenusAndSubCategoryDetailsRepositoryImpl
     private val dao: FoodService = mock(FoodService::class.java)
     private val dispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun init() {
-        repository = AllCategoriesAndSubCategoriesRepositoryImpl(dao)
+        repository = MenusAndSubCategoryDetailsRepositoryImpl(dao)
         Dispatchers.setMain(dispatcher)
     }
 
@@ -44,50 +42,12 @@ class AllCategoriesAndSubCategoriesRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun fetchCategories_success() = runTest {
-        val data = mutableListOf<Category>()
-        `when`(dao.allCategory())
-            .thenReturn(Response.success(CategoryResponse(data)))
+    fun getSubCategoryDetails_success() = runTest {
+        val data = mutableListOf<SubCategoryDetails>()
+        `when`(dao.getSubCategoryDetails(""))
+            .thenReturn(Response.success(SubCategoryDetailsResponse(data)))
 
-        val result = repository.getAllCategories()
-        advanceUntilIdle()
-
-        assertTrue(result is Resource.Success)
-        assertEquals(data, result.data?.categories)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun fetchCategories_error() = runTest {
-        `when`(dao.allCategory())
-            .thenReturn(Response.error(400, mockk(relaxed = true)))
-
-        val result = repository.getAllCategories()
-        advanceUntilIdle()
-
-        assertEquals(null, result.data)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun fetchCategories_exception() = runTest {
-        `when`(dao.allCategory())
-            .thenThrow(RuntimeException("Test"))
-
-        val result = repository.getAllCategories()
-        advanceUntilIdle()
-
-        assertEquals(null, result.data)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun fetchSubCategories_success() = runTest {
-        val data = mutableListOf<SubCategory>()
-        `when`(dao.getSubCategories(""))
-            .thenReturn(Response.success(SubCategoryResponse(data)))
-
-        val result = repository.getSubCategories("")
+        val result = repository.getSubCategoryDetails("")
         advanceUntilIdle()
 
         assertTrue(result is Resource.Success)
@@ -96,11 +56,11 @@ class AllCategoriesAndSubCategoriesRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun fetchSubCategories_error() = runTest {
-        `when`(dao.getSubCategories(""))
+    fun getSubCategoryDetails_error() = runTest {
+        `when`(dao.getSubCategoryDetails(""))
             .thenReturn(Response.error(400, mockk(relaxed = true)))
 
-        val result = repository.getSubCategories("")
+        val result = repository.getSubCategoryDetails("")
         advanceUntilIdle()
 
         assertEquals(null, result.data)
@@ -108,11 +68,49 @@ class AllCategoriesAndSubCategoriesRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun fetchSubCategories_exception() = runTest {
-        `when`(dao.getSubCategories(""))
+    fun getSubCategoryDetails_exception() = runTest {
+        `when`(dao.getSubCategoryDetails(""))
             .thenThrow(RuntimeException("Test"))
 
-        val result = repository.getSubCategories("")
+        val result = repository.getSubCategoryDetails("")
+        advanceUntilIdle()
+
+        assertEquals(null, result.data)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getMenuList_success() = runTest {
+        val data = mutableListOf<SubCategoryDetails>()
+        `when`(dao.getMenuList(""))
+            .thenReturn(Response.success(SubCategoryDetailsResponse(data)))
+
+        val result = repository.getMenuList("")
+        advanceUntilIdle()
+
+        assertTrue(result is Resource.Success)
+        assertEquals(data, result.data?.meals)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getMenuList_error() = runTest {
+        `when`(dao.getMenuList(""))
+            .thenReturn(Response.error(400, mockk(relaxed = true)))
+
+        val result = repository.getMenuList("")
+        advanceUntilIdle()
+
+        assertEquals(null, result.data)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getMenuList_exception() = runTest {
+        `when`(dao.getMenuList(""))
+            .thenThrow(RuntimeException("Test"))
+
+        val result = repository.getMenuList("")
         advanceUntilIdle()
 
         assertEquals(null, result.data)

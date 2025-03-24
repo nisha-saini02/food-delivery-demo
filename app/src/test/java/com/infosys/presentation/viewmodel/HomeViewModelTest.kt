@@ -82,7 +82,7 @@ class HomeViewModelTest {
         `when`(menuListUseCase.getMenuList(""))
             .thenReturn(Resource.Success(expected))
 
-        viewModel.getMenuList("")
+        viewModel.getMenuList()
 
         dispatcher.scheduler.advanceUntilIdle()
         assertEquals(expected, viewModel.meals.value.data)
@@ -95,7 +95,7 @@ class HomeViewModelTest {
         `when`(menuListUseCase.getMenuList(""))
             .thenReturn(Resource.Success(expected))
 
-        viewModel.getMenuList("")
+        viewModel.getMenuList()
 
         dispatcher.scheduler.advanceUntilIdle()
         assertEquals(expected, viewModel.meals.value.data)
@@ -104,10 +104,10 @@ class HomeViewModelTest {
     @Test
     fun getMeals_exception() = runTest {
         val expected = null
-        `when`(menuListUseCase.getMenuList(""))
+        `when`(menuListUseCase.getMenuList("roti"))
             .thenThrow(RuntimeException::class.java)
 
-        viewModel.getMenuList("")
+        viewModel.getMenuList("roti")
 
         dispatcher.scheduler.advanceUntilIdle()
         assertEquals(expected, viewModel.meals.value.data)

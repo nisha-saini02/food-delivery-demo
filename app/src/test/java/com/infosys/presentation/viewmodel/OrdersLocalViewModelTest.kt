@@ -80,13 +80,116 @@ class OrdersLocalViewModelTest {
 
     @Test
     fun deleteAllCarts_success() = runTest {
+        val expected = listOf(Order())
+
+        `when`(deleteAllCartsLocalUseCase.deleteAllCarts())
+            .thenReturn(expected.size)
+
+        viewModel.deleteAllCarts()
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.deleteAllCarts.value == expected.size)
+    }
+
+    @Test
+    fun deleteAllCarts_failure() = runTest {
+        val expected = null
+
+        `when`(deleteAllCartsLocalUseCase.deleteAllCarts())
+            .thenReturn(expected)
+
+        viewModel.deleteAllCarts()
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.deleteAllCarts.value == expected)
+    }
+
+    @Test
+    fun deleteAllCarts_exception() = runTest {
+        val expected = null
+
+        `when`(deleteAllCartsLocalUseCase.deleteAllCarts())
+            .thenThrow(RuntimeException::class.java)
+
+        viewModel.deleteAllCarts()
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.deleteAllCarts.value == expected)
     }
 
     @Test
     fun insertOrderItem_success() = runTest {
+        val expected = Order()
+
+        `when`(insertOrderItemLocalUseCase.insertItem(expected))
+            .thenReturn(1)
+
+        viewModel.insertOrderItem(expected)
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.insertOrder.value == 1L)
+    }
+
+    @Test
+    fun insertOrderItem_failure() = runTest {
+        val expected = Order()
+
+        `when`(insertOrderItemLocalUseCase.insertItem(expected))
+            .thenReturn(-1)
+
+        viewModel.insertOrderItem(expected)
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.insertOrder.value == -1L)
+    }
+
+    @Test
+    fun insertOrderItem_exception() = runTest {
+        val expected = Order()
+
+        `when`(insertOrderItemLocalUseCase.insertItem(expected))
+            .thenThrow(RuntimeException::class.java)
+
+        viewModel.insertOrderItem(expected)
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.insertOrder.value == -1L)
     }
 
     @Test
     fun getOrder_success() = runTest {
+        val expected = Order()
+
+        `when`(fetchOrderLocalUserCase.getOrder(""))
+            .thenReturn(expected)
+
+        viewModel.getOrder("")
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.fetchOrder.value == expected)
+    }
+
+    @Test
+    fun getOrder_failure() = runTest {
+        val expected = null
+
+        `when`(fetchOrderLocalUserCase.getOrder(""))
+            .thenReturn(expected)
+
+        viewModel.getOrder("")
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.fetchOrder.value == expected)
+    }
+
+    @Test
+    fun getOrder_exception() = runTest {
+        `when`(fetchOrderLocalUserCase.getOrder(""))
+            .thenThrow(RuntimeException::class.java)
+
+        viewModel.getOrder("")
+        dispatcher.scheduler.advanceUntilIdle()
+
+        assert(viewModel.fetchOrder.value == null)
     }
 }

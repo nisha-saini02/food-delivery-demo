@@ -25,10 +25,6 @@ open class UserViewModel @Inject constructor(
             try {
                 readUserInfoLocalUseCase()
                     .collect {
-                        if (it == null) {
-                            _userInfo.value = null
-                            return@collect
-                        }
                         _userInfo.value = it
                     }
             } catch (e: Exception) {
@@ -39,7 +35,7 @@ open class UserViewModel @Inject constructor(
 
     fun clearUserInfo() {
         viewModelScope.launch {
-            clearUserInfoLocalUseCase.clearUserInfo()
+            clearUserInfoLocalUseCase()
         }
     }
 }
