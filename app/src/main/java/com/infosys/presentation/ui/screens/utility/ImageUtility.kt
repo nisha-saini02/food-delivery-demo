@@ -1,10 +1,12 @@
 package com.infosys.presentation.ui.screens.utility
 
+import android.net.Uri
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -61,6 +63,22 @@ fun LoadImage(url: String,
         model = url,
         contentDescription = "Image Description",
         modifier = modifier.clip(roundShapeCorner(5)).clickable { clickEvent.invoke() },
+        contentScale = ContentScale.Crop,
+        placeholder = painterResource(R.drawable.placeholder),
+        error = painterResource(R.drawable.no_image_found),
+        onError = { exception -> Log.e("AsyncImage", "Error loading image: ${exception.result}") }
+    )
+}
+
+@Composable
+fun LoadImage(uri: Uri?,
+              modifier: Modifier = Modifier.size(100.dp),
+              clickEvent: () -> Unit
+){
+    AsyncImage(
+        model = uri,
+        contentDescription = "Image Description",
+        modifier = modifier.clip(roundShapeCorner(50)).clickable { clickEvent.invoke() },
         contentScale = ContentScale.Crop,
         placeholder = painterResource(R.drawable.placeholder),
         error = painterResource(R.drawable.no_image_found),

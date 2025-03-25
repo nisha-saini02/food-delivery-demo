@@ -33,4 +33,10 @@ object FirebaseFirestore {
                 println("Error fetching user: ${exception.localizedMessage}")
             }
     }
+
+    fun updateUserInfo(user: User) {
+        Firebase.firestore.collection("user")
+            .document(user.id)
+            .set(user)
+    }
 }

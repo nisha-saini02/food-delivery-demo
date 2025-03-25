@@ -126,4 +126,9 @@ dependencies {
     //datastore
     implementation ("androidx.datastore:datastore-preferences:1.1.3")
     implementation("androidx.datastore:datastore-preferences-core:1.1.3")
+
+    //exo player
+    implementation("androidx.media3:media3-exoplayer:1.5.1")
+    implementation("androidx.media3:media3-ui:1.5.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.5.1")
 }

@@ -9,4 +9,5 @@ data class User(
     var authenticate: Boolean = false,
     var type: LoginType = LoginType.Guest,
     var id: String = System.currentTimeMillis().toString(),
+    var imageUri: String? = null
 )

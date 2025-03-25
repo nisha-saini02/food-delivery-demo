@@ -89,7 +89,7 @@ fun BottomNavHost(
         composable(NavigationRoute.PROFILE.route) {
             Log.e("TAG", "BottomNavHost: PROFILE")
             userViewModel.readUserInfo()
-            ProfileScreen(userViewModel, navHostController)
+            ProfileScreen(userViewModel, navHostController, objFirebaseFirestore, signupUserViewModel, snackBarHost)
         }
         composable(NavigationRoute.SUBCATEGORY.route) {
             SubCategoryScreen(menuViewModel, localMenuCartViewModel)
