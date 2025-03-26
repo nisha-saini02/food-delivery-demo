@@ -26,12 +26,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.infosys.presentation.ui.screens.navigation.Main
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.OutlineTextBodyMedium
 import com.infosys.presentation.ui.screens.utility.Spacer
 import com.infosys.presentation.ui.screens.utility.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.utility.TextTitleSmall
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Otp
+import com.infosys.presentation.ui.screens.navigation.SignUp
+import com.infosys.presentation.ui.screens.navigation.Splash
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.presentation.viewmodel.SignupUserViewModel
 import com.infosys.presentation.viewmodel.UserViewModel
@@ -160,14 +163,14 @@ fun OtpScreen(
                             user?.authenticate = true
                             user?.let { signupUserViewModel.writeUserInfo(it) }
 
-                            navHostController.navigate(NavigationRoute.HOME.route) {
-                                popUpTo(NavigationRoute.OTP.route){
+                            navHostController.navigate(Main) {
+                                popUpTo(Otp){
                                     inclusive = true
                                 }
-                                popUpTo(NavigationRoute.SIGNUP.route){
+                                popUpTo(SignUp){
                                     inclusive = true
                                 }
-                                popUpTo(NavigationRoute.SPLASH.route){
+                                popUpTo(Splash){
                                     inclusive = true
                                 }
                             }

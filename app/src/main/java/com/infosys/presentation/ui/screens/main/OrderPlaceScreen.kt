@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.presentation.ui.screens.listViews.OrderListView
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.OrderDetail
+import com.infosys.presentation.ui.screens.navigation.OrderPlace
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 import com.infosys.presentation.ui.screens.utility.TextHeadlineMedium
 import com.infosys.presentation.ui.screens.utility.TextTitleMedium
@@ -64,7 +65,7 @@ fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: Order
                     LazyColumn {
                         repeat(10) {
                             item {
-                                ShimmerNavigator(NavigationRoute.ORDER)
+                                ShimmerNavigator(OrderPlace::class.simpleName)
                             }
                         }
                     }
@@ -79,7 +80,7 @@ fun OrderPlaceScreen(navHostController: NavHostController, localViewModel: Order
                             orders,
                         ) { orderItem ->
                             localViewModel.getOrder(orderItem.id.toString())
-                            navHostController.navigate(NavigationRoute.ORDER_DETAILS.route)
+                            navHostController.navigate(OrderDetail)
                         }
                     }
                 } else {

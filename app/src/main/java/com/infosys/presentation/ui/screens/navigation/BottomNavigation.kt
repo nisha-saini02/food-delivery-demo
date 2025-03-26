@@ -51,10 +51,10 @@ fun BottomNavigationController(
             val currentRoute = currentRoute(navHostController)
             if (
                 currentRoute != null &&
-                currentRoute != NavigationRoute.SPLASH.route &&
-                currentRoute != NavigationRoute.SIGNUP.route &&
-                currentRoute != NavigationRoute.SIGN_IN.route &&
-                currentRoute != NavigationRoute.OTP.route
+                currentRoute != Splash.javaClass.name &&
+                currentRoute != SignUp.javaClass.name &&
+                currentRoute != SignIn.javaClass.name &&
+                currentRoute != Otp.javaClass.name
                 ) {
                 BottomBar(navHostController)
             }
@@ -95,7 +95,7 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 0,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.HOME.route) {
+                    navHostController.navigate(Main) {
                         popUpTo(navHostController.graph.startDestinationId) {
                             inclusive = true
                         }
@@ -118,7 +118,7 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 1,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.MENU.route)
+                    navHostController.navigate(MainMenu)
                     index.value = 1
                 },
                 icon = {
@@ -137,7 +137,7 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 2,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.CART.route)
+                    navHostController.navigate(Cart)
                     index.value = 2
                 },
                 icon = {
@@ -156,7 +156,7 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 3,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.ORDER.route)
+                    navHostController.navigate(OrderPlace)
                     index.value = 3
                 },
                 icon = {
@@ -174,7 +174,7 @@ fun BottomBar(navHostController: NavHostController) {
             NavigationBarItem(
                 selected = index.value == 4,
                 onClick = {
-                    navHostController.navigate(NavigationRoute.PROFILE.route)
+                    navHostController.navigate(Profile)
                     index.value = 4
                 },
                 icon = {

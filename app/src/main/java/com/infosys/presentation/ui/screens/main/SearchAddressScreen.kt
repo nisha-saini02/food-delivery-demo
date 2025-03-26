@@ -30,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.data.model.order.Order
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Checkout
+import com.infosys.presentation.ui.screens.navigation.OrderPlace
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.EditTextBodyMedium
 import com.infosys.presentation.ui.screens.utility.HorizontalLine
@@ -146,7 +147,7 @@ fun SearchAddressScreen(
     ) {
 
         BackHandler {
-            navHostController.popBackStack(NavigationRoute.CHECKOUT.route, inclusive = true)
+            navHostController.popBackStack(Checkout, inclusive = true)
         }
 
         Image(
@@ -170,8 +171,8 @@ fun SearchAddressScreen(
         Spacer()
 
         ButtonCr(text = "Track Order") {
-            navHostController.navigate(NavigationRoute.ORDER.route){
-                popUpTo(NavigationRoute.CHECKOUT.route){
+            navHostController.navigate(OrderPlace){
+                popUpTo(Checkout){
                     inclusive = true
                 }
             }

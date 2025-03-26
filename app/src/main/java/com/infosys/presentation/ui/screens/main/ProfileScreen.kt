@@ -30,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
 import com.infosys.data.firebase.FirebaseFirestore
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.SignIn
+import com.infosys.presentation.ui.screens.navigation.SignUp
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.Image
 import com.infosys.presentation.ui.screens.utility.LoadImage
@@ -183,12 +184,12 @@ fun ProfileScreen(
                                     SnackbarResult.Dismissed -> {}
                                     SnackbarResult.ActionPerformed -> {
                                         authViewModel.clearUserInfo()
-                                        navHostController.navigate(NavigationRoute.SIGNUP.route)
+                                        navHostController.navigate(SignUp)
                                     }
                                 }
                             }
                         } else {
-                            navHostController.navigate(NavigationRoute.SIGN_IN.route)
+                            navHostController.navigate(SignIn)
                         }
                     } else {
                         userInfo?.let {

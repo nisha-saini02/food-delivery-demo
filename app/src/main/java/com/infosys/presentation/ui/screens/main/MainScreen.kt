@@ -45,7 +45,7 @@ import com.infosys.theme.Orange
 import com.infosys.theme.Yellow
 import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.GridListView
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Main
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 
 @Composable
@@ -79,7 +79,7 @@ fun MainScreen(viewModel: MenuViewModel) {
                 LazyColumn {
                     repeat(10) {
                         item {
-                            ShimmerNavigator(NavigationRoute.HOME)
+                            ShimmerNavigator(Main::class.simpleName)
                         }
                     }
                 }

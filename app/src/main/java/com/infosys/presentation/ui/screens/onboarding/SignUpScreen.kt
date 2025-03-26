@@ -26,6 +26,7 @@ import androidx.navigation.NavHostController
 import com.infosys.data.firebase.FirebaseAuthentication
 import com.infosys.data.firebase.FirebaseFirestore
 import com.infosys.data.model.user.User
+import com.infosys.presentation.ui.screens.navigation.Main
 import com.infosys.utils.enums.SignUpValidation
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.OutlineTextBodyMedium
@@ -34,7 +35,7 @@ import com.infosys.presentation.ui.screens.utility.Switch
 import com.infosys.presentation.ui.screens.utility.TextHeadlineLarge
 import com.infosys.presentation.ui.screens.utility.TextHeadlineSmall
 import com.infosys.presentation.ui.screens.utility.TextTitleSmall
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.SignIn
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.presentation.viewmodel.SignupUserViewModel
 import com.infosys.theme.Gray
@@ -219,7 +220,7 @@ fun SignUpScreen(
                                         )
                                         authViewModel.writeUserInfo(user)
                                         objFirebaseFirestore.addUserInfo(user)
-                                        navHostController.navigate(NavigationRoute.HOME.route)
+                                        navHostController.navigate(Main)
                                     }
                                     else {
                                         coroutineState.launch {
@@ -244,7 +245,7 @@ fun SignUpScreen(
                         TextHeadlineSmall("Already have an account?", color = Gray)
                         Spacer(6)
                         TextHeadlineSmall("Sign In", color = Gray) {
-                            navHostController.navigate(NavigationRoute.SIGN_IN.route)
+                            navHostController.navigate(SignIn)
                         }
                     }
 

@@ -6,6 +6,8 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
+//    id ("org.jetbrains.kotlin.plugin.serialization")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -114,6 +116,7 @@ dependencies {
     //coil
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+//    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     // Android Maps Compose composables for the Maps SDK for Android
     implementation("com.google.maps.android:maps-compose:6.4.1")
@@ -131,4 +134,8 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.5.1")
+
+    //serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
 }

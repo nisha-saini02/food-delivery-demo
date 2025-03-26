@@ -1,18 +1,18 @@
 package com.infosys.presentation.ui.screens.navigation
 
-enum class NavigationRoute(val route: String) {
-    SPLASH("splash"),
-    SIGNUP("signup"),
-    SIGN_IN("signin"),
-    OTP("otp"),
-    HOME("home"),
-    MENU("menu"),
-    MENU_HORIZONTAL("menu_horizontal"),
-    CART("cart"),
-    PROFILE("profile"),
-    SUBCATEGORY("subcategory"),
-    CHECKOUT("checkout"),
-    ADDRESS("address"),
-    ORDER("order"),
-    ORDER_DETAILS("order_details"),
-}
+import kotlinx.serialization.Serializable
+
+@Serializable object Splash
+@Serializable object SignUp
+@Serializable object SignIn
+@Serializable object Otp
+@Serializable object Main
+@Serializable object MainMenu
+@Serializable object MainMenuHorizontal
+@Serializable object Cart
+@Serializable object Profile
+@Serializable object SubCategory
+@Serializable object Checkout
+@Serializable object SearchAddress
+@Serializable object OrderPlace
+@Serializable object OrderDetail

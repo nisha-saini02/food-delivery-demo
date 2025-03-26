@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.data.firebase.FirebaseAuthentication
 import com.infosys.data.firebase.FirebaseFirestore
-import com.infosys.data.model.user.User
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Main
+import com.infosys.presentation.ui.screens.navigation.SignUp
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.OutlineTextBodyMedium
 import com.infosys.presentation.ui.screens.utility.Spacer
@@ -38,7 +38,6 @@ import com.infosys.theme.Gray
 import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.theme.Yellow
-import com.infosys.utils.enums.LoginType
 import com.infosys.utils.enums.SignInValidation
 import com.infosys.utils.validations.signIn
 import kotlinx.coroutines.launch
@@ -174,7 +173,7 @@ fun SignInScreen(
                                         objFirebaseFirestore.fetchUserDetailsByEmail(email.value)
                                         userInfo.value?.let {
                                             authViewModel.writeUserInfo(it)
-                                            navHostController.navigate(NavigationRoute.HOME.route)
+                                            navHostController.navigate(Main)
                                         }
                                     }
                                     else {
@@ -200,7 +199,7 @@ fun SignInScreen(
                         TextHeadlineSmall("Don't have an account?", color = Gray)
                         Spacer(6)
                         TextHeadlineSmall("Sign Up", color = Gray) {
-                            navHostController.navigate(NavigationRoute.SIGNUP.route)
+                            navHostController.navigate(SignUp)
                         }
                     }
 

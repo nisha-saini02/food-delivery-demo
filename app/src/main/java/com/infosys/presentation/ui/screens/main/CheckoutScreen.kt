@@ -34,7 +34,7 @@ import com.infosys.presentation.ui.screens.utility.TextLabelLarge
 import com.infosys.presentation.ui.screens.utility.TextLabelMedium
 import com.infosys.presentation.ui.screens.utility.TextLabelSmall
 import com.infosys.presentation.ui.screens.utility.TextTitleMedium
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.SearchAddress
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
 import com.infosys.presentation.viewmodel.CardInfoViewModel
 import com.infosys.theme.Black
@@ -245,7 +245,7 @@ fun CheckoutScreen(
                     cardInfoViewModel.card.collectAsState().value?.let {
                         CardListView(it, { card, isLongPress ->
                             if (!isLongPress) {
-                                navHostController.navigate(NavigationRoute.ADDRESS.route)
+                                navHostController.navigate(SearchAddress)
                             } else {
                                 card.isSelected = !card.isSelected
                                 //todo: update list
@@ -337,7 +337,7 @@ fun CheckoutScreen(
                                     )
                                     addCard.value = false
 
-                                    navHostController.navigate(NavigationRoute.ADDRESS.route)
+                                    navHostController.navigate(SearchAddress)
                                 }
                             }
                         }

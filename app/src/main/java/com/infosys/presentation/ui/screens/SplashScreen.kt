@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.infosys.R
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Main
+import com.infosys.presentation.ui.screens.navigation.SignUp
+import com.infosys.presentation.ui.screens.navigation.Splash
 import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.Image
 import com.infosys.presentation.ui.screens.utility.Spacer
@@ -58,13 +60,13 @@ fun SplashScreen(
                 ButtonCr(
                     bgColor = Yellow,
                     text = "GET STARTED",
-                    clickEvent = { navHostController.navigate(NavigationRoute.SIGNUP.route) })
+                    clickEvent = { navHostController.navigate(SignUp) })
 
                 Spacer()
 
                 TextTitleLarge("Take me there") {
-                    navHostController.navigate(NavigationRoute.HOME.route){
-                        popUpTo(NavigationRoute.SPLASH.route){
+                    navHostController.navigate(Main){
+                        popUpTo(Splash){
                             inclusive = true
                         }
                     }

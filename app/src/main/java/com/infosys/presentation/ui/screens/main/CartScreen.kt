@@ -27,7 +27,7 @@ import com.infosys.presentation.ui.screens.utility.ButtonCr
 import com.infosys.presentation.ui.screens.utility.Spacer
 import com.infosys.presentation.ui.screens.utility.TextTitleMedium
 import com.infosys.presentation.ui.screens.listViews.GridListView
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Checkout
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 import com.infosys.presentation.ui.screens.utility.TextHeadlineMedium
 import com.infosys.presentation.ui.screens.utility.roundShapeCorner
@@ -95,7 +95,7 @@ fun CartScreen(
                     LazyColumn {
                         repeat(10) {
                             item {
-                                ShimmerNavigator(NavigationRoute.CART)
+                                ShimmerNavigator(com.infosys.presentation.ui.screens.navigation.Cart::class.simpleName)
                             }
                         }
                     }
@@ -157,7 +157,7 @@ fun CartScreen(
                                         )
                                     }
                                 } else {
-                                    navHostController.navigate(NavigationRoute.CHECKOUT.route)
+                                    navHostController.navigate(Checkout)
                                 }
                             }
                         }

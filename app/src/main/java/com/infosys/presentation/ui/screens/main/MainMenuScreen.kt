@@ -46,7 +46,10 @@ import com.infosys.theme.Orange
 import com.infosys.theme.White
 import com.infosys.presentation.ui.screens.listViews.HorizontalCategoriesListView
 import com.infosys.presentation.ui.screens.listViews.MainMenuListView
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Main
+import com.infosys.presentation.ui.screens.navigation.MainMenu
+import com.infosys.presentation.ui.screens.navigation.MainMenuHorizontal
+import com.infosys.presentation.ui.screens.navigation.SubCategory
 import com.infosys.presentation.ui.screens.shimmer_effect.ShimmerNavigator
 import com.infosys.presentation.viewmodel.HomeViewModel
 import com.infosys.presentation.viewmodel.LocalMenuCartViewModel
@@ -124,7 +127,7 @@ fun MainMenuScreen(
                             .wrapContentSize()
                             .weight(0.1f)
                     ) {
-                        navigationHostController.navigate(NavigationRoute.HOME.route)
+                        navigationHostController.navigate(Main)
                     }
                 }
 
@@ -134,7 +137,7 @@ fun MainMenuScreen(
                     LazyRow {
                         repeat(6) {
                             item {
-                                ShimmerNavigator(NavigationRoute.MENU_HORIZONTAL)
+                                ShimmerNavigator(MainMenuHorizontal::class.simpleName)
                             }
                         }
                     }
@@ -143,7 +146,7 @@ fun MainMenuScreen(
                     HorizontalCategoriesListView(it) { category ->
                         menuViewModel.getSubCategories(category.strCategory.toString())
                         menuViewModel.category.value = category.strCategory.toString()
-                        navigationHostController.navigate(NavigationRoute.SUBCATEGORY.route)
+                        navigationHostController.navigate(SubCategory)
                     }
                 }
 
@@ -164,7 +167,7 @@ fun MainMenuScreen(
                     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                         repeat(6) {
                             item {
-                                ShimmerNavigator(NavigationRoute.MENU)
+                                ShimmerNavigator(MainMenu::class.simpleName)
                             }
                         }
                     }
@@ -265,7 +268,7 @@ fun SubCategoryScreen(
                         LazyColumn {
                             repeat(10) {
                                 item {
-                                    ShimmerNavigator(NavigationRoute.SUBCATEGORY)
+                                    ShimmerNavigator(SubCategory::class.simpleName)
                                 }
                             }
                         }

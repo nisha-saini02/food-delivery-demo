@@ -10,12 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import com.infosys.presentation.ui.screens.navigation.NavigationRoute
+import com.infosys.presentation.ui.screens.navigation.Cart
+import com.infosys.presentation.ui.screens.navigation.Main
+import com.infosys.presentation.ui.screens.navigation.MainMenu
+import com.infosys.presentation.ui.screens.navigation.MainMenuHorizontal
+import com.infosys.presentation.ui.screens.navigation.OrderPlace
+import com.infosys.presentation.ui.screens.navigation.SubCategory
 import com.infosys.theme.Orange
 import com.infosys.theme.Yellow
 
 @Composable
-fun ShimmerNavigator(route: NavigationRoute) {
+fun ShimmerNavigator(route: String?) {
     // Creating infinite transition
     // for each composable
     val transition = rememberInfiniteTransition(label = "")
@@ -42,22 +47,22 @@ fun ShimmerNavigator(route: NavigationRoute) {
     )
 
     when(route) {
-        NavigationRoute.HOME -> {
+        Main::class.simpleName -> {
             MainScreenShimmer(brush = brush)
         }
-        NavigationRoute.MENU -> {
+        MainMenu::class.simpleName -> {
             MainMenuShimmer(brush = brush)
         }
-        NavigationRoute.MENU_HORIZONTAL -> {
+        MainMenuHorizontal::class.simpleName -> {
             MainMenuHorizontalShimmer(brush = brush)
         }
-        NavigationRoute.CART -> {
+        Cart::class.simpleName -> {
             CartShimmer(brush)
         }
-        NavigationRoute.SUBCATEGORY -> {
+        SubCategory::class.simpleName -> {
             SubCategoryShimmer(brush)
         }
-        NavigationRoute.ORDER -> {
+        OrderPlace::class.simpleName -> {
             OrderShimmer(brush)
         }
 
